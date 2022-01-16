@@ -1,0 +1,80 @@
+.prodImg{
+    width: 15%;
+    padding: 5px;
+}
+.mainBloc{
+    display: flex;
+    margin: 5px;
+    //border: 1px solid #eae3e3;
+    //padding: 10px;
+    transition: box-shadow .1s linear;
+    background-color: #fff;
+    border: 1px solid #e4bdbd;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.active{
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+    border: 1px solid blue;
+
+}
+.flxFlow{
+    display: flex;
+    //justify-content: space-around;
+}
+.flxCol{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    left: 25px;
+}
+.cntr{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+h2{
+    padding: 12px 8px 0px 15px;
+}
+h4{
+    padding: 12px 8px 0px 0px;
+}
+.posR{
+    position: absolute;
+    right: 20px;
+    margin-top: 20px;
+    display: inline-flex;  
+}
+.statusBlock{
+    height: 10px;
+    width: 10px;
+    border-radius: 30px;
+    background-color: green;
+}
+.flxCntr{
+    display: flex;
+    align-items: center;
+}
+.pl-10{
+    padding-left: 10px;
+    font-weight: 600;
+}
+.p-t{
+    position: relative;
+    top: 10px;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+
+@media(max-width : 768px){
+    .prodImg{
+        padding: 0px !important;
+        width: 30% !important;
+    }
+    .mainBloc{
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+    }
+}

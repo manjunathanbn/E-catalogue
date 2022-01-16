@@ -1,0 +1,94 @@
+
+<div class="headerPad">
+  <div class="clusterHead">
+    <h2>KIT Parts Cluster</h2>
+  </div>
+  <div class="mat-elevation-z8">
+    <div class="dispFlx mobCol">
+      <div class="dispCol mpb-10">
+          <label for="cat">SEGMENT</label>
+          <select name="cat" id="cat" [(ngModel)]="CatID" (change)="getModelwise($event.target.value)">
+              <option value="">Select segment</option>
+              <option value="{{cat.CATEGORY_ID}}" *ngFor="let cat of responseData.CCategory;let i=index">{{cat.CATEGORY_NAME}}</option>
+          </select>
+      </div>
+      <div class="dispCol mpb-10">
+          <label for="mod">MODEL</label>
+          <select name="mod" id="mod" [(ngModel)]="modelId" (change)="getModelApply($event.target.value)">
+              <option value="">Select Model</option>
+              <option value="{{mod.MID}}" *ngFor="let mod of responseData.CModel;let i=index">{{mod.MODEL}}</option>
+          </select>
+      </div>
+      <div class="dispCol mpb-10" >
+          <label for="clus">MODEL_APPLICABLE</label>
+          <select name="mod" id="clus" [(ngModel)]="KitAppy" (change)="getKitParts($event.target.value)">
+              <option value="">Type Model Applicable</option>
+              <option value="{{mod.MODEL_APPL}}" *ngFor="let mod of responseData.CClusterDO;let i=index">{{mod.MODEL_APPL}}</option>
+          </select>
+      </div>
+      <div class="dispCol mpb-10">
+          <label for="part">KIT_DECRIPTION</label>
+          <select name="mod" id="part" [(ngModel)]="KitId">
+              <option value="">Type KitPart Desc</option>
+              <option value="{{mod.KIT_ID}}" *ngFor="let mod of responseData.CParts;let i=index">{{mod.KIT_PART_NO}} - {{mod.KIT_DESCRIPTION}}</option>
+          </select>
+      </div>
+      <div class="posR mpb-10">
+        <button class="" mat-stroked-button color="#337ab7" (click)="getKitDetail(CatID,modelId,KitId)"> <mat-icon>search</mat-icon>Search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="homePad">   
+    <div class="mat-elevation-z8">
+        <!-- <div class="mShow mainTab">
+          <h2 class="pl-10">Kits List</h2>
+          <div *ngFor="let tab of dataSource;let i=index" class="boxRow"> 
+           
+            <div class="col-sm-12 flex padBorder">
+              <div class="col-sm-6 col"> <label for="">S.No</label> <span> {{i+1}} </span> </div>
+              <div class="col-sm-6 col"><label for="">KIT_PART_NO</label> <span> {{tab.kitNo}} </span> </div>
+            </div>
+            <div class="col-sm-12 flex padBorder">
+              <div class="col-sm-6 col"><label for="">KIT_DES</label> <span> {{tab.kitDes}} </span></div>
+              <div class="col-sm-6 col"> <label for="">PART_NO</label> <span> {{tab.partNo}} </span></div>
+            </div>
+            <div class="col-sm-12 flex pt-10">
+              <div class="col-sm-6 col"> <label for="">PART_DES</label> <span> {{tab.partDes}} </span> </div>
+              <div class="col-sm-6 col"> <label for="">QTY</label> <span> {{tab.qty}} </span> </div>
+            </div>
+          </div>
+        </div>
+       -->
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+      <div class="nu-table-body">
+        <table  mat-table [dataSource]="dataSourceTemp" class="tabWith mBlock">
+          <ng-container matColumnDef="kitNo">
+            <th  mat-header-cell *matHeaderCellDef> KIT_PART_NO </th>
+            <td mat-cell *matCellDef="let element"> {{element.kitPartNo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="kitDes">
+            <th mat-header-cell *matHeaderCellDef> KIT_DESCRIPTION </th>
+            <td mat-cell *matCellDef="let element"> {{element.kitPartName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="partNo">
+            <th mat-header-cell *matHeaderCellDef> PART_NO </th>
+            <td mat-cell *matCellDef="let element"> {{element.PartNo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="partDes">
+            <th mat-header-cell *matHeaderCellDef> PART_DESCRIPTION </th>
+            <td mat-cell *matCellDef="let element"> {{element.PartName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="qty">
+            <th mat-header-cell *matHeaderCellDef> QTY </th>
+            <td mat-cell *matCellDef="let element"> {{element.Qty}} </td>
+          </ng-container>      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+</div>
+
+ 

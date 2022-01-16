@@ -1,0 +1,211 @@
+.mainCls{
+    padding: 0px 5px 10px 5px;;
+    display: flex;
+    height: calc(100vh - 66px);
+}
+.tabWith{
+    width: 100%;
+}
+.tableOut{
+    // max-height: calc(100vh - 100px);
+    // overflow-y: scroll;
+    // overflow-x: hidden;
+     padding: 3px 15px 15px 15px;
+}
+.qtyInbx{
+    width: 34px;
+}
+.brClass{
+    border: 1px solid #e4d9d9;
+}
+.backImag{
+    width: 20px;
+    padding: 20px;
+}
+.posTop{
+    position: relative;
+    top: 8px;
+    right: 11px;
+}
+.imgClss{
+    width: 95%;
+    position: relative;
+    top: 30px;
+}
+.hClass{
+    //max-height: 655px;
+    max-height: calc(100vh - 205px);
+    padding: 10px !important;
+}
+.jusSapace{
+    justify-content: space-between;
+    max-height: 45px;
+}
+.posR{
+    position: relative;
+    right: 15px;
+}
+.addBtn{
+    background-color: #3f51b5;
+    color: #ffffff;
+    border-radius: 5px;
+    height: 30px;
+    width: 99px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.imgCls{
+    cursor:pointer;
+    // background:url(imgVar);
+    //background: image(imgVar);
+    background-repeat: no-repeat !important;
+    //background-size: 100% !important;
+    position: absolute;
+    //@at-root: 15px;
+    // width: 100%;
+    // height: 100%;
+
+    // cursor: pointer;
+    // background-repeat: no-repeat !important;
+    // /* background-size: 55% !important; */
+    // background-position: center !important;
+    // /* position: relative; */
+    // /* top: 15px; */
+     //width: 100%;
+    // /* height: calc(100% - 50px); */
+    // /* overflow: scroll; */
+    // height: 100%;
+}
+.cntrCls{
+     text-align: center;
+    // align-items: center;
+    display: flex;
+    // justify-content: center;
+}
+.mainTab{
+    position: relative;
+    top: 20px;
+}
+.wt-100{
+    width: 100%;
+}
+.srlDiv{
+    height: calc(100% - 10px);
+    position: relative;
+}
+.example-container {
+    display: flex;
+    flex-direction: column;
+     max-height: calc(100% - 40px);    
+    // overflow: auto;
+    //width: 100%;
+    //max-height: calc(100vh - 100px); 
+    max-width: 100%;
+    overflow: auto;
+  }
+  
+  .mat-table {
+    overflow: auto;
+    max-height: calc(100vh - 100px);
+    background-color: #f5eeee;
+  }
+  .mat-header-cell {
+    // display:flex;
+    // justify-content:flex-start;
+    background:#006699;
+    color:white !important;
+    height: fit-content;    
+   }
+   ::ng-deep .mat-sort-header-container {
+    display:flex;
+    justify-content:flex-start;
+  }
+  .make-gold {
+    background-color: rgb(184, 232, 204)
+}
+::ng-deep .mat-cell, .mat-footer-cell {
+    font-size: 9px !important;
+    //height:10px !important;
+  }
+  // ::ng-deep .mat-row {
+  //   height:10px !important
+  // }
+  
+  .mat-cell .mat-header-cell{
+    text-transform: uppercase;
+    font: normal 10px Arial, Helvetica;
+    color: #417891;
+    //border-left: 1px solid #E1EEF4;
+    text-align: center; 
+      
+  }
+  .disNon{
+      display: none !important;
+  }
+  .highlight{
+    color: white;
+    background: #9261e6;
+  }
+  .w-50{
+    //width: 30px;
+   // text-align: right;
+    //padding-left: 20px;
+    //margin-left: 20;
+    //align-items : "center";
+  }
+  .mat-column-partName {
+    width: fit-content;
+}
+  .w-30{
+    //width: 30px;
+    //text-align: left;
+    padding-left: 20px;
+    //margin-left: 20;
+    //align-items : "center";
+  }
+  
+ ////////////////////@at-root
+ #canvas {
+  width: 100%;
+  height: 100%;
+}
+ .mat-list-item-content { 
+  padding: 0;
+}
+.item-text { 
+  color: #417891 !important;
+}
+.item-link {
+  border: 1px solid red;
+  padding: 0;
+}
+tr.mat-row, tr.mat-footer-row, .mat-header-cell {
+  height: 18px !important;
+  font-size: 11px !important;
+}
+tr.mat-header-row {
+  height: 25px!important;
+}
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+  background-color: #006699;
+}
+.mat-button
+{
+  line-height: 20px;
+}
+// .th.mat-header-cell:first-of-type{
+//   //padding-left: 17px;
+// }
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+  padding-right: 85px;
+}
+.w-75{
+  width: 75px;
+}
+td.mat-cell, td.mat-footer-cell {  
+  color: #006699 !important;
+}
+::ng-deep .td.mat-cell:first-of-type{
+  padding-left:0px !important;
+}

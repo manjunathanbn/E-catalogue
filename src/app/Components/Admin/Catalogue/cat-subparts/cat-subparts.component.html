@@ -1,0 +1,172 @@
+
+<div class="h-100">
+  <div class="flx sp">
+    <h2>Add Parts</h2>
+  </div>
+    <div class="srlDiv">
+        <div class="flx col-12 rmpm dropzone mNone" *ngFor="let lis of supPartsArray;let i=index">
+            <div class="col-md-4 col-sm-12">
+                <div *ngIf="!lis.img" class="col-12 rmpm dropzone bNone" appDrag (files)="filesDropped($event,i)">
+                    <div class="text-wrapper">
+                        <div class="centered">
+                            <mat-icon class="fs-30 iconCls">cloud_upload_outline</mat-icon>
+                           <span> Drop your file here! </span>
+                           <span> Or </span>
+                           <div class="upload-btn-wrapper">
+                            <button class="btn">Browse a file</button>
+                            <input type="file" name="myfile" (change)="filesDropped($event,i)" />
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <!--droped image preview-->
+                <div *ngIf="lis.img" class="cntr srlDiv" [perfectScrollbar]="config">
+                  <div class="flStart">
+                    <h4>Set Cordinates Size</h4>
+                    <div class="flx">
+                      <div class="smCls cur_point mr-10" (click)="changeSize('sm')" ></div>
+                      <div class="mdCls cur_point mr-10 posb-2" (click)="changeSize('md')"></div>
+                      <div class="lgCls cur_point mr-10 posb-6" (click)="changeSize('lg')"></div>
+                      <mat-form-field class="example-full-width wt-20 posb-6">
+                        <mat-label>Custome Value</mat-label>
+                        <input matInput placeholder="Code"  [(ngModel)]="pointSize">
+                      </mat-form-field>                      
+                    </div>
+                    <label>FigNo: {{figNo}}</label> 
+                  </div>
+                 
+                    <!-- <canvas id="canvas" width="640" height="480" (click)="getPosition($event)"
+                    [style.background]="'url(' + file.url + ')'"></canvas> -->
+                    <canvas (mouseover)="enterFun($event,i)" [style.background-image]="'url(' + lis.img + ')'" id="canvas" width="450" height="570"  (click)="getPosition($event,i)" class="imgCls mBlock"></canvas>
+                    <!-- <img *ngIf="file" [src]="file.url" (click)="getPosition($event)" width="500px" height="500px"> -->
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-12">
+                <div class="disBtn">
+                  <h2>Assembly Parts List</h2>
+                  <!-- <mat-icon *ngIf="i!=0" class="cur_point" (click)="remove(i)" >close</mat-icon> -->
+                  <div>
+                    <button mat-stroked-button color="primary" class="pr-10" [disabled]="disable" placeholder="Upload Image" (click)="uploadImage()"><mat-icon>upload</mat-icon>Image</button>
+                    <div class="upload-btn-wrapper wrChange" >
+                      <!-- <input type="file" style="display: inline-block;" (change)="uploadedFile($event)" placeholder="Upload file" accept=".xlsx">
+                      <button type="button" class="btn btn-info" (click)="Upload()" >Upload</button> -->
+                      <!-- <button class="clrbtn btn pd"  > <mat-icon>upload</mat-icon> Export</button> -->
+                      <button mat-stroked-button color="primary" class="pr-10" placeholder="Add Parts List"><mat-icon>upload</mat-icon>Export</button>
+                      <input type="file" name="myfile"  (change)=uploadedFile($event) accept=".xlsx" />
+                    </div>      
+                    <button mat-stroked-button color="primary" class="pr-10" (click)="save()"> <mat-icon>save</mat-icon>Save</button>
+                    <button mat-stroked-button color="primary" class="pr-10" (click)="goBack()"><mat-icon>cancel</mat-icon> Cancel</button> 
+                  </div>
+                </div>
+                
+                
+                <div class="pa-30  mat-elevation-z8"  [perfectScrollbar]="config">
+                  <div class="dispFlx mobCol">
+                    <div class="dispColIN mpb-10">
+                        <label for="cat">AssemblyID</label>
+                        <select name="cat" id="cat" class="stCls">                            
+                            <option value="op.head">{{AssemblyID}}</option>
+                        </select>
+                    </div>
+                    <div class="dispColIN mpb-10">
+                        <label for="mod">Model NO</label>
+                        <select name="mod" id="mod" class="stCls">                            
+                            <option value="ModlID">{{ModlID}}</option>
+                        </select>
+                    </div>
+                    <div class="dispColIN mpb-10">
+                      <label for="mod">AssembleyName</label>
+                      <select name="mod" id="mod" class="stCls">                          
+                          <option value="AssemblyID">{{assName}}</option>
+                      </select>
+                  </div>
+                </div >
+                <div class="example-container mat-elevation-z8" >
+                  <table mat-table [dataSource]="lis.listData"  class="mat-elevation-z8 tabWith">
+
+                          <!-- Name Column -->
+                          <ng-container matColumnDef="sNo">
+                            <th mat-header-cell *matHeaderCellDef > S.No </th>
+                            <td mat-cell *matCellDef="let element"> {{element.REF_NO}} </td>
+                          </ng-container>
+
+                          <!-- xlSup Column -->
+                          <ng-container matColumnDef="partNo">
+                            <th mat-header-cell *matHeaderCellDef > Part Id </th>
+                            <td mat-cell *matCellDef="let element"> {{element.PART_NO}} </td>
+                          </ng-container>
+
+
+                             <!-- xlSup Column -->
+                             <ng-container matColumnDef="partName">
+                              <th mat-header-cell *matHeaderCellDef > Part Name</th>
+                              <td mat-cell *matCellDef="let element"> {{element.PART_DESC}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="QV">
+                              <th mat-header-cell *matHeaderCellDef > QV</th>
+                              <td mat-cell *matCellDef="let element"> {{element.QV}} </td>
+                            </ng-container>
+                            <!-- <ng-container matColumnDef="xlSupHd">
+                              <th mat-header-cell *matHeaderCellDef > XL SUP HD</th>
+                              <td mat-cell *matCellDef="let element"> {{element.QV}} </td>
+                            </ng-container> -->
+                            <ng-container matColumnDef="ndp">
+                              <th class="w-50" mat-header-cell *matHeaderCellDef > NDP</th>
+                              <td class="w-50" mat-cell *matCellDef="let element">{{element.NDP | number:'2.0'}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="moq">
+                              <th class="w-50" mat-header-cell *matHeaderCellDef > MOQ</th>
+                              <td class="w-50" mat-cell *matCellDef="let element"> {{element.MOQ}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="stock">
+                              <th class="w-50" mat-header-cell *matHeaderCellDef > Stock</th>
+                              <td class="w-50" mat-cell *matCellDef="let element"> {{element.ORD}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="status">
+                                <th style="text-align:center" mat-header-cell *matHeaderCellDef > Status</th>
+                                <td class="w-50" mat-cell *matCellDef="let element">
+                                    <select name="mod" id="mod" class="stCls" [disabled]="true" [(ngModel)]="element.ACTIVE" >
+                                        <option value="true">Active</option>
+                                        <option value="false">Inactive</option>
+                                    </select>
+                                </td>
+                              </ng-container>
+                                     <!-- xlSup Column -->
+                                     <ng-container matColumnDef="edit">
+                                      <th class="w-50" mat-header-cell *matHeaderCellDef> Edit</th>
+                                      <td class="w-50" mat-cell *matCellDef="let element">
+
+                                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                          <mat-icon>more_vert</mat-icon>
+                                        </button>
+                                        <mat-menu #menu="matMenu" xPosition="after">
+                                          <button mat-menu-item (click)="editData(element)">
+                                           Edit
+                                          </button>
+                                          <button mat-menu-item >
+                                            Block
+                                          </button>
+                                          <button mat-menu-item>
+                                            Delete
+                                          </button>
+                                        </mat-menu>
+
+                                      </td>
+                                    </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+                    </table>
+                  </div>
+              </div>                
+            </div>
+        </div>
+
+        <div class="flxEnd">
+            <!-- <button mat-raised-button color="primary" class="r-50" (click)="addMoreParts()" > <mat-icon> add </mat-icon> Add More</button> -->
+        </div>
+    </div>
+</div>
+

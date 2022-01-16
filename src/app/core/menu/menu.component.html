@@ -1,0 +1,62 @@
+<mat-nav-list appAccordion class="navigation">
+    <mat-list-item appAccordionLink  *ngFor="let menuitem of MenuCatIems;let i = index" group="{{menuitem.state}}">
+      <a appAccordionToggle 
+      (click)="currIndex = i;currentUrl=menuitem.state;masterstatus=false;"   class="relative" routerLinkActive="active-links"
+        [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'" [ngClass]="i>8">
+        <mat-icon>
+             <img  class="menuIcon pl-5" width="40px" *ngIf="menuitem.state!='ad'"
+             src="{{menuitem.img}}" alt="">
+        </mat-icon>
+        <span class="light fs-12 pid" [ngClass]="menuitem.state=='ad'?'changeClr':''">{{ menuitem.name }}</span>
+        <span fxFlex></span>
+        <span class="menu-badge mat-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
+      </a>
+      <!-- [routerLink]="['/',menuitem.state]" -->
+      <a appAccordionToggle class="relative" 
+      (click)="currIndex = i;currentUrl=menuitem.state;masterstatus=true;masterstatus1=true"
+        [ngClass]="masterstatus?'masterActive':''"
+       routerLinkActive="active-links"
+       href="javascript:;" *ngIf="menuitem.type == 'sub' || menuitem.type == 's2' || menuitem.type == 'r2'">
+        <mat-icon><img  class="menuIcon pl-5" width="40px"
+          src="{{menuitem.img}}" alt=""></mat-icon>
+        <span>{{ menuitem.name  }}</span>
+        <span fxFlex></span>
+        <span class="menu-badge mat-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
+        <mat-icon class="menu-caret">arrow_drop_down</mat-icon>
+      </a>
+      <mat-nav-list class="sub-menu" *ngIf="menuitem.type == 'sub'" >
+        
+        <mat-list-item *ngFor="let childitem of menuitem.children" class="subMenuBorder" (click)="masterstatus=true;masterstatus1=false"
+        >
+          <a [routerLink]="['/',menuitem.state,childitem.state ]" class="relative subLinks">
+          <span class="subName" >
+          {{ childitem.name }}
+          </span>
+        </a>
+        </mat-list-item>
+      </mat-nav-list>
+      <mat-nav-list class="sub-menu" *ngIf="menuitem.type == 's2' && isadminreq" >
+        
+        <mat-list-item *ngFor="let childitem of menuitem.children" class="subMenuBorder" (click)="masterstatus1=true;masterstatus=false"
+        >
+          <a [routerLink]="['/',childitem.state]" class="relative subLinks">
+          <span class="subName" >
+          {{ childitem.name }}
+          </span>
+        </a>
+        </mat-list-item>
+      </mat-nav-list>
+      <mat-nav-list class="sub-menu" *ngIf="menuitem.type == 'r2'" >
+        
+        <mat-list-item *ngFor="let childitem of menuitem.children" class="subMenuBorder" 
+        >
+          <a [routerLink]="['/',menuitem.state,childitem.state]" class="relative subLinks">
+          <span class="subName" >
+          {{ childitem.name }}
+          </span>
+        </a>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-list-item>
+  </mat-nav-list>
+  <!-- [(ngModel)]="adminStatus" -->

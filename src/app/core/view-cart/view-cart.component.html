@@ -1,0 +1,63 @@
+<div class="cartmainCls">
+    <div class="cartHead">
+        <img (click)="goBack()" width="20px" class="backImag cur_point" src="assets/Images/backSimple.png" alt=""> 
+        &nbsp; &nbsp;
+        <h2>View Cart</h2>
+    </div>
+    <div>
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel *ngFor="let cart of cartList;let i=index" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title class="dispCol">
+                    <small class="labWt">Part No </small>
+                   <small> 6756 </small>
+                </mat-panel-title>
+                <mat-panel-title class="dispRow">
+                    <div class="dispCol">
+                        <small class="labWt">Part Name </small>
+                        <small> RUBBER KICK STARTER LEVER </small>
+                    </div>
+                  <mat-icon class="dltCls">delete</mat-icon>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+          
+              <div class="flex">
+                <div class="labCls">
+                    <label for=""> NDP </label>
+                    <label for=""> MOQ </label> 
+                    <label for=""> PND QTY</label>
+                    <label for=""> STOCK </label> 
+                    <label for=""> ORDER QTY </label> 
+                    <label for=""> ORD.VALUE IN NDP </label> 
+                </div>
+                  <div class="valCls">
+                    <span>  <small>: &nbsp; </small>  <span class=""> 9.4</span>  </span>
+                    <span> <small>: &nbsp; </small> <span class=" "> 10 </span>  </span>
+                    <span> <small>: &nbsp; </small>  <span class=""> 13 </span>  </span>
+                    <span> <small>: &nbsp; </small>  <span class=""> 40 </span>  </span>
+                    <span> <small>: &nbsp; </small>  <span class=""> <input class="wt-30" type="number" value="25"> </span>  </span>
+                    <span> <small>: &nbsp; </small>  <span class=""> 100 </span>  </span>
+                  </div>
+              </div>
+           
+          
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div class="totalTap">
+      <div class="colCls">
+        <label for="">Total No of Parts Selected</label>
+        <label for="">Total Amount in NDP</label>
+      </div>
+     <div class="colCls posLeft">
+      <label for="">:&nbsp; 3</label>
+      <label for="">:&nbsp; Rs:3000</label>
+     </div>
+    </div>
+
+    <div class="btnCls">
+      <button mat-raised-button color="primary">Create Order</button>
+    </div>
+</div>
+

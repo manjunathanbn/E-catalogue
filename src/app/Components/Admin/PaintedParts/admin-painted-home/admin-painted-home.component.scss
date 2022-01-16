@@ -1,0 +1,25 @@
+.nu-table-body {
+    overflow-y:auto;
+    max-height:530px;
+}
+.r-15{
+    position: relative;
+    right: 15px;
+    height: 40px;
+}
+.h-45{
+    height: 38px;
+}
+tr.mat-row,tr.mat-header-row {
+    border: 1px solid #e7e7e7;
+    height: 15px !important;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;    
+}
+tr.mat-header-row {  
+    background-color: #adbecb;        
+}
+.stCls{
+    height: 25px;
+    border-radius: 15px;
+    border-color: rgb(49 106 211 / 87%);
+}

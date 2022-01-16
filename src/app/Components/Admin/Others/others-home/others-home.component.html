@@ -1,0 +1,265 @@
+<div>
+    <div class="disBtn headDisp"> 
+        <h2>Others List</h2>  
+        <div class="flx">
+            <button class="h-45 r-15"  mat-raised-button color="white" (click)="myFeedbck()"> <mat-icon>feedback</mat-icon>FeedBacks Import</button> 
+          <button class="h-45 r-15"  mat-raised-button color="white" (click)="openbtnDialog('Image')"> <mat-icon>upload</mat-icon> Images Upload</button>
+          <button class="h-45 r-15" mat-raised-button color="warn" (click)="openbtnDialog('File')"> <mat-icon>download</mat-icon> Import/Export</button>          
+          <!-- <div class="upload-btn-wrapper wrChange" >
+            <button class="clrbtn btn pd" (click)="openbtnDialog()"> <mat-icon>upload</mat-icon> Export</button>
+           
+          </div> -->
+        <button class="h-45" mat-raised-button color="primary" (click)="createNew()" > <mat-icon>add</mat-icon>Create New</button>
+        </div>
+      </div>
+      <div class="pa-30 srlDiv mat-elevation-z8"  [perfectScrollbar]="config">
+        <div class="dispFlx mobCol">
+          <div class="dispCol mpb-10">
+            <label for="cat">TYPE</label>
+            <select name="typ" id="typ" [(ngModel)]="typeId" (change)="onTypChange($event.target.value)">
+                <option value="-1">Select Type </option>
+                <option *ngFor="let ty of typeList" [value]="ty.id">{{ty.name}}</option>
+            </select>
+        </div>
+          <div class="dispCol mpb-10" *ngIf="typeId == 1 ">
+              <label for="cat">Menu</label>
+              <select name="cat" id="cat" [(ngModel)]="MenuID" (change)="onSMenuChange($event.target.value)">
+                  <option value="">Select Menu</option>
+                  <option *ngFor="let op of menuList" value="{{op.TruSeries}}">{{op.Titles}}</option>
+              </select>
+          </div>
+          <div class="dispCol mpb-10" *ngIf="typeId == 4">
+            <label for="cat">Menu</label>
+            <select name="cat" id="cat" [(ngModel)]="MenuID" (change)="onSMenuChange($event.target.value)">
+                <option value="">Select Menu</option>
+                <option *ngFor="let op of menuList" value="{{op.Series}}">{{op.Titles}}</option>
+            </select>
+        </div>
+          <div class="dispCol mpb-10" *ngIf="typeId == 2">
+            <label for="cat">Menu</label>
+            <select name="cat" id="cat" [(ngModel)]="MenuID" (change)="onSubChange($event.target.value)">
+                <option value="">Select Menu</option>
+                <option *ngFor="let op of menuList" value="{{op.CATEGORY_ID}}">{{op.CATEGORY_NAME}}</option>
+            </select>
+        </div>
+          <div class="dispCol mpb-10" *ngIf="typeId == 2">
+              <label for="mod">Sub Menu</label>
+              <select name="mod" id="mod" [(ngModel)]="SubMenuId" (change)="onSubMenuChange($event.target.value)">
+                  <option value="">Select Sub Menu</option>
+                  <option *ngFor="let sub of submenuList" value="{{sub.MODEL_ID}}">{{sub.MODEL_NAME}}</option>
+              </select>
+          </div>
+          <div class="dispCol mpb-10" *ngIf="typeId == 3">
+            <label for="mod">Model Applicable</label>
+            <select name="mod" id="mod" [(ngModel)]="SubMenuId" (change)="onSubMenuChange($event.target.value)">
+                <option value="-1">Select Model</option>
+                <option *ngFor="let sub of submenuList" value="{{sub.MODEL_APPL}}">{{sub.MODEL_APPL}}</option>
+            </select>
+        </div>
+        <div class="dispCol mpb-10" *ngIf="typeId == 3">
+          <label for="mod">Kit Name</label>
+          <select name="mod" id="kit" [(ngModel)]="kitID" (change)="onKitSelect($event)">
+              <option value="-1">Select Kit</option>
+              <option *ngFor="let kit of KitPartlist" value="{{kit.KIT_ID}}">{{kit.KIT_PART_NO}}/{{kit.KIT_DESCRIPTION}}</option>
+          </select>
+      </div>
+      </div>
+      <div class="nu-table-body">
+        <table mat-table [dataSource]="dataSource" *ngIf="typeId == 1 || typeId == 4" class="mat-elevation-z8 tabWith">
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef > S.No </th>
+            <td mat-cell *matCellDef="let element ; let i = index"> {{i+1}} </td>
+          </ng-container>
+       
+         
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef > SERIES </th>
+            <td mat-cell *matCellDef="let element">{{element.TruSeries}} </td>
+          </ng-container>
+             <ng-container matColumnDef="partNo">
+              <th mat-header-cell *matHeaderCellDef > PART NO</th>
+              <td mat-cell *matCellDef="let element"> {{element.PartNO}} </td>
+            </ng-container>
+            <ng-container matColumnDef="partName">
+              <th style="width: 400px;" mat-header-cell *matHeaderCellDef > DESCRIPTION</th>
+              <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Capacity">
+              <th style="text-align: right;" mat-header-cell *matHeaderCellDef > CAPACITY</th>
+              <td style="text-align: right;" mat-cell *matCellDef="let element"> {{element.Capacity}} ML</td>
+            </ng-container>
+            <ng-container matColumnDef="ndp">
+              <th style="text-align: center;" mat-header-cell *matHeaderCellDef > NDP</th>
+              <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.NDP}} </td>
+            </ng-container>
+            <ng-container matColumnDef="mrp">
+              <th style="text-align: center;" mat-header-cell *matHeaderCellDef > MRP</th>
+              <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.MRP}} </td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th style="text-align: center;" mat-header-cell *matHeaderCellDef > STATUS</th>
+              <td style="text-align: center;"  mat-cell *matCellDef="let element"> 
+              <span *ngIf="element.Active == true">ACTIVE</span>
+              <span *ngIf="element.Active == false">INACTIVE</span>
+              </td>
+            </ng-container>
+
+                     <!-- xlSup Column -->
+                     <ng-container matColumnDef="edit">
+                      <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Edit</th>
+                      <td style="text-align: center;" mat-cell *matCellDef="let element"> 
+                      
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                          <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu" xPosition="after">
+                          <button mat-menu-item (click)="editData(element)">
+                           Edit
+                          </button>
+                          <button mat-menu-item >
+                            Block
+                          </button>
+                          <button mat-menu-item>
+                            Delete
+                          </button>
+                        </mat-menu>
+
+                      </td>
+                    </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedtru4Columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedtru4Columns;">
+      </tr>
+    </table>
+        <table mat-table [dataSource]="dataSource" *ngIf="typeId == 2" class="mat-elevation-z8 tabWith">
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef > S.No </th>
+                  <td mat-cell *matCellDef="let element ; let i = index"> {{i+1}} </td>
+                </ng-container>
+             
+                <!-- xlSup Column -->
+                <ng-container matColumnDef="type">
+                  <th mat-header-cell *matHeaderCellDef > Type </th>
+                  <td mat-cell *matCellDef="let element">{{type}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="ClusterID">
+                  <th mat-header-cell *matHeaderCellDef > ClusterID </th>
+                  <td mat-cell *matCellDef="let element">{{element.ClusterID}} </td>
+                </ng-container>
+                   <!-- xlSup Column -->
+                   <ng-container matColumnDef="partNo">
+                    <th mat-header-cell *matHeaderCellDef > Part No</th>
+                    <td mat-cell *matCellDef="let element"> {{element.PartID}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="partName">
+                    <th style="width: 400px;" mat-header-cell *matHeaderCellDef > Part Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.PartDesc}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="qv">
+                    <th mat-header-cell *matHeaderCellDef > QV</th>
+                    <td mat-cell *matCellDef="let element"> {{element.QV}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="ndp">
+                    <th style="text-align: center;"mat-header-cell *matHeaderCellDef > NDP</th>
+                    <td style="text-align: right;" mat-cell *matCellDef="let element"> {{element.Price | number:'2.0'}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="moq">
+                    <th style="text-align: center;"mat-header-cell *matHeaderCellDef > MOQ</th>
+                    <td style="text-align: right;" mat-cell *matCellDef="let element"> {{element.MOQ}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="remarks">
+                    <th style="text-align: center;" mat-header-cell *matHeaderCellDef > Remarks</th>
+                    <td style="text-align: center;" mat-cell *matCellDef="let element"> {{element.REMARKS}} </td>
+                  </ng-container>
+
+                           <!-- xlSup Column -->
+                           <ng-container matColumnDef="edit">
+                            <th style="text-align: center;" mat-header-cell *matHeaderCellDef> Edit</th>
+                            <td style="text-align: center;" mat-cell *matCellDef="let element"> 
+                            
+                              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                <mat-icon>more_vert</mat-icon>
+                              </button>
+                              <mat-menu #menu="matMenu" xPosition="after">
+                                <button mat-menu-item (click)="editData(element)">
+                                 Edit
+                                </button>
+                                <button mat-menu-item >
+                                  Block
+                                </button>
+                                <button mat-menu-item>
+                                  Delete
+                                </button>
+                              </mat-menu>
+
+                            </td>
+                          </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+          <table mat-table [dataSource]="dataSource" *ngIf="typeId == 3" class="mat-elevation-z8 tabWith">
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef > S.No </th>
+              <td mat-cell *matCellDef="let element ; let i = index"> {{i+1}} </td>
+            </ng-container>       
+            <ng-container matColumnDef="Kit">
+              <th mat-header-cell *matHeaderCellDef > Kit </th>
+              <td mat-cell *matCellDef="let element "> {{kitview}} </td>
+            </ng-container> 
+            <ng-container matColumnDef="KitName">
+              <th mat-header-cell *matHeaderCellDef > Kit Name </th>
+              <td mat-cell *matCellDef="let element "> {{kitname}} </td>
+            </ng-container> 
+               <!-- xlSup Column -->
+               <ng-container matColumnDef="partNo">
+                <th mat-header-cell *matHeaderCellDef > Part No</th>
+                <td mat-cell *matCellDef="let element"> {{element.PART_NO}} </td>
+              </ng-container>
+              <ng-container matColumnDef="partName">
+                <th mat-header-cell *matHeaderCellDef > Part Description</th>
+                <td mat-cell *matCellDef="let element"> {{element.PART_DESCRIPTION}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Qty">
+                <th mat-header-cell *matHeaderCellDef > Qty</th>
+                <td mat-cell *matCellDef="let element"> {{element.QTY}} </td>
+              </ng-container>             
+
+                       <!-- xlSup Column -->
+                       <ng-container matColumnDef="edit">
+                        <th mat-header-cell *matHeaderCellDef> Edit</th>
+                        <td mat-cell *matCellDef="let element"> 
+                        
+                          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                          <mat-menu #menu="matMenu" xPosition="after">
+                            <button mat-menu-item (click)="editData(element)">
+                             Edit
+                            </button>
+                            <button mat-menu-item >
+                              Block
+                            </button>
+                            <button mat-menu-item>
+                              Delete
+                            </button>
+                          </mat-menu>
+
+                        </td>
+                      </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedkitColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedkitColumns;">
+        </tr>
+      </table>
+      </div>
+    </div>
+</div>

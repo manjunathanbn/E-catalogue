@@ -1,0 +1,76 @@
+<div class="pd-20">   
+    <div>      
+      <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '1' || data.typeid == '4'">
+        <mat-label>Series</mat-label >
+        <input matInput placeholder="Ref No" required="true" [(ngModel)]="otherEditData.TruSeries" >        
+      </mat-form-field>
+
+        <mat-form-field class="example-full-width m-10"  *ngIf="data.typeid == '1' || data.typeid == '4'">
+            <mat-label>Part No</mat-label>
+            <input matInput placeholder="Part NO" required="true" [(ngModel)]="otherEditData.PartNO" > 
+            <mat-error >Enter Part NO</mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10"  *ngIf="data.typeid == '2'">
+            <mat-label>Part No</mat-label>
+            <input matInput placeholder="Part NO" required="true" [(ngModel)]="otherEditData.PartID" > 
+            <mat-error >Enter Part NO</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '1' || data.typeid == '4'">
+            <mat-label>Part Name</mat-label>
+            <input matInput placeholder="Part Name" required="true" [(ngModel)]="otherEditData.Description" >
+            <mat-error >Enter Part Name</mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '2'">
+            <mat-label>Part Name</mat-label>
+            <input matInput placeholder="Part Name" required="true" [(ngModel)]="otherEditData.PartDesc" >
+            <mat-error >Enter Part Name</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '1' || data.typeid == '4'">
+            <mat-label>Capacity</mat-label>
+            <input matInput placeholder="Capacity"  [(ngModel)]="otherEditData.Capacity" >
+          </mat-form-field>
+ 
+          <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '1' || data.typeid == '4'">
+            <mat-label>NDP</mat-label>
+            <input matInput placeholder="NDP" required="true" [(ngModel)]="otherEditData.NDP" >
+            <mat-error >Enter the Price</mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '1' || data.typeid == '4'">
+            <mat-label>MRP</mat-label>
+            <input matInput placeholder="MRP" [(ngModel)]="otherEditData.MRP"  >          
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '2'">
+            <mat-label>Price</mat-label>
+            <input matInput placeholder="Price" [(ngModel)]="otherEditData.Price">          
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '2'">
+            <mat-label>MODELID</mat-label>
+            <input matInput placeholder="Model Id" [(ngModel)]="otherEditData.MODELID"  >          
+          </mat-form-field>   
+          <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '2'">
+            <mat-label>QV</mat-label>
+            <input matInput placeholder="QV" [(ngModel)]="otherEditData.QV"  >          
+          </mat-form-field>    
+          <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '2'">
+            <mat-label>Remarks</mat-label>
+            <input matInput placeholder="Remarks" [(ngModel)]="otherEditData.REMARKS"  >          
+          </mat-form-field>                  
+         <mat-form-field class="example-full-width m-10" *ngIf="data.typeid == '1' || data.typeid == '4'">
+          <mat-label>Status</mat-label>
+          <mat-select matInput name="Status" [(ngModel)]="otherEditData.Active" >
+              <mat-option [value]="true">Active</mat-option>
+              <mat-option [value]="false">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>        
+      
+    </div>
+    <div class="cntr">
+        <button mat-raised-button [mat-dialog-close]="false" class="m-10">Cancel</button>
+        <button *ngIf="data.isEdit == 'Y'" mat-raised-button color="primary" (click)="saveToList()" [mat-dialog-close]="subPartData">Update</button>
+        <button *ngIf="data.isEdit == 'N'" mat-raised-button color="primary"  [mat-dialog-close]="subPartData">ADD</button>
+    </div>
+  </div>
+ 
+  

@@ -1,0 +1,171 @@
+  
+<div class="homeMain" >      
+        <mat-tab-group [perfectScrollbar]="config">         
+          <mat-tab style="display: block;" *ngFor="let tab of consumableHeader;let i=index" >                 
+            <ng-template mat-tab-label>
+                <img class="wt-10" src="{{tab.Image}}" alt="">               
+                {{tab.Titles}}
+             </ng-template>
+ <div style=" width: 100%; display: inline-flex;">  
+   <div style="width: 473px;">          
+        <div style="display: flex; justify-content: flex-end;">
+          <button  mat-stroked-button color="primary" (click)=addToCart()> 	<mat-icon>add_shopping_cart</mat-icon> Add To Cart</button>
+        </div>         
+            <!-- <div class="mainCls">
+              <div class="brClass hClass col-md-4 col-sm-12 wrCls srlDiv" [perfectScrollbar]="config" >
+                <div class="col-md-5 col-sm-12 itemCls" *ngFor="let lis of dataSource;let i=index" [ngClass]="lis.selected?'itemActive':''"  >
+                    <mat-checkbox class="mr-10" 
+                    [(ngModel)]="lis.selected" >Select
+                   </mat-checkbox>
+                   <div class="center" (click)="itemSelected(i)">
+                    <img class="rImg mWt" src="assets/Images/{{lis.img}}" alt="">
+                   </div>
+                </div>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                  <div class="tableOut mBlock srlDiv" [perfectScrollbar]="config">
+                      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabWith">
+          
+                          <ng-container matColumnDef="selected">
+                            <th mat-header-cell *matHeaderCellDef>
+                              sel
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                              <mat-checkbox (click)="$event.stopPropagation()"
+                                            (change)="$event ? selection.toggle(row) : null"
+                                            [checked]="selection.isSelected(row)"
+                                            [aria-label]="checkboxLabel(row)" [(ngModel)]="row.selected" >
+                              </mat-checkbox>
+                            </td>
+                          </ng-container>
+                        
+                          <ng-container matColumnDef="partNo">
+                            <th mat-header-cell *matHeaderCellDef> Part No. </th>
+                            <td mat-cell *matCellDef="let element"> {{element.partNo}} </td>
+                          </ng-container>
+                        
+                          <ng-container matColumnDef="partName">
+                            <th mat-header-cell *matHeaderCellDef> Part Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.partName}} </td>
+                          </ng-container>
+          
+                              <ng-container matColumnDef="qv">
+                                <th mat-header-cell *matHeaderCellDef> Q/V </th>
+                                <td mat-cell *matCellDef="let element"> {{element.qv}} </td>
+                              </ng-container>
+          
+                              <ng-container matColumnDef="ndp">
+                                <th mat-header-cell *matHeaderCellDef> NDP </th>
+                                <td mat-cell *matCellDef="let element"> {{element.ndp}} </td>
+                              </ng-container>
+          
+                                 <ng-container matColumnDef="moq">
+                                  <th mat-header-cell *matHeaderCellDef> MOQ</th>
+                                  <td mat-cell *matCellDef="let element"> {{element.moq}} </td>
+                                </ng-container>
+                        
+                          <ng-container matColumnDef="ord">
+                            <th mat-header-cell *matHeaderCellDef> ORD</th>
+                            <td mat-cell *matCellDef="let element"> <input class="qtyInbx" [(ngModel)]="element.ord" type="text" name="inpId" > </td>
+                          </ng-container>
+                        
+                         <ng-container matColumnDef="val">
+                          <th mat-header-cell *matHeaderCellDef> VAL</th>
+                          <td mat-cell *matCellDef="let element"> {{element.val}} </td>
+                        </ng-container>
+                             
+                         <ng-container matColumnDef="rks">
+                          <th mat-header-cell *matHeaderCellDef> Remarks</th>
+                          <td mat-cell *matCellDef="let element" title="{{element.rks}}"> {{element.rks}} </td>
+                        </ng-container>
+          
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                              (click)="selection.toggle(row)">
+                          </tr>
+                        </table>
+                  </div>
+          
+                  <div class="mShow mainTab">
+                    <h2 class="pl-10">Part List</h2>
+                    <div *ngFor="let tab of dataSource;let i=index" class="boxRow"> 
+                      <section class="example-section">
+                        <mat-checkbox class="example-margin" [(ngModel)]="tab.selected">Select</mat-checkbox>
+                      </section>
+                      <div class="col-sm-12 flex padBorder">
+                        <div class="col-sm-4 col"> <label for="">Part No</label> <span> {{tab.partNo}} </span> </div>
+                        <div class="col-sm-4 col"><label for="">Part Name</label> <span> {{tab.partName}} </span> </div>
+                        <div class="col-sm-4 col"> <label for="">Q/V</label> <span> {{tab.qv}} </span></div>
+                      </div>
+                      <div class="col-sm-12 flex padBorder">
+                        <div class="col-sm-4 col"><label for="">NDP</label> <span> {{tab.ndp}} </span></div>
+                        <div class="col-sm-4 col"> <label for="">MOQ</label> <span> {{tab.moq}} </span></div>
+                        <div class="col-sm-4 col"> <label for="">Stock</label> <span> {{tab.stk}} </span> </div>
+                      </div>
+                      <div class="col-sm-12 flex pt-10">
+                        <div class="col-sm-4 col"> <label for="">P/Q</label> <span> {{tab.pq}} </span> </div>
+                        <div class="col-sm-4 col"> <label for="">ORD</label> <span> <input type="text" [(ngModel)]="tab.ord" class="inpClass"> </span> </div>
+                        <div class="col-sm-4 col"> <label for="">VAL</label> <span> {{tab.val}} </span> </div>
+                      </div>
+                    </div>
+                  </div>
+          
+              </div>
+          </div> -->
+         <div class="flx">
+           <div class="col-sm-12 srlDiv h-512" [perfectScrollbar]="config">
+             <div *ngFor="let lis of filterItemsofTseries(tab.TruSeries,j);let j=index" >
+               <div class="brCls" [ngClass]="j==currIndex?'itemActive':''" >
+                 <div class="btn">
+                 <h5> {{lis.PartNO}} </h5>
+                 <mat-checkbox 
+                 [(ngModel)]="lis.IsSelect" (change)="checked(j,$event,lis.PartNO)">Select
+                  </mat-checkbox>
+                 </div>
+                 <div class="flx imgBlk" (click)="currIndex=j">
+                   <div style="height: 100px;width: 100px;">
+                    <lib-ngx-image-zoom mode="hover" [thumbImage]=lis.Image [fullImage]=lis.Image>
+                    </lib-ngx-image-zoom>
+                   </div>
+                 
+                  
+                 <!-- <img class="wt-100" src="{{lis.Image}}" onerror="this.src='assets/Images/geniuneLogo.png'" alt="alternative"> -->
+                 
+                   <!-- <div> <label for="">Part No :</label> <span> {{lis.partNo}} </span> </div>
+                   <div> <label for="">Part Desc :</label> <span> {{lis.partDesc}} </span> </div>
+                   <div> <label for="">Capacity :</label> <span> {{lis.capacity}} </span> </div>
+                   <div> <label for="">NDP :</label> <span> {{lis.ndp}} </span> </div>
+                   <div> <label for="">MRP :</label> <span> {{lis.mrp}} </span> </div> -->
+                   <div class="userLabDiv f-10">
+                    <label for=""> PART NO </label>
+                    <label for=""> DESCRIPTION </label> 
+                    <label for=""> CAPACITY</label>
+                    <label for=""> NDP </label> 
+                    <label for=""> MRP </label> 
+                  </div>
+                  <div class="userDetDiv f-10">
+                    <span>  <small>: &nbsp; </small>  <span class="namePadSpan"> {{lis.PartNO}}</span>  </span>
+                    <span> <small>: &nbsp; </small> <span class="namePadSpan "> {{lis.Description}} </span>  </span>
+                    <span> <small>: &nbsp; </small>  <span class="namePadSpan"> {{lis.Capacity}} </span>ML  </span>
+                    <span> <small>: &nbsp; </small>  <span class="namePadSpan"> {{lis.NDP}} </span>  </span>
+                    <span> <small>: &nbsp; </small>  <span class="namePadSpan"> {{lis.MRP}} </span>  </span>                   
+                  <label for="">Quantity : <input class="qtyWt" [disabled]="!lis.IsSelect" [(ngModel)]="lis.qty" type="number" min="0"></label>
+                                       
+                  </div>
+                  
+                 </div>                
+               </div>
+             </div>
+           </div>
+        </div>
+   </div>      
+           <!-- <button  mat-stroked-button color="primary" (click)=addToCart()> 	<mat-icon>add_shopping_cart</mat-icon> Add To Cart</button> -->
+           
+           <div class="col-md-6 col-sm-12 srlDiv cntr" >          
+             <img class="wt-81" style="margin-top: 7px;width:auto; height: 520px;"  src="{{tab.Labels}}" alt="">
+           </div>
+ </div>
+        </mat-tab>
+        </mat-tab-group>
+</div>
+  

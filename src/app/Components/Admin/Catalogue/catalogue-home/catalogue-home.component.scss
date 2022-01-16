@@ -1,0 +1,98 @@
+.pa-30{
+    margin: 7px;
+    table{
+        width: 100%;
+    }
+}
+.dispCol{
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    select{
+        height: 25px;
+    }
+}
+.pr-10{
+    margin-right: 10px;
+    border: 1px solid rgb(97, 97, 157) !important;
+}
+.dispFlx{
+   display: flex;
+   justify-content: space-around !important;
+   background: #ffffff;
+   padding: 5px;
+   border-bottom: 1px solid #e8e5e5a1;
+   
+}
+.headDisp{
+    display: flex;
+    justify-content: space-between;
+    padding: 7px;
+}
+.btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+  .wrChange{
+    font-size: 20px !important;
+    width: 130px !important;
+    position: relative !important;
+    //right: 44px !important;
+    height: 45px;
+}
+.h-45{
+    height: 38px;
+}
+.pd{
+    padding: 4px 10px !important;
+}
+.r-15{
+    position: relative;
+    right: 15px;
+    height: 40px;
+}
+.nu-table-body {
+    overflow-y:auto;
+    max-height:442px;
+}
+.stCls{
+    height: 25px;
+    border-radius: 5px;
+    border-color: rgba(49, 106, 211, 0.87);
+  }
+  .srlDiv {
+    height: calc(100% - 100px);
+    position: relative;
+    background-repeat: no-repeat !important;
+}
+td.mat-cell, td.mat-footer-cell {
+    //padding: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    font-size: 10px;
+    font-family: auto;
+}
+::ng-deep .mat-icon-button{
+    height: 33px !important;
+}
+tr.mat-header-row {
+    height: 30px;
+    background-color: #adbecb !important;
+}
+tr.mat-row, tr.mat-footer-row {
+    height: 36px;
+}

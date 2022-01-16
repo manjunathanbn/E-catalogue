@@ -1,0 +1,33 @@
+<div class="homeMain">
+    <mat-tab-group mat-align-tabs="start" [(selectedIndex)]="setTab" (selectedTabChange)="tabChanges($event)">
+        
+        <mat-tab *ngFor="let tab of tabData;let i=index" label="{{tab.name}}"  >
+            <div class="flex mCol">
+                <div class="col-md-2 col-sm-12 li-2 psSrl" [perfectScrollbar]="config">                    
+                    <div *ngFor="let tab of filterInnerTab;let i=index"  class="mBlock"  >
+                        <img [ngClass]="i==selectedTab?'activeTab':''" (click)="selectedTab=i;ImageChanges(tab.ModelID)" class="cur_point" width="86%" src="{{tab.image}}" alt="">
+                    </div>
+                    <div class="mShow">
+                        <label for="" class="f-500" > Type </label>
+                        <select name="" id="" class="wt"  >
+                            <option value="tab.name" *ngFor="let tab of filterInnerTab;let i=index" > {{tab.name}} </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-10 col-sm-12 psSrl" [perfectScrollbar]="config">
+                <div>
+                    <img class="mWt-100" height="400px" src="{{paintedImg}}" alt=""  >
+                </div>
+                <div class="outer mClass">
+                    <div *ngFor="let clr of filterimageTab" style="border:0px;margin:0px;float:left;width:100px;" class="inner" (click)="gotoDetail(clr.ModelID,clr.ColorID)">
+                        <img src="{{clr.image}}" alt="">
+                        <span class="txt">
+                            {{clr.name}}
+                        </span>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </mat-tab>
+      </mat-tab-group>
+</div>

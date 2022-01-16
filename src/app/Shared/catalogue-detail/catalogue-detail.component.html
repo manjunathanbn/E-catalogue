@@ -1,0 +1,148 @@
+
+<div>
+  <div class="detailHead">
+    <div class="flex center jusSapace">
+      <div class="flex center">
+        <img (click)="goBack()" class="backImag cur_point" src="assets/Images/backSimple.png" alt="">
+        <h4 (click)="goBack()" class="posTop cur_point">Back</h4>
+      </div>
+
+      <div class="posR">
+        <button class="" mat-raised-button color="primary" (click)= "addToCart()"> 	
+          <mat-icon>add_shopping_cart</mat-icon> Add To Cart</button>
+      </div>
+    </div>
+    
+  </div>
+  <div class="mainCls" [perfectScrollbar]="config">
+    
+   <div style="display: block;   position: relative; padding: 0px; width: auto; height: 100%;" >
+    <pinch-zoom>
+    <canvas style="width: auto; height: 100%; position: absolute; left: 0px; top: 0px; 
+    padding: 0px; border: 0px; opacity: 1;"  id="canvas" (click)="getPosition($event,1)"></canvas>
+    
+      <img src="{{imgVar}}" >
+    </pinch-zoom>
+    </div>
+    
+    <div class="col-md-9 col-sm-12" >
+      <div class="example-container mat-elevation-z8"  [perfectScrollbar]="config">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 tabWith">          
+
+          <!-- <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef> select </th>
+            <td mat-cell *matCellDef="let row"> <mat-checkbox (click)="checked(row)"
+              [(ngModel)]="row.select" ></mat-checkbox> </td>
+          </ng-container> -->
+      
+          <ng-container matColumnDef="select" >
+            <th mat-header-cell style="width: 25px;text-align: center;padding-left: 0px" *matHeaderCellDef> <mat-checkbox [disabled] = "true" [checked]="true"
+               ></mat-checkbox> </th>            
+              <td mat-cell style="width: 30px;text-align: center;padding-left: 0px" *matCellDef="let row">
+                <span *ngIf="!row.NDP"><img  src="assets/Images/cross.jpg" alt="Not Serviceable" title="Not Serviceable"></span>
+                <span *ngIf="row.NDP"><mat-checkbox (click)="checked(row)"
+                  [(ngModel)]="row.select" ></mat-checkbox></span>     
+              </td>              
+          </ng-container>
+         
+          <ng-container matColumnDef="RefNo" sticky>
+            <th mat-header-cell *matHeaderCellDef> REF.NO </th>
+            <td mat-cell style="width: 43px;text-align: center;" *matCellDef="let element"> {{element.REF_NO}} </td>
+          </ng-container>
+      
+     
+          <ng-container matColumnDef="PartNo">
+            <th class="w-75" mat-header-cell *matHeaderCellDef> PART NO </th>
+            <td class="w-75" mat-cell *matCellDef="let element"> {{element.PART_NO}} </td>
+          </ng-container>
+      
+          
+          <ng-container matColumnDef="PartName">
+            <th mat-header-cell style="text-align: center" *matHeaderCellDef> PART NAME </th>
+            <td mat-cell style="text-align: left;width: 280px;;" *matCellDef="let element">{{element.PART_DESC | uppercase}} </td>
+          </ng-container>
+          <ng-container matColumnDef="QV" *ngIf="backPath=='painted'" >
+            <th mat-header-cell style="text-align: justify;" *matHeaderCellDef> QV </th>
+            <td mat-cell style="text-align: justify;" *matCellDef="let element"> {{element.QV}} </td>
+          </ng-container>          
+
+          <ng-container matColumnDef="QV" *ngIf="backPath!='painted'">
+            <th mat-header-cell style="text-align: center;width: 25px;" *matHeaderCellDef> QV </th>
+            <td mat-cell style="text-align: justify;" *matCellDef="let element"> <a mat-button style="font-size: small;" href="javascript:void()" (click)="getdata(element)"> View</a> </td>
+              <!-- <a routerLink="/your-link">View Detail</a> -->
+              <!-- <button mat-icon-button color="primary"  title="View QV Detail"><mat-icon>view_column</mat-icon></button> -->
+              <!-- <mat-icon
+        (click)="expandedElement = expandedElement === element ? null : element">{{expandedElement === element ? 'expand_less' : 'expand_more'}}</mat-icon> -->
+          <!-- <a mat-button href="javascript:void()" (click)="element.isExpanded = !element.isExpanded"><mat-icon>expand_more</mat-icon> View</a> -->
+          <!-- <a mat-button style="font-size: small" href="javascript:void()" (click)="getdata(element)"> View</a> -->
+          <!-- <button  mat-icon-button *ngIf="expandedElement != element" 
+          [class.expanded]="expandedElement == element"
+          (click)="expandedElement = element;getdata(element)">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+  </button> -->
+  <!-- <button  mat-icon-button *ngIf="expandedElement == element" 
+          [class.expanded]="expandedElement == undefined"
+          (click)="expandedElement = undefined">
+          <mat-icon>keyboard_arrow_up</mat-icon>
+  </button> -->
+            <!-- </td> -->
+          </ng-container>
+
+          <ng-container matColumnDef="Qty">
+            <th mat-header-cell style="text-align: justify;" *matHeaderCellDef>QTY</th>
+            <td mat-cell style="text-align: justify;width: 60px;" *matCellDef="let element"><input class="qtyInbx" [(ngModel)]="element.ord" (change)="Validate(element)" type="text" name="inpId" [disabled]="!element.select"> </td>
+          </ng-container>
+
+         
+          <ng-container matColumnDef="NDP">
+            <th mat-header-cell style="text-align: right;" *matHeaderCellDef> NDP </th>
+            <td mat-cell style="text-align: right;width: 34px;" *matCellDef="let element" [(ngModel)]="ChkNDP"> {{element.NDP | number:'1.2-2'}} </td>
+          </ng-container>
+      
+       
+         <ng-container matColumnDef="MRP">
+          <th mat-header-cell style="text-align: right;" *matHeaderCellDef> MRP</th>
+          <td mat-cell  style="text-align: right;width: 45px;" *matCellDef="let element">  {{element.MRP | number:'1.2-2'}}</td>
+        </ng-container>
+    
+       
+        <ng-container matColumnDef="MOQ">
+          <th mat-header-cell style="text-align: center;" *matHeaderCellDef> MOQ </th>
+          <td mat-cell  style="text-align: center;" *matCellDef="let element"> {{element.MOQ }} </td>
+        </ng-container>
+    
+       
+        <!-- <ng-container [] matColumnDef="Stock">
+          <th mat-header-cell *matHeaderCellDef> STOCK </th>
+          <td mat-cell *matCellDef="let element"> {{ element.Stk }}</td>
+        </ng-container> -->
+
+         
+         <ng-container matColumnDef="Remarks">
+          <th mat-header-cell *matHeaderCellDef> REMARKS </th>
+          <td mat-cell *matCellDef="let element"> {{element.REMARKS}} </td>
+        </ng-container> 
+        <!-- <ng-container matColumnDef="expandedDetail">
+           <td mat-cell *matCellDef="let detail">            
+              <mat-list>                
+                <mat-list-item *ngFor="let row of dynamiCol">                  
+                  <span style="margin-left: 30px;">{{row.i}}</span>
+                </mat-list-item>
+              </mat-list>           
+          </td>
+        </ng-container> -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true" [style.min-height]="0" ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'make-gold': row.select }" ></tr>
+          <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" matRipple class="element-row"></tr> -->
+          <!-- <span *ngIf="backPath!='painted"></span> -->
+          <!-- <mat-row *matRowDef="let row; columns: ['expandedDetail'];"
+			    [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden">
+          </mat-row> -->
+        </table>
+
+        
+      </div>
+    
+    </div>
+</div>
+</div>

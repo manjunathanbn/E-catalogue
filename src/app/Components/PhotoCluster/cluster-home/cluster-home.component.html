@@ -1,0 +1,139 @@
+
+<div class="homePad">
+    <div class="clusterHead spBt">
+        <h2>Parts Catlog Search</h2>
+        <div class="posR">
+            <button class="pr-10" mat-stroked-button color="primary" (click)= "addToCart()"> 	<mat-icon>add_shopping_cart</mat-icon> Add To Cart</button>
+          </div>
+    </div>
+    <div [perfectScrollbar]="config" class="srlDiv" >
+        <div class="dispFlx mobCol">
+            <div class="dispCol mpb-10">
+                <label for="cat">Category Wise :</label>
+                <select name="cat" id="cat" [(ngModel)]="CatID" (change)="getModelwise($event.target.value)">
+                    <option value="0">SELECT ALL</option>
+                    <option value="{{cat.ID}}" *ngFor="let cat of responseData.CCategory;let i=index">{{cat.name}}</option>
+                    <!-- <option value="seg">Segment 1</option> -->
+                </select>
+            </div>
+            <div class="dispCol mpb-10">
+                <label for="mod">Model Wise :</label>
+                <select name="mod" id="mod" [(ngModel)]="modelId">
+                    <option value="0">SELECT ALL</option>
+                    <option value="{{mod.ID}}" *ngFor="let mod of responseData.CModel;let i=index">{{mod.name}}</option>
+                </select>
+            </div>
+            <div class="dispCol mpb-10">
+                <label for="clus">Cluster Wise :</label>
+                <select name="mod" id="clus" [(ngModel)]="ClustId">
+                    <option value="0">SELECT ALL</option>
+                    <option value="{{clus.ID}}" *ngFor="let clus of responseData.CClusterDO;let i=index">{{clus.name}}</option>
+                </select>
+            </div>
+            <div class="dispCol mpb-10">
+                <label for="part">Part Number :</label>
+                <select name="mod" id="part" [(ngModel)]="PartId">
+                    <option value="0">SELECT ALL</option>
+                    <option value="{{part.ID}}" *ngFor="let part of responseData.CParts;let i=index">{{part.ID}}</option>
+                </select>
+            </div>
+            
+            <div class="dispCol mpb-10">
+                <label for="des">Part Description :</label>
+                <select name="mod" id="des">
+                    <option value="0">SELECT ALL</option>
+                    <option value="{{des.ID}}" *ngFor="let des of responseData.CParts;let i=index">{{des.name}}</option>
+                </select>
+            </div>
+            <div class="posR mpb-10">
+                <button class="pr-10" mat-stroked-button color="primary" (click)="searchNew(CatID,modelId,ClustId,PartId)"> <mat-icon>search</mat-icon>Search</button>
+              </div>
+       
+        </div>
+        <div class="accrdscroll">
+            <mat-accordion>
+                <mat-expansion-panel (opened)="openGroup($event,i)" *ngFor="let lis of dataSource;let i=index"
+                                     (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                     <img class="mdWt mwt"  src="{{lis.clusterImg}}"  onerror="this.src='assets/Images/Icon/ccp_parts_old.gif'" alt="alternative">
+                     <div class="lisHead mDesign">
+                         <div class="blClr">
+                             <label for="">Part No</label> <span> &nbsp; : {{lis.partNo}} </span>
+                             <label for="">Part Desc</label> <span> &nbsp; : {{lis.partDesc}} </span>
+                         </div>
+                         <div class="brClr">
+                             <label for=""> Models are Used </label> <span> &nbsp; : {{lis.model}} </span>
+                         </div>
+                     </div>
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                      Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                    </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+                  <div class="flex mobCol">
+                    <!-- <div class="col-md-6 col-sm-12">
+                        <img class="" id="myimage" src="../../../../assets/Images/Icon/ccp_parts_old.gif" alt="">
+                        <div id="myresult" class="img-zoom-result"></div>
+                    </div> -->
+                    <div class="col-md-6 col-sm-12">
+                        <lib-ngx-image-zoom
+                        [thumbImage]= myThumbnail
+                        [fullImage]=myFullresImage
+                        [magnification]="3"
+                        [enableScrollZoom]="true"
+                        [enableLens]="true"
+                        [lensWidth]="200"
+                        onerror="mydefaultImage" alt="mydefaultImage"
+                    ></lib-ngx-image-zoom>
+                      </div>
+                    <div class="col-md-6 col-sm-12 li-4" >
+                        <mat-checkbox class="mr-10" (change)="checked(i,$event)"  [(ngModel)]="lis.select" >Select</mat-checkbox>
+                        <div class="col-md-12 col-sm-12 flex">
+                            <div class="col-md-6 col-sm-6 flex"> 
+                                    <label for="">NDP </label>
+                                    <span>&nbsp; :{{lis.ndp}} </span>
+                            </div>
+                            <div class="col-md-6 col-sm-6 flex"> 
+                                    <label for="">MOQ</label>
+                                    <span>&nbsp; :{{lis.moq}} </span>
+                            </div>
+                           
+                        </div>
+                            <div class="col-md-12 col-sm-12 flex"> 
+                                <div class="col-md-6 col-sm-6 flex"> 
+                                    <label for="">Stock</label>
+                                    <span>&nbsp; :{{lis.stock}} </span>
+                            </div>
+                            <div class="col-md-6 col-sm-6 flex"> 
+                                    <label for="">Remarks</label>
+                                    <span>&nbsp; : {{lis.remarks}}</span>
+                            </div>
+                           
+                            </div>
+                            <div class="col-md-12 col-sm-12 flex"> 
+                             
+                            <div class="col-md-6 col-sm-6 flex"> 
+                                <label for="">Pen.Ord.Qty</label>
+                                <span>&nbsp; : {{lis.penOrdQty}} </span>
+                        </div>
+                            <div class="col-md-6 col-sm-6 flex"> 
+                                    <label for="">Quantity</label>
+                                    <span>&nbsp; : <input class="qtyWt" [(ngModel)]="lis.qty" [disabled]="!lis.select" type="number" min="0"></span>
+                            </div>
+                            </div>
+                            <p class="clrCls">
+                                NDP * :this is appx.NDP.
+                            </p>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+      </div>
+     
+</div>
+
+
+ 

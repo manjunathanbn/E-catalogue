@@ -1,0 +1,213 @@
+.mainCls{
+    //@at-root: 15px;
+    display: flex;
+    padding: 0px 5px 10px 5px;
+}
+.tabWith{
+    width: 100%;
+}
+.tableOut{
+    //height: 600px;
+   // overflow-y: scroll;
+   // overflow-x: hidden;
+}
+.qtyInbx{
+    width: 50px;
+}
+.mainCls{
+    padding: 15px;
+    display: flex;
+    height: calc(100vh - 100px);
+}
+.tabWith{
+    width: 100%;
+}
+.tableOut{
+   // max-height: calc(100vh - 100px);
+   // overflow-y: scroll;
+   // overflow-x: hidden;
+    padding: 3px 15px 15px 15px;
+}
+.qtyInbx{
+    width: 50px;
+}
+.brClass{
+    border: 1px solid #e4d9d9;
+}
+.backImag{
+    width: 20px;
+    padding: 20px;
+}
+.posTop{
+    position: relative;
+    top: 8px;
+    right: 11px;
+}
+.homeMain{
+    padding: 5px;
+}
+.imgClss{
+    width: 98%;
+    position: relative;
+    top: 30px;
+}
+// @media(min-width:768px){
+// .hClass{
+//     max-height: 585px;
+// }
+// }
+.srlDiv{
+    position: relative;
+    height: calc(100% - 120px);
+    text-align: initial;
+}
+@media (max-width:768px){
+    .homeMain{
+        padding:5px !important;
+    }
+    ::ng-deep .mat-tab-body-content{
+        //text-align: initial !important;
+    }
+}
+.rImg{
+    width: 50%;
+}
+.itemCls{
+    display: flex;
+    flex-direction: column;
+    //align-items: center;
+    height: 165px;
+    border-radius: 10px;
+    margin: 10px;
+    border: 1px solid #dedddd;
+    cursor: pointer;
+    box-shadow: 0px 0px 1px -4px rgba(0, 0, 0, 0.2), 0px 2px 1px -1px rgba(0, 0, 0, 0.14), 0px 3px 2px 1px rgba(0, 0, 0, 0.12);
+}
+.itemActive{
+    border: 2px solid #1143c3 !important;
+    box-shadow: 0px 5px 15px -8px rgba(0, 0, 0, 0.2), 0px 3px 4px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+.col-md-5{
+    width: 43%;
+}
+.wrCls{
+    display: flex;
+    flex-flow: wrap;
+}
+::ng-deep .mat-tab-body-content{
+   // text-align: initial !important;
+}
+.center{
+    text-align: center;
+}
+.mr-10{
+    margin: 10px;
+}
+@media(max-width:768px){
+    .mWt{
+        width: 30% !important;
+    }
+    .hClass{
+        width: 100% !important;
+    }
+}
+::ng-deep .ngxImageZoomContainer > img{
+    width: 100px !important; height: 100px !important;
+  }
+  
+tr.mat-row, tr.mat-footer-row {
+    height: 28px;
+}
+.img-zoom-container {
+    position: relative;
+  }
+  
+  .img-zoom-lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    /*set the size of the lens:*/
+    width: 40px;
+    height: 40px;
+  }
+  
+  .img-zoom-result {
+    border: 1px solid #d4d4d4;
+    /*set the size of the result div:*/
+    width: 300px;
+    height: 300px;
+  }
+.srlDiv{
+    position: relative;
+    height: calc(100% - 120px);
+    min-inline-size: fit-content;
+    margin-left: 25px;
+    text-align: initial;
+  }
+  .wt-100{
+      width: 100px;
+  }
+  .brCls{
+    border: 1px solid #d9d5d5;
+    border-radius: 10px;
+    padding: 5px;
+    //margin-bottom: 5px;
+    cursor: pointer;
+  }
+  .detClass{
+      line-height: 2;
+      padding-left: 40px;
+      label{
+          font-weight: 600;
+      }
+  }
+  .imgBlk{
+      align-items: start;
+  }
+  .h-580{
+      //max-height:487px
+    height: calc(100% - 90px) !important;
+  }
+  .h-512{
+    max-height:486px
+  }
+  .wt-81{
+    max-width: 100%;
+    height: calc(100vh - 190px);
+  }
+  .wt-10{
+    width: auto;
+    height: 20px;
+    padding-right:5px ;
+}
+  .cntr{
+      text-align: left;
+  }
+  .btn{
+      display: flex;
+      justify-content: space-between;
+      height: 20px;
+  }
+  .posR{
+    position: relative;
+    right: 15px;
+    float: right;
+}
+::ng-deep .mat-tab-body-content{
+    overflow: hidden!important
+}
+
+::ng-deep .mat-tab-label, .mat-tab-labels{
+    color: white !important;
+    //background-color: #337ab7 !important;
+    height: 40px !important;
+}
+::ng-deep .mat-tab-list{
+    //background: #337ab7;
+    border-radius: 10px;
+}
+::ng-deep .mat-tab-header{
+    border-radius: 10px;
+    //color: white !important;
+    background-color: #00599d !important;
+    height: 40px !important;
+}

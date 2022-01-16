@@ -1,0 +1,84 @@
+.homeMain{
+    padding: 10px
+}
+.inner{
+    display: inline-grid;
+    flex-direction: column;
+    cursor: pointer;
+    text-align: center !important;
+       
+}
+.outer{
+    display: -webkit-inline-box;
+    justify-content: center !important; 
+    max-width: 811px !important;
+    overflow:auto;
+    overflow-y: hidden;
+    max-height: 111px
+    //margin-inline:350px;
+}
+.txt{
+    position: relative;
+    bottom: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-small;
+}
+.li-2{
+    line-height: 1;
+}
+.activeTab{
+    border: 3px solid #d77c8c;
+    border-radius: 13px;
+    width: 60% !important;
+}
+.wt{
+    width: 95%;
+    height: 25px;
+    margin-bottom: 20px;
+}
+img {
+    image-rendering: auto;
+    //width: 86%;
+  }
+@media (max-width:768px){
+    ::ng-deep .mat-tab-body-content{
+        text-align: center !important;
+        top: 5px !important;
+    }
+    .mClass{
+        justify-content: initial !important;
+        overflow-x: scroll;
+        width: 90vw
+    }
+}
+@media (max-width:600px){
+    ::ng-deep .mat-tab-body-content{
+        text-align: center !important;
+        top: 5px !important;
+    }
+    .mClass{
+        justify-content: initial !important;
+        overflow-x: scroll;
+        width: 90vw
+    }
+}
+.f-500{
+    font-weight: 500;
+}
+.psSrl{
+    position: relative;
+    height: calc(100vh - 100px);
+    overflow:auto
+}
+::ng-deep .mat-tab-label, .mat-tab-labels{
+    color: white !important;
+    background-color: #00599d !important;
+    height: 40px !important;
+}
+::ng-deep .mat-tab-list{
+    background: #00599d;
+    border-radius: 10px;
+}
+::ng-deep .mat-tab-header{
+    height: 30px
+}

@@ -1,0 +1,60 @@
+
+<div class="p-20" *ngIf="data.title!='part' && data.title!='QV'">
+    <h4 mat-dialog-title class="fw-500">{{data.data.partName}}</h4>
+<div mat-dialog-content>
+    <div class="main"> 
+        <div class="col-sm-12 flex padBorder">
+          <div class="col-sm-4 col"> <label for="">Part No</label> <span> {{data.data.partNo}} </span> </div>
+          <div class="col-sm-4 col"><label for="">STOCK</label> <span> {{data.data.stock}} </span></div>
+          <div class="col-sm-4 col"> <label for="">XL SUP</label> <span> {{data.xlSup}} </span></div>
+        </div>
+        <div class="col-sm-12 flex padBorder">
+          <div class="col-sm-4 col"><label for="">ORD</label> <span> <input type="text" [(ngModel)]="data.data.ord" class="inpClass"> </span></div>
+          <div class="col-sm-4 col"> <label for="">MOQ</label> <span> {{data.data.moq}} </span></div>
+          <div class="col-sm-4 col"> <label for="">TVS SPORT</label> <span> {{data.data.tvsSport}} </span> </div>
+        </div>
+        <div class="col-sm-12 flex pt-10">
+          <div class="col-sm-4 col"> <label for="">XL SUP HD</label> <span> {{data.data.xlSupHd}} </span> </div>
+          <div class="col-sm-4 col"> <label for="">NDP</label> <span> {{data.data.ndp}} </span> </div>
+          <div class="col-sm-4 col">
+               <!-- <label for="">STOCK</label> <span> {{data.stock}} </span> -->
+             </div>
+        </div>
+      </div>
+</div>
+<div mat-dialog-actions class="cntr">
+  <button mat-raised-button color="warn" (click)="data.data.select=false" [mat-dialog-close]="data" >Remove</button>
+  <button mat-raised-button color="primary" (click)="data.data.select=true" [mat-dialog-close]="data" cdkFocusInitial>Add</button>
+</div>
+</div>
+
+<!-- second -->
+<div *ngIf="data.title=='part'">
+  <div class="hCls">
+    <h2> Select </h2>
+    <mat-icon class="cartIcon cur_point" [mat-dialog-close]="false">close</mat-icon>
+  </div>
+  <div class="flx bCls mCls">
+    <img  class="cur_point" [mat-dialog-close]="tab" title="{{tab.ASSEMBLY_NAME}}"  *ngFor="let tab of assemlyData;let i=index" src="{{tab.IMAGE_LINK}}" alt="">
+  </div>
+</div>
+<!----third-->
+<div *ngIf="data.title == 'QV'">
+
+  <div>
+    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container *ngFor="let disdata of displayedColumns; let colIndex = index" matColumnDef="{{disdata}}">
+          <mat-header-cell *matHeaderCellDef>{{disdata}}</mat-header-cell>          
+          <mat-cell *matCellDef="let element "> {{ element[disdata] }}
+          </mat-cell>
+      </ng-container> 
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <!-- <mat-header-row *matHeaderRowDef="vzfPuanTablo"></mat-header-row>      -->
+  </mat-table>
+  </div>
+</div>
+
+ 

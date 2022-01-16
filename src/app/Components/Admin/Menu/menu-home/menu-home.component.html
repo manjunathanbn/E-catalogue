@@ -1,0 +1,197 @@
+<div class="flx">
+    <div class="col-md-6 col-sm-12">
+      <div class="disBtn"> 
+        <h2>New Menu</h2>
+        <mat-radio-group aria-label="Select an option" fxLayout="column" style="padding-top: 10px;" (change)="onChkChange($event)">
+          <mat-radio-button value="1" [checked]="true">Assembly Module</mat-radio-button>
+          <mat-radio-button value="2">Painted Module</mat-radio-button>
+        </mat-radio-group>
+        <button class="pr-10" mat-stroked-button color="primary" [disabled]="hideAdd" (click)="addToList()" ><mat-icon>add</mat-icon> {{buttonName}}</button>
+      </div>
+        <div *ngFor="let head of newHeaderList;let i=index" class="flx addBdr boxRow fl-wrap">
+          <div class="col-md-4 col-sm-12">
+            <mat-form-field appearance="outline">
+                <mat-label>Header List</mat-label>
+                <mat-select  [(ngModel)]="head.CATEGORY_ID" name="head{{i}}"  (selectionChange)="chekValid(i)">
+                  <mat-option *ngFor="let lis of headerList"  [value]="lis.CATEGORY_ID" >
+                    {{lis.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+              <!-- <div class="col-md-4 col-sm-12" *ngIf="head.head=='Painted Parts'">
+                  <mat-form-field appearance="fill">
+                      <mat-label>Menu Type</mat-label>
+                      <mat-select  [(ngModel)]="head.menuType" name="head{{i}}" (selectionChange)="chekValid(i)">
+                        <mat-option *ngFor="let lis of ['Main Menu','Sub Menu']" [value]="lis">
+                          {{lis}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+              </div>
+            <div class="col-md-4 col-sm-12" *ngIf="head.head=='Painted Parts'">
+              <mat-form-field appearance="fill">
+                  <mat-label>Main Menu</mat-label>
+                  <mat-select  [(ngModel)]="head.mainMenu" name="head{{i}}" (selectionChange)="chekValid(i)">
+                    <mat-option *ngFor="let lis of mainMenuList" [value]="lis.name">
+                      Painted - {{lis.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+          </div>
+          <div class="col-md-4 col-sm-12" *ngIf="head.head=='Painted Parts'&&head.menuType=='Sub Menu'">
+            <mat-form-field appearance="fill">
+                <mat-label>Sub Menu</mat-label>
+                <mat-select  [(ngModel)]="head.subMenu" name="head{{i}}" (selectionChange)="chekValid(i)">
+                  <mat-option *ngFor="let lis of subMenuList" [value]="lis.name">
+                    {{lis.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> 
+        </div> -->
+              <div class="col-md-4 col-sm-12" *ngIf="type == 2">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Segment ID</mat-label>
+                    <input matInput placeholder="Enter ID" name="id{{i}}" (change)="chekValid(i)" [(ngModel)]="head.SERIES">
+                  </mat-form-field>
+             </div>
+             <div class="col-md-4 col-sm-12" *ngIf="type == 2">
+              <mat-form-field class="example-full-width">
+                <mat-label>Segment Name</mat-label>
+                <input matInput placeholder="Enter Name" name="name{{i}}" (change)="chekValid(i)" [(ngModel)]="head.DESCRIPTION">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 col-sm-12" *ngIf="type == 2">
+              <mat-checkbox [checked]="head.IS_VEHICLE" [(ngModel)]="head.IS_VEHICLE">Is SubAssembly</mat-checkbox>
+            </div>
+ 
+            <div class="col-md-4 col-sm-12" *ngIf="type == 1">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Series ID</mat-label>
+                    <input matInput placeholder="Enter ID" name="id{{i}}" (change)="chekValid(i)" [(ngModel)]="head.SERIES">
+                  </mat-form-field>
+            </div>
+            <div class="col-md-4 col-sm-12" *ngIf="type == 1">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Series Name</mat-label>
+                    <input matInput placeholder="Enter Name" name="name{{i}}" (keyup)="chekValid(i)" [(ngModel)]="head.DESCRIPTION">
+                  </mat-form-field>
+            </div>
+            <div class="col-md-4 col-sm-12" *ngIf="type == 1">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Model</mat-label>
+                  <input matInput placeholder="Enter Name" name="name{{i}}" (keyup)="chekValid(i)" [(ngModel)]="head.MODEL_ID">
+                </mat-form-field>
+          </div>
+          <div class="col-md-4 col-sm-12" *ngIf="type == 1">
+            <mat-form-field class="example-full-width">
+                <mat-label>Model Name</mat-label>
+                <input matInput placeholder="Enter Name" name="name{{i}}" (keyup)="chekValid(i)" [(ngModel)]="head.MODEL_NAME">
+              </mat-form-field>
+        </div>
+            <div class="col-md-4 col-sm-12"  >  
+              <!-- *ngIf="head.head=='Painted Parts'&&head.menuType=='Sub Menu'" *ngIf="buttonName == 'Add Menu'"  -->
+             <label for="">Choose File</label>
+             <input type="file" placeholder="Choose File" (change)="onFileChange($event,i)">
+           </div> 
+           <!-- <form class="example-form">
+            <input type="file" (change)="onFileSelected($event)">
+            <div class="button-row">
+               <button mat-raised-button color="primary" (click)="onUpload()">Segment image</button>
+            </div>
+         </form>          -->
+       
+        </div>
+        <!-- <div class="addBtn">
+        <button class="" mat-stroked-button color="primary" [disabled]="hideAddmore" (click)="addMore()" > <mat-icon>add</mat-icon> Add More</button>
+        </div> -->
+        <div *ngIf="imgvehicle">
+          <img class="lisImg" [src]="imgvehicle" alt="">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <div class="disBtn"> 
+        <h2>Menu List</h2> 
+        <div class="flx">
+          
+          <div class="upload-btn-wrapper wrChange" >
+            <!-- <button class="h-45 r-15 pr-10" mat-stroked-button color="primary" (click)="openbtnDialog()"> <mat-icon>download</mat-icon> Import</button>
+            <button class="clrbtn btn pd pr-10" mat-stroked-button color="primary" (click)="openbtnDialog()"> <mat-icon>upload</mat-icon> Export</button>     -->
+            <!-- <input type="file" name="myfile"  /> -->
+          </div>        
+        </div> 
+      </div>
+      <div class="pa-30 srlDiv mat-elevation-z8"  [perfectScrollbar]="config">
+        <div class="dispFlx mobCol">
+          <div class="dispCol mpb-10">
+              <label class="lbltext stCls" for="cat">Segment</label>
+              <select name="cat" id="cat" class="stCls" (change)="onChange($event.target.value)">
+                  <option value="">Search Segment</option>
+                  <option *ngFor="let op of dataSource" value="{{op.CATEGORY_ID}}" >{{op.CATEGORY_NAME}}</option>
+              </select>
+          </div>
+          <div class="dispCol mpb-10">
+              <label class="lbltext" for="mod">Vehicle Model</label>
+              <select name="mod" id="mod"  class="stCls" (change)="onseriesChange($event.target.value)">
+                  <option value="">Search Model</option>
+                  <option *ngFor="let op of dataSource" value="{{op.SERIES}}">{{op.DESCRIPTION}}</option>
+              </select>
+          </div>
+      </div>
+      <div class="nu-table-body">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabWith">
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="sNo">
+                  <th mat-header-cell *matHeaderCellDef > S.No </th>
+                  <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+                </ng-container>
+             
+                <!-- xlSup Column -->
+                <ng-container matColumnDef="head">
+                  <th mat-header-cell *matHeaderCellDef > Segment </th>
+                  <td mat-cell *matCellDef="let element"> {{element.CATEGORY_NAME}} </td>
+                </ng-container>
+                <ng-container matColumnDef="series">
+                  <th mat-header-cell *matHeaderCellDef > Series </th>
+                  <td mat-cell *matCellDef="let element"> {{element.SERIES}} </td>
+                </ng-container>
+              
+                   <!-- xlSup Column -->
+                   <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef > Description </th>
+                    <td mat-cell *matCellDef="let element"> {{element.DESCRIPTION}} </td>
+                  </ng-container>
+
+                           <!-- xlSup Column -->
+                           <ng-container matColumnDef="edit">
+                            <th mat-header-cell *matHeaderCellDef> Edit</th>
+                            <td mat-cell *matCellDef="let element"> 
+                            
+                              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                <mat-icon>more_vert</mat-icon>
+                              </button>
+                              <mat-menu #menu="matMenu" xPosition="after">
+                                <button mat-menu-item (click)="editData(element)">
+                                 Edit
+                                </button>
+                                <button mat-menu-item (click)="removeSeries(element,2)">
+                                  Block
+                                </button>
+                                <button mat-menu-item (click)="removeSeries(element,3)">
+                                  Delete
+                                </button>
+                              </mat-menu>
+
+                            </td>
+                          </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                >
+            </tr>
+          </table>
+          </div>
+    </div>
+    </div>
+</div>

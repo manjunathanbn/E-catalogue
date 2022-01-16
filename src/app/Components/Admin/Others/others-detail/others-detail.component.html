@@ -1,0 +1,181 @@
+<div>
+    <div class="sp-btn">
+        <h2> Add New</h2>
+        <div>
+            <button class="mr-20" mat-raised-button (click)="goBack()" > Cancel</button>
+            <button class="" mat-raised-button color="primary" (click)="saveToList()" > Save</button>
+        </div>
+    </div>
+    <div class="flx pCls">
+      <div class="dispCol mpb-10">
+        <label for="cat">TYPE</label>
+        <select name="typ" id="typ" [(ngModel)]="typeId" (change)="onTypChange($event.target.value)">
+            <option value="-1">Select Type </option>
+            <option *ngFor="let ty of typeList" [value]="ty.id">{{ty.name}}</option>
+        </select>
+    </div>
+      <div class="dispCol mpb-10">
+          <label for="cat">Menu</label>
+          <select name="cat" id="cat" [(ngModel)]="MenuID" (change)="onSubChange($event.target.value)">
+              <option value="">Select Menu</option>
+              <option *ngFor="let op of menuList" value="{{op.CATEGORY_ID}}">{{op.CATEGORY_NAME}}</option>
+          </select>
+      </div>
+      <div class="dispCol mpb-10"  *ngIf = "typeId == 2">
+          <label for="mod">Sub Menu</label>
+          <select name="mod" id="mod" [(ngModel)]="SubMenuId" (change)="onmodelChang()">
+              <option value="">Select Sub Menu</option>
+              <option *ngFor="let sub of submenuList" value="{{sub.MODEL_ID}}">{{sub.MODEL_NAME}}</option>
+          </select>
+      </div>
+      <div class="dispCol mpb-10"  *ngIf = "typeId == 3">
+        <label for="mod">Sub Menu</label>
+        <select name="mod" id="mod" [(ngModel)]="KitModel" (change)="onmodelChang()">
+            <option value="">Select model</option>
+            <option *ngFor="let sub of submenuList" value="{{sub.MID}}">{{sub.MODEL}}</option>
+        </select>
+    </div>
+      <div class="dispCol mpb-10" *ngIf="typeId == 3">
+        <label for="mod">Model Applicable</label>
+        <select name="mod" id="mod" [(ngModel)]="SubmodTyp1" (change)="onSubMenuChange($event.target.value)">
+            <option value="">Select Model</option>
+            <option *ngFor="let sub of kitpartLst" value="{{sub.MODEL_APPL}}">{{sub.MODEL_APPL}}</option>
+        </select>
+    </div>
+    <div class="dispCol mpb-10" *ngIf="typeId == 3">
+      <label for="mod">Kit Name</label>
+      <select name="mod" id="mod" [(ngModel)]="kitmodid" (change)="onKitSelect($event)">
+          <option value="">Select Kit</option>
+          <option *ngFor="let kit of KitPartlist" value="{{kit.KIT_ID}}">{{kit.KIT_PART_NO}} - {{kit.KIT_DESCRIPTION}}</option>
+      </select>
+  </div>
+    </div>
+    <div class="brClass" *ngIf="typeId">
+      <div>      
+          
+          <mat-form-field class="example-full-width m-10">
+            <mat-label>Part No</mat-label>
+            <input matInput placeholder="Part No" [(ngModel)]="newList.partNo" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10">
+            <mat-label>Part Desc</mat-label>
+            <input matInput placeholder="Desc" [(ngModel)]="newList.partDesc" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId==2">
+            <mat-label>Model</mat-label>
+            <input matInput placeholder="Model" [readonly]="oReadonly" [(ngModel)]="SubMenuId">
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId==3">
+            <mat-label>Kit Model</mat-label>
+            <input matInput placeholder="Model" [readonly]="KitModel" [(ngModel)]="KitModel">
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId==2">
+            <mat-label>Cluster</mat-label>
+            <input matInput placeholder="Cluster" [(ngModel)]="newList.ClustorId">
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId==3">
+            <mat-label>Model Applicable</mat-label>
+            <input matInput placeholder="Cluster" [readonly]="SubmodTyp1"[(ngModel)]="SubmodTyp1">
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId==3">
+            <mat-label>Kit No</mat-label>
+            <input matInput placeholder="Kit No" [readonly]="oReadonly" [(ngModel)]="newList.kitNo" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId==3">
+            <mat-label>Kit Desc</mat-label>
+            <input matInput placeholder="Desc" [readonly]="oReadonly" [(ngModel)]="newList.kitDesc" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId==3">
+            <mat-label>Qty</mat-label>
+            <input matInput placeholder="Stock"  [(ngModel)]="newList.stk">
+          </mat-form-field>
+          <!-- <mat-form-field class="example-full-width m-10" *ngIf="typeId!=2">
+            <mat-label>Part Name</mat-label>
+            <input matInput placeholder="Part Name" [(ngModel)]="newList.partName" >
+          </mat-form-field> -->
+          <!-- <mat-form-field class="example-full-width m-10" *ngIf="typeId==1">
+            <mat-label>Capacity</mat-label>
+            <input matInput placeholder="Capacity" [(ngModel)]="newList.capacity" >
+          </mat-form-field> -->
+          <!-- <mat-form-field class="example-full-width m-10" *ngIf="typeId==1">
+            <mat-label>MRP</mat-label>
+            <input matInput placeholder="MRP" [(ngModel)]="newList.mrp" >
+          </mat-form-field>          
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId!=1 && typeId!=2">
+            <mat-label>Q/V</mat-label>
+            <input matInput placeholder="Q/V" [(ngModel)]="newList.qv" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId!=2">
+            <mat-label>NDP</mat-label>
+            <input matInput placeholder="NDP"  [(ngModel)]="newList.ndp">
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId!=1 && typeId!=2">
+            <mat-label>MOQ</mat-label>
+            <input matInput placeholder="MOQ" [(ngModel)]="newList.moq" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId!=1 && typeId!=2">
+            <mat-label>VAL</mat-label>
+            <input matInput placeholder="VAL"  [(ngModel)]="newList.val">
+          </mat-form-field>
+          <mat-form-field class="example-full-width" *ngIf="typeId!=1 && typeId!=2">
+            <mat-label>Remarks</mat-label>
+            <textarea matInput placeholder="Remarks" [(ngModel)]="newList.remarks"></textarea>
+          </mat-form-field>
+          <mat-form-field class="example-full-width m-10" *ngIf="typeId==2 && typeId!=2">
+            <mat-label>Stock</mat-label>
+            <input matInput placeholder="Stock"  [(ngModel)]="newList.stk">
+          </mat-form-field>
+           -->
+           <div class="example-full-width m-10" *ngIf="typeId==2">           
+              <input #Image class="btn"   type="file" id="file"(change)="handleFileInput($event.target.files)">
+              <button (click)="onUpload()">Upload!</button>
+          </div>  
+      </div>     
+       
+          <div class="flx mb-25" *ngIf="typeId==1">
+            <!-- <div  class="col-12 rmpm dropzone bNone" appDrag (files)="filesDropped($event,i)" *ngIf="!files.length">
+              <div class="text-wrapper" >
+            <label for=""> Main Image </label>
+                <div class="centered">
+                      <mat-icon class="fs-30 iconCls">cloud_upload_outline</mat-icon>
+                     <span> Drop your file here! </span>
+                     <span> Or </span>
+                     <div class="upload-btn-wrapper">
+                      <button class="btn">Browse a file</button>
+                      <input type="file" name="myfile" (change)="filesDropped($event,1)" />
+                    </div>
+              </div>
+              </div>
+          </div> -->
+          <div class="upload-btn-wrapper" >
+            <label for=""> Upload Main Image   </label>
+            <button class="clrbtn" class="btn">Upload</button>
+            <input type="file" name="myfile2"  />
+          </div>
+          <img *ngIf="files.length" src="{{files[0].url}}" alt="">
+          <!-- <div  class="col-12 rmpm dropzone bNone" appDrag (files)="filesDropped($event,2)" *ngIf="!files2.length">
+
+            <div class="text-wrapper pl-30" >
+            <label for=""> Promo Image </label>
+
+                <div class="centered">
+                    <mat-icon class="fs-30 iconCls">cloud_upload_outline</mat-icon>
+                   <span> Drop your file here! </span>
+                   <span> Or </span>
+                   <div class="upload-btn-wrapper">
+                    <button class="btn">Browse a file</button>
+                    <input type="file" name="myfile" (change)="filesDropped($event,i)" />
+                  </div>
+                  </div>
+            </div>
+        </div> -->
+        <div class="upload-btn-wrapper pl-30" >
+          <label for=""> Upload Promo Image   </label>
+          <button class="clrbtn" class="btn">Upload</button>
+          <input type="file" name="myfile3"  />
+        </div>
+        <img *ngIf="files2.length" src="{{files2[0].url}}" alt="">
+          </div>          
+    </div>
+    <img id="blah" with="200" height="250" *ngIf="imageSrc" [src]="imageSrc" alt="" />
+</div>

@@ -1,0 +1,30 @@
+<!-- <div style="position: relative; top: 10px">
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+  </div> -->
+
+
+
+  <div class="app mat-typography bkCls" [dir]="options.dir" [ngClass]="{'app-dark': options.dark, 'boxed': options.boxed, 'collapsed-sidebar': options.collapsed, 'compact-sidebar': options.compact, 'side-panel-opened': sidePanelOpened, 'side-panel-closed': !sidePanelOpened }">
+    <app-header (toggleSidenav)="sidemenu.toggle()" (toggleviewCart)="notifications.toggle()" ></app-header>
+    <mat-sidenav-container class="app-inner">
+      <mat-sidenav #sidemenu class="sidebar-panel" id="sidebar-panel" [mode]="isOver() ? 'over' : 'side'" [opened]="!isOver()"  [style.width]="dynTransform"
+      [style.visibility]="visiblity"
+        (openedStart)="sidePanelOpened = true;openedChange()" (closedStart)="sidePanelOpened = false;closedStart()" (mouseover)="menuMouseOver()" (mouseout)="menuMouseOut()"
+         >
+        <app-sidebar (click)="updatePS()"></app-sidebar>
+      </mat-sidenav>
+
+      <mat-sidenav #notifications position="end" class="chat-panel" mode="over" opened="false" (opened)="onOpen()"
+      (closed)="onClose()" [autoFocus]="false">
+      <app-view-cart ></app-view-cart>
+    </mat-sidenav>
+
+      <div >
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-container>
+  </div>
+  
+  

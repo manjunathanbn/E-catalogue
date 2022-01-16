@@ -1,0 +1,43 @@
+  <!-- <div class="flex center">
+    
+    <img  class="backImag cur_point"  src="assets/Images/backSimple.png" alt="">
+    <h4  class="posTop cur_point">Back</h4>
+  </div> -->
+  <div class="flex center jusSapace">
+
+    <div class="flex center">
+        <h2>My Orders</h2>
+    </div>
+    <div class="posR">     
+      <img  class="backImag cur_point" style="height: 50px;" (click)="goBack()" src="assets/Images/backSimple.png" alt="">
+      <h4  class="posTop cur_point" (click)="goBack()">Home</h4>
+    </div>
+  </div>
+
+<div [style.overflow]="'auto'" [style.height.px]="'650'">
+    <div *ngFor="let ord of ordersList;let i=index" class="mainBloc mCol" (mouseover)="currentIndex=i" [ngClass]="i==currentIndex?'active':''" (click)="gotoDetail(ord.ORDER_ID)" >
+        <div class="col-md-4 col-sm-12 flxFlow">
+            <img class="prodImg" src="{{ord.image}}" onerror="this.src='assets/Images/geniuneLogo.png'"  alt="alternative">
+            <div class="flxCol">
+                <span>Int PO-NO : {{ord.ORDER_ID}} </span>
+                <span>Online PO-NO : {{ord.SAP_ORD_NO}} </span>
+                <small>Seller : T.V.S </small>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 cntr"> 
+            <!-- <h4>Total Value : {{ord.TOT_VAL | currency:'INR':true}}</h4>
+            <small>Total Qty : {{ord.TOTPARTS}} </small> -->
+            <div class="flxCol">
+                <h4>Total Value : {{ord.TOT_VAL | currency:'INR':true}}</h4>
+                <small>Total Qty : {{ord.TOTPARTS}} </small>    
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="flxCntr">
+                <div class="statusBlock"></div> <span class="pl-15"> Delivered on {{ord.DelDate|date:'dd-MM-yyyy'}} </span>
+            </div>
+            <div> <small class="p-t"> your item has been processed to delivary</small> </div>
+            <div> <span class="p-t"> Satus : {{ord.STATUS == '1' ? "Updated" : "Pending"}} </span> </div>
+        </div>
+    </div>
+</div>

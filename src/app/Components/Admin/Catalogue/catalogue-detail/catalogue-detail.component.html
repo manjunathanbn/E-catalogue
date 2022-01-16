@@ -1,0 +1,129 @@
+<div *ngIf="pageSta">
+ <h2 class="p-10">Select Menu</h2>
+    <div class="flx pd">
+        <div class="pl-40">
+            <mat-form-field appearance="outline">
+                <label>Header List</label>
+                <mat-select  [(ngModel)]="mainMenu" name="main" class="stCls" (selectionChange)="files=[];onChange($event.value)" >
+                  <mat-option *ngFor="let lis of mainMenuList" [value]="lis">
+                    {{lis.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+            <div class="pl-40" >
+                <mat-form-field appearance="outline">
+                    <label>Menu Type</label>
+                    <mat-select  [(ngModel)]="subMenu" name="sub" class="stCls" (selectionChange)="checkImage($event)" >
+                      <mat-option *ngFor="let lis of menuListArry" [value]="lis">
+                        {{lis.DESCRIPTION}} / {{lis.MODEL_NAME}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="pl-40" *ngIf="mainMenu.name=='painted'">
+              <mat-form-field appearance="fill">
+                  <mat-label> Type</mat-label>
+                  <mat-select  [(ngModel)]="menuType" name="sub" class="stCls">
+                    <mat-option *ngFor="let lis of subMenu.type" [value]="lis.name">
+                      {{lis.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+          </div>
+          <div class="addBtn" *ngIf="nullimg == true">
+            <button mat-stroked-button color="primary" class="pr-10" [disabled]="disabled" (click)="uploadImage()" > <mat-icon>upload</mat-icon> Upload </button>            
+          </div>
+          <div class="addBtn" >            
+            <button mat-stroked-button color="primary" class="pr-10"  (click)="AddModels()" > <mat-icon>add</mat-icon> Add Models </button>
+          </div>
+    </div>
+    <div *ngIf="nullimg==true">   
+      <canvas [style.background-image]="'url(' + subMenu.IMAGE_LINK + ')'" id="canvas" width="850" height="650"  (click)="getPosition($event,subMenu)"></canvas>     
+    </div>
+<div *ngIf="nullimg == false" >
+  <div  class="col-12 rmpm dropzone" appDrag (files)="filesDropped($event)">
+    <div class="text-wrapper">
+      <div class="centered">
+              <mat-icon class="fs-30 iconCls">cloud_upload_outline</mat-icon>
+            <span> Drop your file here! </span> 
+            <span> Or </span>
+            <div class="upload-btn-wrapper">
+              <button class="btn">Browse a file</button>
+              <input type="file" name="myfile" (change)="filesDropped($event)" />
+            </div>
+          </div>
+    </div>
+  </div>
+  <!--droped image preview-->
+ 
+</div>
+<div *ngIf="mainMenu.name=='painted'" class="flx">
+  <div class="col-md-6 col-sm-12">
+    <div *ngIf="!files.length" class="col-12 rmpm dropzone" appDrag (files)="filesDropped($event)">
+      <div class="text-wrapper">
+        <div class="centered mrLess">
+                <mat-icon class="fs-30 iconCls">cloud_upload_outline</mat-icon>
+              <span> Drop your file here! </span> 
+              <span> Or </span>
+              <div class="upload-btn-wrapper">
+                <button class="btn">Browse a file</button>
+                <input type="file" name="myfile" (change)="filesDropped($event)" />
+              </div>
+            </div>
+      </div>
+    </div>
+    <div *ngIf="files.length" class="cntr">
+      <img [src]="files[0].url" alt="">
+    </div>
+  </div>
+  <div class="col-md-6 col-sm-12 p-30">
+    <div *ngFor="let lis of paintedarr.color;let i=index" class="brdr">
+      <mat-form-field class="example-full-width m-10">
+        <mat-label>Code</mat-label>
+        <input matInput placeholder="Code"  [(ngModel)]="lis.code">
+      </mat-form-field>
+      <mat-form-field class="example-full-width m-10">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name"  [(ngModel)]="lis.name">
+      </mat-form-field>
+      <div class="upload-btn-wrapper" *ngIf="!lis.url">
+        <button class="clrbtn">Choose Color</button>
+        <input type="file" name="myfile" (change)="onFileChange($event,i)" />
+      </div>
+      <div *ngIf="lis.url">
+        <img class="lisImg" [src]="lis.url" alt="">
+      </div>
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="after">
+          <button mat-menu-item (click)="addPart()" >
+            Add Parts
+           </button>
+          <button mat-menu-item >
+           Edit
+          </button>
+          <button mat-menu-item >
+            Block
+          </button>
+          <button mat-menu-item>
+            Delete
+          </button>
+        </mat-menu>
+
+      </div>
+    </div>
+    <div class="addBtn">
+      <button mat-raised-button color="primary" [disabled]="!files.length" (click)="moreColor()" > <mat-icon>add</mat-icon> Add Colour </button>
+    </div>
+  </div>
+</div>
+</div>
+<div *ngIf="!pageSta">
+  <app-cat-subparts (statusEvent)="changeStatus($event)"></app-cat-subparts>
+</div>
+
+
+

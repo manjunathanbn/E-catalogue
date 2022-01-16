@@ -1,0 +1,213 @@
+<div class="headerPad">
+    <div class="clusterHead">
+        <h2>Part Search</h2>
+    </div>
+    <div class="mat-elevation-z8">
+        <div class="dispFlx mobCol">
+            <!-- <div class="dispCol mpb-10">
+                <label for="cat">SEGMENT</label>
+                <select name="cat" id="cat" [(ngModel)]="CatID" (change)="getModelwise($event.target.value)">
+                    <option value="">Select segment</option>
+                    <option value="{{cat.ID}}" *ngFor="let cat of responseData.CCategory;let i=index">{{cat.name}}</option>
+                </select>
+            </div> -->
+
+            <!-- <div class="dispCol mpb-10">
+              <mat-form-field >
+                <label for="cat">SEGMENT</label>
+                  <mat-select (selectionChange)="getModelwise($event.target.value)"  [(ngModel)]="CatID" name="cat" id="cat" appearance="outline">                 
+                   <mat-option>Select segment</mat-option>
+                   <mat-option *ngFor="let cat of responseData.CCategory;let i=index" [value]="cat.ID">{{cat.name}}</mat-option>
+                 </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="dispCol mpb-10">
+              <mat-form-field>
+                <label for="mod">MODEL</label>
+                  <mat-select (selectionChange)="getserieswise($event)" [(ngModel)]="series" name="mod" id="mod">                 
+                   <mat-option>Select Model</mat-option>
+                   <mat-option *ngFor="let mod of responseData.CModel;let i=index" [value]="mod.ID">{{mod.name}}</mat-option>
+                 </mat-select>
+                </mat-form-field>
+            </div> -->
+            
+            <!-- <div class="dispCol mpb-10" >
+                <label for="part">Part Search</label>
+                <select name="mod" id="part" [(ngModel)]="PartId" (change)="getPartSearch($event)">
+                    <option value="">Part Desc</option>
+                    <option value="{{pr.PartNo}}" *ngFor="let pr of responseData.PartsLst;let i=index">{{pr.PartNo}}</option>
+                </select>
+            </div>   -->
+            <!-- <div class="dispCol mpb-10">
+              <mat-form-field>
+                <label for="mod">Parts No Search</label>
+                  <mat-select style="min-width: 0px;" (selectionChange)="getPartSearch($event.value)" [(ngModel)]="PartId">
+                    <input style="width: 200px;" #myinput type="text" (keyup)="onKey($event.target.value)" > 
+                   <mat-option>None</mat-option>
+                   <mat-option *ngFor="let state of FinalList" [value]="state">{{state.PartNo}}</mat-option>
+                 </mat-select>
+                </mat-form-field>
+            </div>  -->
+            <!-- <div class="dispCol mpb-10">
+              <mat-form-field>
+                <label for="mod">Parts Name Search</label>
+                  <mat-select (selectionChange)="getPartNameSearch($event.value)" [(ngModel)]="PartId">
+                    <input style="width: 250px;" type="text"   (keyup)="onKeyname($event.target.value)" cdkFocusInitial > 
+                   <mat-option>None</mat-option>
+                   <mat-option *ngFor="let state of FinalList" [value]="state">{{state.PartDescription}}</mat-option>
+                 </mat-select>
+                </mat-form-field>
+            </div>  -->
+            <form class="example-form">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <!-- <label>Parts No Search</label> -->
+                <input style="font-size: 14px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" type="text"
+                       placeholder="Search Part NO"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="pcontrol"
+                       [(ngModel)]="PartId"                       
+                       [matAutocomplete]="autoPart">
+                <mat-autocomplete #autoPart="matAutocomplete" (optionSelected)="getPartSearch($event)" [displayWith]="getOptionPart">
+                  <mat-option *ngFor="let state of filteredPartNo | async" [value]="state">
+                    {{state.PartNo}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field> 
+              </form>
+              <form class="example-form">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <!-- <label>Parts Name Search</label> -->
+              <input style="font-size: 14px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" type="text"
+                     placeholder="Search Part Name"
+                     aria-label="Number"
+                     matInput
+                     [formControl]="control" 
+                     [(ngModel)]="PartId"                                        
+                     [matAutocomplete]="auto">                     
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="getPartSearch($event)" [displayWith]="getOptionText">
+                <mat-option *ngFor="let state of filteredOptions | async" [value]="state">
+                  {{state.PartDescription}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>            
+          </form>       
+              <!-- <div class="dispCol mpb-10" id="partno">
+                <form class = "tp-form">
+                  <mat-form-field class = "tp-full-width">
+                    <mat-select (selectionChange)="getPartSearch($event.value)" [(ngModel)]="PartId">
+                      <input (keyup)="onKey($event.target.value)" > 
+                     <mat-option>None</mat-option>
+                     <mat-option *ngFor="let option of FinalList" [value]="state">{{option.PartNo}}</mat-option>
+                   </mat-select>
+                  </mat-form-field>  
+               </form>
+              </div> -->
+            <!-- <div class="posR mpb-10">
+              <button class="" mat-raised-button color="primary"> <mat-icon>search</mat-icon>Search</button>
+            </div> -->           
+        </div>
+        <!-- <div>
+          <label class="lblwrng">* Enter 2 to 3 Character To search the Parts</label>
+        </div> -->
+        <div class="dispFlx mobCol">
+          <form class="example-form">
+            <label>Parts No</label>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input style="font-size: 14px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" type="text"
+              matInput placeholder="Part No" name="PartNo" [(ngModel)]="PartName.PartNo" >              
+            </mat-form-field> 
+            </form>
+            <form class="example-form">
+              <label>Description</label>
+              <mat-form-field class="example-full-width" appearance="outline">
+                <input style="font-size: 14px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" type="text"
+                matInput placeholder="Part Name" name="Name" [(ngModel)]="PartName.PartDescription" >             
+              </mat-form-field> 
+              </form>
+              <form class="example-form">
+                <label>NDP</label>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <input style="font-size: 14px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" type="text"
+                  matInput placeholder="NDP" name="NDP" [(ngModel)]="PartName.NDP" >             
+                </mat-form-field> 
+                </form>
+                <form class="example-form">
+                  <label>MRP</label>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input style="font-size: 14px;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" type="text"
+                    matInput placeholder="MRP" name="MRP" [(ngModel)]="PartName.MRP" >             
+                  </mat-form-field> 
+                  </form> 
+        
+          <!-- <mat-form-field  class="example-full-width" appearance="outline">
+            <mat-label style="font-size: 12px;">Description</mat-label>
+            <input matInput placeholder="Part Name" name="Name" [(ngModel)]="PartName.PartDescription">
+          </mat-form-field> -->
+          <!-- <mat-form-field  class="example-full-width" appearance="outline">
+            <mat-label style="font-size: 12px;">NDP</mat-label>
+            <input matInput placeholder="NDP" name="NDP" [(ngModel)]="PartName.NDP">
+          </mat-form-field> -->
+          <!-- <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label style="font-size: 12px;">MRP</mat-label>
+            <input matInput placeholder="MRP" name="MRP" [(ngModel)]="PartName.MRP">
+          </mat-form-field> -->
+        </div>         
+      </div>
+   </div>  
+   <div>
+    <label style="margin-left:20px">Applicable Model</label>
+      <div class="example-container mat-elevation-z8" [perfectScrollbar]="config" style="margin: 0px 20px 0px 20px; overflow: auto; max-height: 375px;">
+        
+         <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabWith">   
+              <ng-container  matColumnDef="SEGMENT_ID">
+                <th  mat-header-cell *matHeaderCellDef>SEGMENT_ID</th>
+                <td mat-cell *matCellDef="let element"> {{element.SEGMENT_ID}} </td>
+              </ng-container>
+          
+            
+              <ng-container  matColumnDef="SEGMENT_NAME">
+                <th mat-header-cell *matHeaderCellDef>SEGMENT_NAME</th>
+                <td mat-cell *matCellDef="let element"> {{element.SEGMENT_NAME}} </td>
+              </ng-container>
+          
+            
+              <ng-container  matColumnDef="SERIES_ID">
+                <th mat-header-cell *matHeaderCellDef> SERIES_ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.SERIES_ID}} </td>
+              </ng-container> 
+              <ng-container matColumnDef="SERIES_NAME">
+                <th mat-header-cell *matHeaderCellDef> SERIES_NAME </th>
+                <td mat-cell *matCellDef="let element"> {{element.SERIES_NAME}} </td>
+              </ng-container> 
+              <ng-container  matColumnDef="MODEL_ID">
+                <th mat-header-cell *matHeaderCellDef> MODEL_ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.MODEL_ID}} </td>
+              </ng-container>
+              <ng-container matColumnDef="MODEL_NAME">
+                <th mat-header-cell *matHeaderCellDef> MODEL_NAME </th>
+                <td mat-cell *matCellDef="let element"> {{element.MODEL_NAME}} </td>
+              </ng-container> 
+              <ng-container matColumnDef="VARIENT">
+                <th mat-header-cell *matHeaderCellDef> VARIENT </th>
+                <td mat-cell *matCellDef="let element"> {{element.VARIENT}} </td>
+              </ng-container> 
+              <ng-container matColumnDef="ASSEMBLY">
+                <th mat-header-cell *matHeaderCellDef> ASSEMBLY</th>
+                <td mat-cell *matCellDef="let element"> {{PartName.PartDescription}} </td>
+              </ng-container>    
+              <ng-container matColumnDef="QV">
+                <th mat-header-cell *matHeaderCellDef> QV</th>
+                <td mat-cell *matCellDef="let element"> {{element.QV}} </td>
+              </ng-container> 
+              <ng-container matColumnDef="REMARKS">
+                <th mat-header-cell *matHeaderCellDef> REMARKS</th>
+                <td mat-cell *matCellDef="let element"> {{element.REMARKS}} </td>
+              </ng-container>      
+              <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true" [style.min-height]="0"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+    </div>
+</div>

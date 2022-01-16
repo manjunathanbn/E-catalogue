@@ -1,0 +1,99 @@
+
+<div class="bCls mCls" style="overflow: hidden;height: 450px;">    
+    <div class="hCls">
+        <!-- <h2>Part Search</h2>                 -->
+        <!-- <mat-icon class="cartIcon cur_point" [mat-dialog-close]="false">close</mat-icon> -->
+      </div>     
+    <mat-tab-group mat-align-tabs="start">                      
+        <mat-tab *ngIf="!adminrol" label="Add New"  >  
+            <form class="example-form">
+                <div style="display: table;margin-inline: 68px; ">
+                    <label>Subject</label>
+                    <mat-form-field class="example-full-width;" style="margin-left: 17px; width: 527px;" appearance="outline">
+                      <input style="font-size: 14px;"
+                      matInput placeholder="Enter Headline" [(ngModel)]="subject" name="subject" >              
+                    </mat-form-field> 
+                </div>
+            </form>
+            <form class="example-form" *ngIf="type != 'feedback'">
+                <div style="display: flex;margin-inline: 68px;">
+                    <label>Remarks</label>
+                    <!-- <mat-form-field class="example-full-width" style="margin-left: 10px; width: 527px;"  appearance="outline">
+                        <input style="font-size: 14px;"
+                      matInput placeholder="Enter Headline" [(ngModel)]="remarks" name="remarks" >  
+                      </mat-form-field> -->
+                    <!-- <textarea style="margin-left: 10px;width: 527px;height: 252px; resize: none;" [(ngModel)]="remarks" name="remarks" maxlength="500"  wrap="soft" placeholder="Enter Remarks"> </textarea>
+                     -->
+                     <!-- <angular-editor (input)="showHTML()" [(ngModel)]="htmlContent" [config]="config"></angular-editor> -->
+                     <angular-editor style="margin-left: 10px;width: 527px;height: 282px; resize: none;" [(ngModel)]="remarks" name="remarks" [config]="config"></angular-editor> 
+                </div> 
+                <!-- <div class="container">                   
+                                         
+                </div>                -->
+            </form>
+            <form class="example-form" *ngIf="type == 'feedback'">
+              <div style="display: flex;margin-inline: 68px;">
+                  <label>Remarks</label>
+                  <textarea style="margin-left: 10px;width: 527px;height: 150px; resize: none;" [(ngModel)]="remarks" name="remarks" [readonly]="true" maxlength="500"  wrap="soft" placeholder="Enter Remarks"> </textarea>                 
+                   <!-- <angular-editor style="margin-left: 10px;width: 527px;height: 140px; resize: none;" [(ngModel)]="remarks" name="remarks" [config]="config"></angular-editor>  -->
+              </div>
+              <div style="display: flex;margin-inline: 68px;">
+                <label>Replies</label>
+                <textarea style="margin-left: 21px;width: 527px;height: 126px; resize: none;" [(ngModel)]="Replies" name="Replies" maxlength="500"  wrap="soft" placeholder="Replay"> </textarea>                              
+                 <!-- <angular-editor style="margin-left: 10px;width: 527px;height: 14px; resize: none;" [(ngModel)]="Replies" name="Replies" [config]="config"></angular-editor>  -->
+              </div>             
+          </form>
+            <div class="cntr">
+                <button mat-stroked-button color="primary" class="pr-10" *ngIf="type != 'feedback'" (click)="SaveEnter(0)" > <mat-icon>save</mat-icon>Save</button>
+                <mat-form-field class="example-full-width" *ngIf="type == 'feedback'" appearance="outline">    
+                  <mat-select placeholder="Select Update" [(ngModel)]="status" (selectionChange)="SaveEnter(1)">
+                      <mat-option value="1">open</mat-option>
+                      <mat-option value="2">Pending</mat-option>
+                      <mat-option value="3">Close</mat-option>
+                  </mat-select>                       
+                </mat-form-field>
+                <!-- <button mat-stroked-button color="primary" class="pr-10" *ngIf="type == 'feedback'" (click)="SaveEnter(1)" > <mat-icon>update</mat-icon>Update</button> -->
+                <button mat-stroked-button color="primary" class="pr-10" (click)="ClearAll()"><mat-icon>clear_all</mat-icon>Clear</button>
+                <button mat-stroked-button color="primary" class="pr-10" [mat-dialog-close]="false" ><mat-icon>cancel</mat-icon>Close</button>
+            </div>  
+        </mat-tab>
+        <mat-tab *ngIf="adminrol" label="ReviewList">
+            <div style="margin: 10px; height: 335px; overflow-y: auto;">
+                <mat-accordion class="example-headers-align" multi>
+                    <mat-expansion-panel *ngFor="let cart of cartList;let i=index"  hideToggle>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title class="dispCol">
+                            <small class="labWt">Subject : </small>
+                            <small> {{cart.SUBJECT}} </small>
+                        </mat-panel-title>
+                        <mat-panel-title class="dispRow">
+                            <div class="dispCol" style="margin-inline-start: auto;">
+                                <small class="labWt">Status : </small>
+                                <small> {{cart.STATUS == 1?"OPEN":"PENDING"}} </small>
+                            </div>
+                          <!-- <mat-icon class="dltCls">delete</mat-icon> -->
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                  
+                      <div class="flex">
+                        <div class="labCls">
+                            <label for=""> Remarks </label>
+                        </div>
+                          <div class="valCls">
+                             <span class="">
+                                <textarea class="clstxt" [(ngModel)]="cart.DESCRIPTION" name="remarks" maxlength="500" (readonly)="true" wrap="soft" placeholder="Enter Remarks"> </textarea> </span>
+                                <span class="">
+                                  <textarea class="clstxt" [(ngModel)]="cart.DESCRIPTION" name="remarks" maxlength="500" (readonly)="true" wrap="soft" placeholder="Enter Remarks"> </textarea> </span>  
+                            </div>
+                      </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div class="cntr">
+                <button mat-stroked-button color="primary" class="pr-10" (click)="ExportExcel()" > <mat-icon>download</mat-icon>Download</button>
+                <button mat-stroked-button color="primary" class="pr-10" [mat-dialog-close]="false" ><mat-icon>cancel</mat-icon>Close</button>
+            </div>  
+        </mat-tab>
+      </mat-tab-group>
+          
+</div>

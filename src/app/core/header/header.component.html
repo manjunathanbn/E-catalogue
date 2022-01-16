@@ -1,0 +1,77 @@
+<mat-toolbar class="main-header pl-0" color="primary">
+  <div class="headMain">
+
+        <div class="flex align-middle  hpx-64 bg-white" [ngClass]="menuToggle?'wmpx-48':'wmpx-240'">
+          <div   class="cursor" (click)="toggleSidenav.emit();clickedFun()">
+              <img  class="pl-30 cur_point wt-25" src="assets/Images/menu.png">
+        
+          </div>
+          <div class="flex center mFlex">
+            <div class="branding ">
+              <div class="logo">  <img class="mBottom" src="assets/Images/tvs-logo.png" style="padding: 14px 11px;" alt=""> </div>
+            </div>
+        
+            <div class="search-bar  titleDiv mpos" fxFlex *ngIf="currentTittle!='accessory'">
+              {{currentTittle | titlecase}}
+            </div>
+           
+            <section class="example-section pl-50">
+              <mat-slide-toggle (change)="roleChanged()" [(ngModel)]="isChecked" [disabled]='true' name="sel"
+                  class="example-margin"
+                  [color]="color"
+                  >
+                Admin
+              </mat-slide-toggle>
+            </section>
+          </div>
+        </div>
+    
+    
+    <div style="margin-left: 310px;mix-blend-mode: exclusion;">
+    <button  (click)="myFeedbck()" mat-icon-button  class="ml-xs overflow-visible userBlock"  *ngIf="!isChecked">
+      <mat-icon class="cartIcon">feedback</mat-icon>
+      <span style="font: 500 15px/32px Roboto, Helvetica Neue, sans-serif; letter-spacing: normal;">FeedBack Entry</span>
+    </button>
+    </div>  
+    <button  (click)="goToCart()" mat-icon-button  class="ml-xs overflow-visible userBlock posCls" *ngIf="!isChecked">
+      <mat-icon class="cartIcon"  [matBadge]="cartCount" matBadgeColor="warn" ng-if="!cartCount == 'null'">shopping_cart</mat-icon>
+      View Cart
+    </button>
+    
+  </div>
+    
+    <div class="headerIcons">
+      <button [matMenuTriggerFor]="user" mat-icon-button class="ml-xs" *ngIf="!isChecked">
+        <mat-icon>person</mat-icon>
+      </button>
+      <mat-menu #user="matMenu" x-position="before" class="myMenu" >
+        <label for="" class="bold_f-16 headPadUser f-12"> Profile </label>
+        <div class="userDetailBlock">
+          
+          <div class="userLabDiv f-12">
+            <label for=""> Name </label>
+            <label for=""> DealerID </label> 
+          </div>
+          <div class="userDetDiv f-12">
+            <span>  <small>: &nbsp; </small>  <span class="namePadSpan">{{Name}} </span>  </span>
+            <span> <small>: &nbsp; </small> <span class="namePadSpan rolePad"> {{DealerCode}} </span>  </span>
+          </div>
+        
+        </div>
+
+        <button class="ordTxt f-12" mat-menu-item (click)="myOrders();toggleSidenav.emit()" >
+          My orders
+        </button>
+        <!-- <button class="ordTxt f-12" mat-menu-item (click)="myFeedbck();toggleSidenav.emit()" >
+          FeedBack Entries
+        </button> -->
+        <!-- <button mat-menu-item >
+          <mat-icon>exit_to_app</mat-icon>
+          Sign Out
+        </button> -->
+      </mat-menu>
+    </div>
+    <img  src="assets/Images/geniuneLogo.png" style="width: 50px;height: 50px; position: relative; padding: 0px 13px 0px 5px" alt="">
+  
+  </mat-toolbar>
+  

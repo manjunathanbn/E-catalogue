@@ -1,0 +1,66 @@
+.cntr{
+    text-align: center;
+    padding: 6px;
+}
+.pr-10{
+    margin-right: 10px;
+    border: 1px solid rgb(97, 97, 157) !important;
+}
+.header {  
+    margin-top: 100px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .html-header {
+    margin: 15px 0 5px;
+  }
+  
+  .html {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: #f1f1f1;
+    min-height: 20px;
+    max-height: 10rem;
+    overflow: auto;
+  }
+ 
+
+::ng-deep .angular-editor-toolbar-set {
+    .block-label {
+      display: none;
+    }
+  }
+ 
+  ::ng-deep .angular-editor-button[title='Subscript'],
+  ::ng-deep .angular-editor-button[title='Insert Link'],
+  ::ng-deep .angular-editor-button[title='Superscript'],
+  ::ng-deep .angular-editor-button[title='Text Color'],
+  //::ng-deep .angular-editor-button[title='Insert Image'],
+  ::ng-deep .angular-editor-button[title='Background Color'],
+  ::ng-deep .angular-editor-button[title='Custom Style'],
+  ::ng-deep .angular-editor-button[title='Insert Video'],
+  ::ng-deep .angular-editor-button[title='Horizontal Line'],
+  ::ng-deep .angular-editor-button[title='Clear Formatting'],
+  ::ng-deep .angular-editor-button[title='HTML Code'],
+  ::ng-deep .angular-editor-button[title='Font Name'],
+  ::ng-deep .angular-editor-button[title='Font Size'],
+  ::ng-deep #fontSizeSelector-,
+  ::ng-deep #fontSelector-,
+  ::ng-deep #heading-,
+  ::ng-deep #unlink-,
+
+  
+  
+  ::ng-deep #customClassSelector- {
+    display: none;
+  }
+  .clstxt{
+    margin-left: 10px;
+    width: 280px;
+    height: 52px; 
+    resize: none;
+  }
+//   ::ng-deep .angular-editor-textarea{
+//       display:none
+//   }

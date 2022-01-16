@@ -1,0 +1,75 @@
+<div *ngIf="cartData.length">
+    
+    <div class="flx p-15 bgClr mCol mp-5" >
+        <div class="col-md-6 col-sm-12 listCls flx ">
+            <div class="p-20">
+                <h3>My Cart ({{cartData.length}})</h3>
+            </div>
+            <div class="srlDiv" [perfectScrollbar]="config">
+                <div *ngFor="let cart of cartData;let i=index;" class="lisPad flx">
+                    <div> 
+                        <img width="80px" src="{{cart.image}}" onerror="this.src='assets/Images/geniuneLogo.png'"  alt="alternative" > 
+                        <div>
+                            <!-- <label for="Qty">Quantity</label> -->
+                            <div class="flx"> 
+                                <mat-icon class="cartIcon cur_point" (click)="decrement(i)" [ngClass]="cart.ORDER_QTY<=1?'inactive':''"  >remove_circle_outline</mat-icon>
+                                <input class="wt-20 txCntr " [(ngModel)]="cart.ORDER_QTY" type="text">
+                                <mat-icon class="cartIcon cur_point" (click)="increment(i)" >add_circle_outline</mat-icon> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flxCol">
+                        <span class="nameCls" (click)="gotoDetail(i)" >{{cart.PART_NO}} - {{cart.DESCRIPTION}} </span>
+                        <span class="nameCls" >NDP : {{cart.NDP}} </span>
+                        <small class="nameCls"> Seller : TVS </small>
+                        <div class="t-30">
+                            <button mat-stroked-button  (click)="SaveLater(i)">Save For Later</button>
+                            <button mat-stroked-button  class="l-20 mt-10" (click)="removeCart(i)" >Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fxdCls wt mBlock">
+                <button mat-raised-button color="warn" (click)="CreateOrder()">Place Order</button>
+            </div>            
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="priceBlk mpt-10"> 
+             <div class="prHead">
+                 <h3> PRICE DETAILS </h3>
+             </div>   
+             <div class="sp-btn">
+                 <div class="prBdy">
+                     <label for=""> Price({{cartData.length}} Items) </label>                     
+                        <mat-label>Enter Coupon <button  matSuffix mat-icon-button aria-label="Clear">
+                            <mat-icon>local_offer</mat-icon>
+                          </button></mat-label> 
+                     <label for=""> Delivery Charges </label>
+                 </div>                 
+                 <div class="prBdy">
+                     <span> {{totalCartPrice| currency:'INR':true}} </span>                     
+                     <span>   <mat-form-field appearance="outline"><input matInput style="color: #417891;" [disabled]="true"  [(ngModel)]="couponDis" placeholder="Coupon Code" required> </mat-form-field>
+                      <button  matSuffix mat-icon-button aria-label="Clear" (click)="chkCoupon()">
+                        <mat-icon>verified</mat-icon>
+                      </button>
+                    </span>                      
+                      <span> {{deliveryFee| currency:'INR':true}} </span>
+                 </div> 
+                 
+             </div>
+             <div class="p-15">
+                 <div class="tBdy">
+                    <label for="">Total Amount</label>
+                    <span> {{totalCartPrice+deliveryFee | currency:'INR':true}} </span>
+                 </div>
+             </div>
+            </div>
+        </div>
+        <div class="mfxdCls mShow bHide mt-10">
+            <button mat-raised-button color="warn">Place Order</button>
+        </div>
+    </div>
+</div>
+<div *ngif="!cartData.length">
+    <h2> No Items Available in Cart </h2> 
+</div>

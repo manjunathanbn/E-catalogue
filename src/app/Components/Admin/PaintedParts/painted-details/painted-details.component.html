@@ -1,0 +1,185 @@
+<div *ngIf="pageSta">
+    <h2 class="p-10">Select Painted Details</h2>
+       <div class="flx pd">
+           <div class="">
+               <mat-form-field appearance="fill">
+                   <mat-label class="lblcolr">Header List</mat-label>
+                   <!-- (selectionChange)="onMenuChange(#event.target)" -->
+                   <mat-select  [(ngModel)]="mainMenu" name="main" (selectionChange)="onMenuChange($event)">                    
+                     <mat-option *ngFor="let lis of menuListArry" [value]="lis" >
+                       {{lis.CATEGORY_NAME}}
+                     </mat-option>
+                   </mat-select>
+                 </mat-form-field>
+           </div>
+               <div class="pl-40" >
+                   <mat-form-field appearance="fill">
+                       <mat-label class="lblcolr">Menu Type</mat-label>
+                       <mat-select  [(ngModel)]="subMenu1" name="sub" (selectionChange)="onSubChange($event)">
+                        <!-- <mat-option value="-1">Add New</mat-option> -->
+                         <mat-option *ngFor="let lis of subMenuList" [value]="lis">
+                           {{lis.SEGMENT_DESC}}
+                         </mat-option>
+                       </mat-select>
+                     </mat-form-field>
+               </div>
+               <div class="pl-40" *ngIf="subMenu1.IS_SUB_SEGMENT">
+                  <mat-form-field appearance="fill">
+                    <mat-label class="lblcolr"> Segment L1</mat-label>
+                    <mat-select [(ngModel)]="menuType" name="sub" [ngClass]="selected" (selectionChange)="onSubTypeChange($event)"> 
+                      <mat-option value="-1">Add New</mat-option>                       
+                        <mat-option *ngFor="let lis of MenuTypelst" [value]="lis"> {{lis.S_LEVEL_NAME}}
+                            <img with="30" height="25" src="{{lis.IMAGE}}">                
+                        </mat-option>                       
+                    </mat-select>
+                </mat-form-field>
+             </div>
+             <div class="pl-40" *ngIf="menuType.IS_SUB_SEGMENT" >              
+                <mat-form-field appearance="fill">
+                 <mat-label class="lblcolr">Segment L2</mat-label>
+                 <mat-select [(ngModel)]="segType" name="sub" [ngClass]="selected" (selectionChange)="getLevel2ModelColor($event.value.S_LEVEL,$event.value.S_LEVEL_NAME_L2)"> 
+                   <mat-option value="-1">Add New</mat-option>                       
+                     <mat-option *ngFor="let lis of SegmentLst" [value]="lis"> {{lis.S_LEVEL_NAME_L2}}
+                         <img with="30" height="25" src="{{lis.IMAGE}}">                
+                     </mat-option>                       
+                 </mat-select>
+             </mat-form-field>
+          </div>
+             <div class="pl-40" *ngIf="menuType != -1">
+             <mat-form-field appearance="fill">
+                 <mat-label class="lblcolr">Color</mat-label>
+                 <mat-select [(ngModel)]="subMenu" name="col" [ngClass]="selected" (selectionChange)="onModelSelect($event)">                        
+                  <mat-option value="-1">Add New</mat-option>
+                     <mat-option *ngFor="let lis of ColorList" [value]="lis"> {{lis.COLOR_DESC}}
+                         <img with="30" height="25"  src="{{lis.IMAGE_LINK}}">                
+                     </mat-option>                       
+                 </mat-select>
+             </mat-form-field>
+          </div>
+             <!-- <div class="addBtn">
+               <button mat-raised-button color="primary" (click)="moreColor()"> <mat-icon>add</mat-icon> Add Colors </button>
+             </div> -->
+       </div>        
+   <div class="flx">
+   <!-- <div *ngIf="!imgVar || imgVar == 'null' && !addColor">
+     <div class="col-md-6 col-sm-12">
+       <div class="col-12 rmpm dropzone" appDrag (files)="filesDropped($event)">
+         <div class="text-wrapper">
+           <div *ngIf="!files.length" class="centered mrLess">
+                  <mat-icon class="fs-30 iconCls" >cloud_upload_outline</mat-icon>
+                 <span> Drop your file here! </span> 
+                 <span> Or </span>
+                 <div class="upload-btn-wrapper">
+                   <button class="btn">Browse a Model file</button>
+                   <input type="file" name="myfile" (change)="filesDropped($event)" />                  
+                 </div>
+               </div>
+         </div>
+       </div>
+       <div *ngIf="files.length" class="cntr">
+         <img [src]="files[0].url" width="650" height="550" alt="">
+       </div>
+     </div>
+    </div> -->   
+   <div *ngIf="!addColor" class="col-md-6 col-sm-12 p-30">
+    <div><mat-label  class="lblcolr">New Model and Segment</mat-label></div> 
+       <div  class="brdr">              
+          <!-- <mat-form-field class="example-full-width m-10">
+            <mat-select placeholder="Levels">
+              <mat-option *ngFor="let le of Levels" [value]="le.id">
+                {{ le.level }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>-->
+          <mat-form-field class="example-full-width m-10">
+            <mat-label class="lblcolr" >Level Name</mat-label>
+            <input matInput placeholder="Level Name" [(ngModel)]="levelName" required="true">
+          </mat-form-field> 
+          <mat-form-field class="example-full-width m-10">
+            <mat-label class="lblcolr">Model ID</mat-label>
+            <input matInput placeholder="Model Id"   [(ngModel)]="ModelID" required="true" >
+          </mat-form-field>
+          <mat-form-field *ngIf="checked" class="example-full-width m-10">
+            <mat-label class="lblcolr">Level Name</mat-label>
+            <input matInput placeholder="Level Name 2"   [(ngModel)]="sLevel2" required="true" >
+          </mat-form-field>
+          <mat-checkbox [checked]="checked" [(ngModel)]="checked" class="lblcolr">Is Sub Segment</mat-checkbox>   
+          <div class="addBtn">
+            <button mat-raised-button color="primary" (click)="AddModels()"> <mat-icon>add</mat-icon> Add </button>
+          </div>     
+          <div class="addBtn" *ngIf="imageUrl && imgVar">
+            <button mat-raised-button color="blue" (click)="onBtnImgClick()"> <mat-icon>upload</mat-icon> Images </button>
+          </div> 
+        </div>                
+            <div class="" style="display:inline-flex" >                 
+              <div class="upload-btn-wrapper" style="padding-left: 25px">
+                <button class="btn" *ngIf="!imageUrl">Browse Segment file</button>                
+                <input #Image type="file" (change)="handleFileInput($event.target.files)"/>
+                <img width="100%" *ngIf="imageUrl"  [src]="imageUrl" class="image" >
+              </div>                      
+                 <div class="upload-btn-wrapper" style="padding-left: 75px;">
+                  <button class="btn" *ngIf="!imgVar">Browse Model file</button>
+                  <input #Image type="file" (change)="filesDropped($event.target.files)"/>
+                  <img width="100%" *ngIf="imgVar"  [src]="imgVar" class="image">
+                </div>                                           
+           </div>          
+     </div>
+     
+     <!-- <div *ngIf="addColor">          
+      <div class="col-md-6 col-sm-12">
+        <div class="upload-btn-wrapper">               
+           <div class="upload-btn-wrapper">
+            <button class="btn">Browse a Color Png Image</button>
+            <input #Image type="file" (change)="handlecolorInput($event.target.files)"/>
+            <img width="100%" *ngIf="Paintimage"  [src]="Paintimage" class="imgCls mBlock">
+          </div>               
+        </div>                    
+      </div>                     
+    </div>       -->
+     
+     <div *ngIf="addColor" class="col-md-6 col-sm-12 p-30">
+      <div><mat-label  class="lblcolr">Add Color Details </mat-label></div> 
+         <div  class="brdr">              
+            <mat-form-field class="example-full-width m-10">
+              <mat-label class="lblcolr" >Model ID</mat-label>
+              <input matInput placeholder="Model ID" [(ngModel)]="AddColorData.cModelId" required="true">
+            </mat-form-field> 
+            <mat-form-field class="example-full-width m-10">
+              <mat-label class="lblcolr">Color ID</mat-label>
+              <input matInput placeholder="Color ID"   [(ngModel)]="AddColorData.colorID" required="true" >
+            </mat-form-field>
+            <mat-form-field class="example-full-width m-10">
+              <mat-label class="lblcolr">Color Name</mat-label>
+              <input matInput placeholder="Color Name"   [(ngModel)]="AddColorData.colorNam" required="true" >
+              </mat-form-field>             
+            <div class="addBtn">
+              <button mat-raised-button color="primary" [disabled]="disable" (click)="AddColors()"> <mat-icon>add</mat-icon> AddColors </button>
+            </div>
+            <div class="addBtn" *ngIf="imageUrl">
+              <button mat-raised-button color="blue" (click)="onBtnImgClick()"> <mat-icon>upload</mat-icon> Images </button>
+            </div>    
+          </div> 
+          <div>          
+              <div class="" style="display:inline-flex" >                              
+                   <div class="upload-btn-wrapper" style="padding-left: 25px">
+                    <button class="btn">Browse a Color Icon </button>
+                    <input #Image type="file" (change)="colIconUpload($event.target.files)"/>
+                    <img width="50%" *ngIf="cIconImg"  [src]="cIconImg" class="image">
+                  </div>
+                  <div class="upload-btn-wrapper" style="padding-left: 75px;">
+                    <button class="btn" *ngIf="!imgVar">Browse Vehicle</button>
+                    <input #Image type="file" (change)="colVehUpload($event.target.files)"/>
+                    <img width="100%" *ngIf="Paintimage"  [src]="Paintimage" class="image">
+                  </div>           
+              </div>                     
+          </div>          
+       </div>
+    </div>    
+   </div>
+   <div *ngIf="!pageSta">
+     <app-cat-subparts (statusEvent)="changeStatus($event)"></app-cat-subparts>
+   </div>
+   
+   
+   
+   

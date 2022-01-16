@@ -1,0 +1,23 @@
+.srlDiv {
+    height: calc(100% - 100px);
+    position: relative;
+    background-repeat: no-repeat !important;
+}
+::ng-deep .tr.mat-header-row {
+    height: 35px !important;
+    background: rgb(194 212 246 / 87%) !important;
+}
+tr.mat-header-row {  
+    height: 35px !important;
+    background-color: #adbecb;        
+}
+tr.mat-row, tr.mat-footer-row {
+    height: 35px;
+}
+td.mat-cell, td.mat-footer-cell {
+    font-size: 10px;
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+}
+::ng-deep .mat-icon-button{
+    height: 34px;
+}

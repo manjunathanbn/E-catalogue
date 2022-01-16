@@ -1,0 +1,54 @@
+<div class="flex center">
+    <img (click)="goBack()" class="backImag cur_point" style="height: 80px;" src="assets/Images/backSimple.png" alt="">
+    <div class="nameDiv">
+        <span class="clrCls"><span (click)="goBack()" class="posTop cur_point fw-500">PO NO : {{orderDetail.ORDER_ID}}</span></span>
+        <span class="clrCls"><span class="posTop cur_point fw-500">Int PO-NO : {{orderDetail.SAP_ORD_NO}}</span></span>       
+    </div>
+    
+  </div>
+<div class="flx mainBlk mCol">
+    <div class="col-md-4 col-sm-10 flx cntr br">
+        <img class="imgCls" src="assets/Images/geniuneLogo.png" alt="">
+        <div class="nameDiv">
+            <span class="clrCls"> Purchase Order  </span>
+            <small> Seller : TVS </small>
+            <span>Total AMT : {{orderDetail?.TOT_VAL | currency:'INR':true}} </span >
+            <span> Ordered On : {{orderDetail?.PoDate | date : 'dd-MM-yyyy'}} </span>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-10 nameDiv br ">
+        <span class="fw-500"> Delivery Address </span>
+        <span> {{address.Name}} </span>
+        <span> {{address.Cust_add}}</span>
+        <span> {{address.City}}  </span>
+        <span> {{address.State}} - {{address.PinCode}} </span>
+        <span> Mobile Number : {{address.PhoneNO}} </span>
+    </div>
+    <div class="col-md-4 col-sm-10 thirdCol cntr">
+        <span class="fw-600"> Delivered On : {{orderDetail?.DelDate | date : 'dd-MM-yyyy'}} </span>
+        <span class="fw-600"> Status : {{orderDetail?.STATUS}} : Confirmed </span>
+        <div>
+           <span class="posClr"> Download Invoice </span>  <button mat-raised-button color="primary"> Download</button>
+        </div>
+    </div>
+</div>
+<div  [style.overflow]="'auto'" [style.height.px]="'350'">
+    <div class="fz-20 fw-500">Parts Details</div>
+    <!-- <h6 class="fz-20 fw-500">Parts List in this Order</h6> -->
+    <div  *ngFor="let ord of orderDetail.OrderDetails;let i=index" class="mainBloc mCol" (mouseover)="currentIndex=i" [ngClass]="i==currentIndex?'active':''">
+        <div class="col-md-4 col-sm-12 flxFlow">
+            <img class="prodImg" src="{{ord.image}}" alt="">
+            <div class="flxCol">
+                <span> {{ord?.PART_NO}} - {{ord?.DESCRIPTION}} </span>
+                <small>Seller : TVS </small>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 cntr"><h4>Price : {{ord.TOTAL_NDP | currency:'INR':true}}</h4> </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="flxCntr">
+                <div class="statusBlock"></div> <span class="pl-10">Qty : {{ord.ORDER_QTY}}</span>
+            </div>
+            <div> <small class="p-t"> your Item was Process to be Delivered </small> </div>
+        </div>
+    </div>
+</div>

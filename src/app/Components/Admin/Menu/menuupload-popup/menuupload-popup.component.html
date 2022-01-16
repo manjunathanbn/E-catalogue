@@ -1,0 +1,48 @@
+<div class="pd-20">   
+    <div>
+        <mat-form-field class="example-full-width m-10">
+            <mat-label>Header List</mat-label>
+            <mat-select  [(ngModel)]="serId" name="type" id="typ" >
+                <mat-option value="-1">Select</mat-option>
+              <mat-option *ngFor="let sr of Series" [value]="sr">
+                {{sr.DESCRIPTION}} / {{sr.MODEL_NAME}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>    
+        <mat-form-field class="example-full-width m-10">
+          <mat-label>Table List</mat-label>
+          <mat-select  [(ngModel)]="oTable" name="table" id="tab">
+            <mat-option *ngFor="let tab of tableIMGList" [value]="tab">
+              {{tab.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-form-field *ngIf="upldType == 'file'" class="example-full-width m-10"> 
+          <input matInput [(ngModel)]="myfilename" readonly/>   
+          <button matSuffix mat-icon-button   matTooltip="Select a file" >
+            <mat-icon>file_upload</mat-icon>
+          </button>             
+        <input type="file" #UploadFileInput id="fileUpload" [(ngModel)]="myfilename" (change)="fileChangeEvent($event)" name="fileUpload"
+          multiple="multiple" accept="xlsx/*" />     
+  </mat-form-field>
+  
+
+<mat-form-field *ngIf="upldType == 'image'">    
+  <input matInput [(ngModel)]="imagename" readonly/>  
+<input type="file" #UploadFileInput  id="fileUpload" [(ngModel)]="imagename" (change)="filesDropped($event,1)" name="fileUpload"
+  multiple="multiple" accept="image/x-png,image/gif,image/jpeg"  />   
+  <button   mat-icon-button (click)="uploadImage()"  matTooltip="Select a Image" >
+    <mat-icon>file_upload</mat-icon>Upload
+  </button>    
+</mat-form-field>
+
+    <div class="cntr">
+        <button mat-raised-button [mat-dialog-close]="false" class="m-10">Cancel</button>
+        <button mat-raised-button *ngIf="upldType != 'image'" color="primary" [disabled]="disabled" (click)="BtnSaveClick()">Save</button>
+        <button mat-raised-button *ngIf="upldType != 'image'" color="warn" (click)="exportAsXLSX()"> <mat-icon>download</mat-icon> Import</button>     
+    </div>
+  </div>
+ 
+  
+  

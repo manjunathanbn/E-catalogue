@@ -1,0 +1,52 @@
+<div class="pd-20">   
+    <div>    
+        <mat-form-field class="example-full-width m-10">
+          <mat-label>Header List</mat-label>
+          <mat-select  [(ngModel)]="oType" name="type" id="typ">
+            <mat-option *ngFor="let ty of typeList" [value]="ty.id">
+              {{ty.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width m-10" *ngIf="oType==1">
+          <mat-label>Table List</mat-label>
+          <mat-select  [(ngModel)]="oTable" (selectionChange)="onTablChange($event)" name="table" id="tab">
+            <mat-option *ngFor="let tab of tableList" [value]="tab">
+              {{tab.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>        
+    </div>
+    <mat-form-field *ngIf="upldType == 'file'" class="example-full-width m-10">  
+          <input matInput [(ngModel)]="myfilename" readonly  multiple="multiple" accept="xlsx/*" />   
+          <button matSuffix mat-icon-button   matTooltip="Select a file" >
+            <mat-icon>file_upload</mat-icon>
+          </button>             
+        <!-- Fetch selected filed on change -->
+        <input type="file" #UploadFileInput id="fileUpload" [(ngModel)]="myfilename" (change)="fileChangeEvent($event)" name="fileUpload"
+          multiple="multiple" accept="xlsx/*" />     
+  </mat-form-field> 
+  <mat-form-field *ngIf="upldType == 'image' && modelEnbl" class="example-full-width m-10">
+    <mat-label>Model No</mat-label>    
+    <input matInput [(ngModel)]="model" placeholder="Model" required/> 
+  </mat-form-field>
+  <mat-form-field *ngIf="upldType == 'image'">    
+    <input matInput [(ngModel)]="imagename" readonly/>  
+  <input type="file" #UploadFileInput  id="fileUpload" [(ngModel)]="imagename" (change)="filesDropped($event,1)" name="fileUpload"
+    multiple="multiple" accept="image/x-png,image/gif,image/jpeg"  />   
+    <button   mat-icon-button (click)="uploadImage()"  matTooltip="Select a Image" >
+      <mat-icon>file_upload</mat-icon>Upload
+    </button>    
+  </mat-form-field><br>
+  
+
+    <div class="cntr">
+        <button  mat-raised-button [mat-dialog-close]="false" class="m-10">Cancel</button>
+        <button  mat-raised-button color="primary" *ngIf="upldType != 'image'" [disabled]="disabled" (click)="BtnSaveUpload()">Save</button>
+        <button  mat-raised-button color="warn" *ngIf="upldType != 'image'" (click)="exportAsXLSX()"> <mat-icon>download</mat-icon> Import</button>
+        <!-- <button *ngIf="upldTyp == 'Image'" mat-raised-button color="primary" (click)="uploadImage()">Add Images</button>      -->
+    </div>
+  </div>
+  
+  
+  

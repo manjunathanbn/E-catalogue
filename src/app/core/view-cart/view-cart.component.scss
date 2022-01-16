@@ -1,0 +1,81 @@
+.cartmainCls{
+    padding: 10px;
+}
+.dltCls{
+    position: relative;
+    right: 0px;
+    left: 25px;
+    top: 10px;
+}
+.dispCol{
+    display: flex;
+    flex-direction: column;
+}
+.dispRow{
+    display: flex;
+    flex-direction: row;
+}
+.labWt{
+    font-weight: 500;
+}
+.cartHead{
+    padding: 10px 0px 10px 0px;
+    display: flex;
+    align-items: center;
+}
+.backImag{
+    position: relative;
+    bottom: 9px;
+}
+.valCls{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 10px;
+}
+.labCls{
+    display: flex;
+    flex-direction: column;
+}
+.btnCls{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 50px;
+    button{
+        width: 280px;
+    }
+}
+.totalTap{
+    display: flex;
+    position: relative;
+    padding: 20px;
+    line-height: 2;
+}
+.colCls{
+    display: flex;
+    flex-direction: column;
+}
+.posLeft{
+    position: relative;
+    left: 40px;
+}
+.colCls label{
+    font-weight: 600 !important;
+    }
+    // ::ng-deep .mat-expansion-panel-content{
+    //     border: 1px solid #d474da;
+    // }
+    ::ng-deep .mat-expansion-panel{
+      //  border: 1px solid #d474da;
+    }
+    ::ng-deep .mat-expansion-panel-header{
+      //  background: #97cbf3;
+    }
+
+    .mat-expansion-panel .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled=true]), .mat-expansion-panel .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled=true]), .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]){
+        background: ash;
+    }
+    .mat-expansion-panel-header-title{
+        color: #00599d;
+    }

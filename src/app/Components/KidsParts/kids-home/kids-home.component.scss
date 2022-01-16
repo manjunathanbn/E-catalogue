@@ -1,0 +1,78 @@
+.tabWith{
+    width: 100%;
+}
+label,
+footer {
+    font-family: sans-serif;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+select {
+    font-size: .9rem;
+    padding: 2px 5px;
+}
+
+.dispCol{
+    display: flex;
+    flex-direction: column;
+    width: 13%;
+}
+select{
+  //  width: 15%;
+}
+.dispFlx{
+   display: flex;
+   justify-content: space-around !important;
+   //background: #ffffff;
+   padding: 10px 10px 18px 10px;
+   //border-bottom: 1px solid #e8e5e5a1;
+   //border-radius: 20px;    
+}
+.homePad{
+    padding: 10px 201px 430px 201px;
+    background-color: #f7fbff;
+}
+.headerPad{
+    padding: 20px 67px 25px 111px;
+    background-color: #f7fbff;
+}
+.clusterHead{
+    //padding: 10px;
+}
+tr:nth-child(even) {
+    background-color: #eee;
+}
+th{
+    background-color: #337ab7;
+    font-weight: bold;
+    color: white !important;    
+}
+table {
+    font-family: tahoma;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 12px;
+    background-color: #dae2e8;
+    color: #404040;
+    height: 25px;
+    text-transform: capitalize;
+    vertical-align: top;
+    clear: both;
+}
+.nu-table-body {
+    overflow-y:auto;
+    max-height:500px;
+}
+tr.mat-row, tr.mat-footer-row {
+    height: 34px;
+}
+tr.mat-header-row {
+    height: 40px;
+}
+

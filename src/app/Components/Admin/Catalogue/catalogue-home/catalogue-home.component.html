@@ -1,0 +1,90 @@
+<div>
+    <div class="disBtn headDisp"> 
+        <h2>Catalogue List</h2>  
+        <div class="flx">
+          <button class="h-45 r-15 pr-10" mat-stroked-button color="primary" (click)="openbtnDialog('image')"> <mat-icon>upload</mat-icon> ImagesUpload</button>
+          <div class="upload-btn-wrapper wrChange" >
+            <button class="h-45 r-15 pr-10" mat-stroked-button color="primary" (click)="openbtnDialog('file')"> <mat-icon>upload</mat-icon>Export/Import</button>
+            <!-- <input type="file" name="myfile"  /> -->
+          </div>
+        <button class="h-45 pr-10" mat-stroked-button color="primary" (click)="createNew()" ><mat-icon>add</mat-icon>Create New</button>
+        </div>
+      </div>
+      <div class="pa-30 srlDiv mat-elevation-z8"  [perfectScrollbar]="config">
+        <div class="dispFlx mobCol">
+          <div class="dispCol mpb-10">
+              <label for="cat">Menu</label>
+              <select name="cat" id="cat" class="stCls" [(ngModel)]="mainMenu" (change)="onChange($event.target.value)">
+                  <option value="">Search Header</option>
+                  <option *ngFor="let op of headerList"  value="{{op.CATEGORY_ID}}">{{op.name}}</option>
+              </select>
+          </div>
+          <div class="dispCol mpb-10">
+              <label for="mod">Sub Menu</label>
+              <select name="mod" id="mod" class="stCls" (change)="onseriesChange($event.target.value)"> 
+                  <option value="">Search Name</option>
+                  <option *ngFor="let op of dataSource" value="{{op.SERIES}}">{{op.DESCRIPTION}} / {{op.MODEL_NAME}}</option>
+              </select>
+          </div>
+      </div>
+      <div class="nu-table-body">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabWith">
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="sNo">
+                  <th mat-header-cell *matHeaderCellDef > S.No </th>
+                  <td mat-cell *matCellDef="let element ; let i = index"> {{i+1}} </td>
+                </ng-container>
+             
+                <!-- xlSup Column -->
+                <ng-container matColumnDef="head">
+                  <th mat-header-cell *matHeaderCellDef > CATEGORY </th>
+                  <td mat-cell *matCellDef="let element"> {{element.CATEGORY_NAME}} </td>
+                </ng-container>
+
+              
+                   <!-- xlSup Column -->
+                   <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef > SERIES</th>
+                    <td mat-cell *matCellDef="let element"> {{element.DESCRIPTION}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="model">
+                    <th mat-header-cell *matHeaderCellDef >MODEL NAME </th>
+                    <td mat-cell *matCellDef="let element"> {{element.MODEL_NAME}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="parts">
+                    <th mat-header-cell *matHeaderCellDef > TOT ASSEMBEL PARTS </th>
+                    <td mat-cell *matCellDef="let element"> {{element.TOT_PARTS}}</td>
+                  </ng-container>
+
+                           <!-- xlSup Column -->
+                           <ng-container matColumnDef="edit">
+                            <th mat-header-cell *matHeaderCellDef> Edit</th>
+                            <td mat-cell *matCellDef="let element"> 
+                            
+                              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                <mat-icon>more_vert</mat-icon>
+                              </button>
+                              <mat-menu #menu="matMenu" xPosition="after">
+                                <!-- <button mat-menu-item (click)="editData(element)">
+                                 Edit
+                                </button> -->
+                                <button mat-menu-item (click)="editData(element,2)">
+                                  Block
+                                </button>
+                                <button mat-menu-item (click)="editData(element,3)">
+                                  Delete
+                                </button>
+                              </mat-menu>
+
+                            </td>
+                          </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                >
+            </tr>
+          </table>
+      </div>
+    </div>
+</div>

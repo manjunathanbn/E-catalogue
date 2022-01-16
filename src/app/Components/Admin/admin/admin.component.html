@@ -1,0 +1,123 @@
+<div class="headerPad">
+    <div class="clusterHead">
+        <h2>Reports</h2>
+    </div>
+    
+    <div class="mat-elevation-z8">
+        <div>
+            <label>Podate</label> 
+        </div>     
+            <form class="example-form">              
+              <mat-form-field class="example-full-width" appearance="outline"> 
+                <input class="fnclass" type="text"
+                placeholder="From Date"
+                aria-label="Number"
+                matInput
+                [matDatepicker]="fpicker"
+                [formControl]="fdate"
+                (dateInput)= "applydateFilter($event.target.value)"
+                [(ngModel)]="frmdate" >
+                <mat-datepicker-toggle matSuffix [for]="fpicker"></mat-datepicker-toggle>
+                <mat-datepicker #fpicker></mat-datepicker>           
+              </mat-form-field>
+              <mat-form-field class="example-full-width" appearance="outline">             
+                <input class="fnclass" type="text"
+                       placeholder="To date"
+                       aria-label="Number"
+                       matInput
+                       [matDatepicker]="tpicker"
+                       [formControl]="tdate" 
+                       [(ngModel)]="todate"
+                       (dateInput)= "applydateFilter($event.target.value)">
+                     <mat-datepicker-toggle matSuffix [for]="tpicker"></mat-datepicker-toggle>
+                     <mat-datepicker #tpicker></mat-datepicker>                
+              </mat-form-field> 
+              <mat-form-field class="example-full-width" appearance="outline">             
+                <input class="fnclass" type="text"
+                       placeholder="Search Dealer"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="dealerFilter"
+                       (keyup)="applyFilter($event.target.value)"                                                                 
+                     >            
+              </mat-form-field> 
+              <mat-form-field class="example-full-width" appearance="outline">             
+                <input class="fnclass" type="text"
+                       placeholder="Search SAP NO"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="sapNoFilter" 
+                       (keyup)="applyFilter($event.target.value)"   >                            
+              </mat-form-field>              
+              </form>
+              <div class="dispc">
+                <mat-form-field class="example-full-width" appearance="outline">             
+                    <input class="fnclass" type="text"
+                           placeholder="Search Refno"
+                           aria-label="Number"
+                           matInput
+                           [formControl]="refnoFilter" 
+                           (keyup)="applyFilter($event.target.value)" >                                
+                  </mat-form-field> 
+                  <mat-form-field class="example-full-width" appearance="outline">             
+                    <input class="fnclass" type="text"
+                           placeholder="Search Part NO"
+                           aria-label="Number"
+                           matInput
+                           [formControl]="partnoFilter"
+                           (keyup)="applyFilter($event.target.value)">                                    
+                  </mat-form-field>
+                  <div class="cntr">
+                    <button mat-stroked-button color="primary" class="pr-10" (click)="ExportExcel()" > <mat-icon>download</mat-icon>Download</button>
+               
+                  </div>
+              </div>               
+    </div>               
+</div>
+     
+   <div>
+    <label style="margin-left:20px">Order Details</label>
+      <div class="example-container mat-elevation-z8"  style="margin: 0px 20px 0px 20px; overflow: auto; max-height: 359px;">
+        <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabWith">
+            <ng-container  matColumnDef="SlNO">
+                <th  mat-header-cell *matHeaderCellDef>SL NO</th>
+                <td mat-cell *matCellDef="let element"> {{element.SlNO}} </td>
+              </ng-container>   
+            <ng-container  matColumnDef="PoDate">
+              <th  mat-header-cell *matHeaderCellDef>Order Date</th>
+              <td mat-cell *matCellDef="let element"> {{element.PoDate | date:'dd-MM-yyyy'}} </td>
+            </ng-container>
+            <ng-container  matColumnDef="PONO">
+              <th mat-header-cell *matHeaderCellDef>REF NO</th>
+              <td mat-cell *matCellDef="let element"> {{element.PONO}} </td>
+            </ng-container>
+            <ng-container  matColumnDef="DealerId">
+              <th mat-header-cell *matHeaderCellDef> DEALER ID </th>
+              <td mat-cell *matCellDef="let element"> {{element.DealerId}} </td>
+            </ng-container>
+            <ng-container  matColumnDef="APSID">
+                <th mat-header-cell *matHeaderCellDef> APS </th>
+                <td mat-cell *matCellDef="let element"> {{element.APSID}} </td>
+              </ng-container> 
+            <ng-container matColumnDef="TotAmt">
+              <th mat-header-cell *matHeaderCellDef> TOTAL AMT </th>
+              <td mat-cell *matCellDef="let element"> {{element.TotAmt}} </td>
+            </ng-container> 
+            <ng-container  matColumnDef="SAPNO">
+              <th mat-header-cell *matHeaderCellDef> ORDER NO </th>
+              <td mat-cell *matCellDef="let element"> {{element.SAPNO}} </td>
+            </ng-container>
+            <ng-container matColumnDef="PartNO">
+              <th mat-header-cell *matHeaderCellDef> PART NO </th>
+              <td mat-cell *matCellDef="let element"> {{element.PartNO}} </td>
+            </ng-container> 
+            <ng-container matColumnDef="Qty">
+              <th mat-header-cell *matHeaderCellDef> ITEM QTY </th>
+              <td mat-cell *matCellDef="let element"> {{element.Qty}} </td>
+            </ng-container> 
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true" [style.min-height]="0"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+      </div>
+</div>
