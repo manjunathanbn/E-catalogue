@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit {
   dcode:any;
   dname:any;
   Name:any;
+  delrData: any;
   color: ThemePalette = 'accent';
   isChecked:any=false;
   cartData:any=[];
@@ -225,4 +226,37 @@ export class HeaderComponent implements OnInit {
         }
       );      
   }
+  getDealerData(){
+    this.masterdata.getReq('','api/Catalouge/getDealerData?DealerID='+this.dcode).subscribe(
+    (resp:any)=>
+    {
+      if(resp && resp.statusCode == 200){
+        if(resp.data.length){
+          this.delrData = resp.data;
+          if(!this.delrData.IsActive){
+            alert("Dealer " + this.dcode + " is InActive");
+            this.router.navigate(['/error']); 
+            return;
+          }
+          this.Name = this.delrData.DealerName
+          localStorage.setItem('Name',this.Name);
+        }else{
+          alert("Dealer " + this.dcode + " is InValid");
+          this.router.navigate(['/error']);
+          return;
+        }
+      }
+      // if(resp && resp.statusCode == 500){
+      //   alert("Invalid Dealer");
+      //   this.router.navigate(['/error']);
+      //   return;
+      // }
+    }, error => {
+      if (error.status == 401) {
+        // this.loginService.logout();
+      }
+      this.toaster.errorToastr(error.statusMessage);      
+    }
+    )
+    }
 }
