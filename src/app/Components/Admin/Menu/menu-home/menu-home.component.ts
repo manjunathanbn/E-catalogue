@@ -52,7 +52,7 @@ mainMenuList:any[]=[
 subMenuList:any[]=[
   {id:1,name:"TVS XL"},{id:2,name:"TVS XL-100"}
 ];
-displayedColumns: string[]=["sNo","head","series","name","edit"];
+displayedColumns: string[]=["sNo","head","series","name","model","edit"];
 dataSource:any[]=[{id:1,head:"Moped",name:"TVS XL"}];
 dataSourceTemp:any[];
   currentIndx: any;
@@ -65,6 +65,7 @@ dataSourceTemp:any[];
   imgvehicle: any;
   userFile: any;
   Isupdate:any;
+  submenuList: any[];
   constructor(private masterdata: MasterdataService, public sidenaveService:SidenavService,private toaster: ToastrManager,public dialog: MatDialog,private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -107,6 +108,8 @@ dataSourceTemp:any[];
   onChange(cat){
     if(cat){
     this.dataSource = this.dataSourceTemp.filter(key => key.CATEGORY_ID == cat);
+    this.submenuList = [...new Map(this.dataSource.map(item =>
+      [item["SERIES"], item])).values()]; 
     }else{this.dataSource = this.dataSourceTemp}
   }
   onseriesChange(series)
@@ -208,6 +211,9 @@ this.masterdata.post(iList, 'api/CatalougeMaster/AddandUpdateSeries').subscribe(
           if (resp && resp.statusCode == 200) {
             this.dataSource = resp.data;
             this.dataSourceTemp = this.dataSource;
+            //let list = this.dataSource.filter(key => key.SEG == this.MenuID) 
+            this.submenuList = [...new Map(this.dataSource.map(item =>
+            [item["SERIES"], item])).values()]; 
           }
           if (resp && resp.statusCode == 401) {                  
           }

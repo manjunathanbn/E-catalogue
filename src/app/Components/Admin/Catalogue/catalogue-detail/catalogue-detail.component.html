@@ -3,7 +3,7 @@
     <div class="flx pd">
         <div class="pl-40">
             <mat-form-field appearance="outline">
-                <label>Header List</label>
+                <label>SEGMENT</label>
                 <mat-select  [(ngModel)]="mainMenu" name="main" class="stCls" (selectionChange)="files=[];onChange($event.value)" >
                   <mat-option *ngFor="let lis of mainMenuList" [value]="lis">
                     {{lis.name}}
@@ -13,7 +13,7 @@
         </div>
             <div class="pl-40" >
                 <mat-form-field appearance="outline">
-                    <label>Menu Type</label>
+                    <label>MODEL</label>
                     <mat-select  [(ngModel)]="subMenu" name="sub" class="stCls" (selectionChange)="checkImage($event)" >
                       <mat-option *ngFor="let lis of menuListArry" [value]="lis">
                         {{lis.DESCRIPTION}} / {{lis.MODEL_NAME}}
@@ -23,7 +23,7 @@
             </div>
             <div class="pl-40" *ngIf="mainMenu.name=='painted'">
               <mat-form-field appearance="fill">
-                  <mat-label> Type</mat-label>
+                  <mat-label> TYPE</mat-label>
                   <mat-select  [(ngModel)]="menuType" name="sub" class="stCls">
                     <mat-option *ngFor="let lis of subMenu.type" [value]="lis.name">
                       {{lis.name}}
@@ -35,7 +35,7 @@
             <button mat-stroked-button color="primary" class="pr-10" [disabled]="disabled" (click)="uploadImage()" > <mat-icon>upload</mat-icon> Upload </button>            
           </div>
           <div class="addBtn" >            
-            <button mat-stroked-button color="primary" class="pr-10"  (click)="AddModels()" > <mat-icon>add</mat-icon> Add Models </button>
+            <button mat-stroked-button color="primary" class="pr-10"  (click)="AddModels()" > <mat-icon>ad</mat-icon> Add Models </button>
           </div>
     </div>
     <div *ngIf="nullimg==true">   

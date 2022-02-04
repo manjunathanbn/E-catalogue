@@ -32,7 +32,7 @@
                         <input matInput placeholder="Code"  [(ngModel)]="pointSize">
                       </mat-form-field>                      
                     </div>
-                    <label>FigNo: {{figNo}}</label> 
+                    <label>FIG NO: {{figNo}}</label> 
                   </div>
                  
                     <!-- <canvas id="canvas" width="640" height="480" (click)="getPosition($event)"
@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-9 col-sm-12">
                 <div class="disBtn">
-                  <h2>Assembly Parts List</h2>
+                  <h2>ASSEMBLY PARTS DETAILS</h2>
                   <!-- <mat-icon *ngIf="i!=0" class="cur_point" (click)="remove(i)" >close</mat-icon> -->
                   <div>
                     <button mat-stroked-button color="primary" class="pr-10" [disabled]="disable" placeholder="Upload Image" (click)="uploadImage()"><mat-icon>upload</mat-icon>Image</button>
@@ -63,21 +63,21 @@
                 <div class="pa-30  mat-elevation-z8"  [perfectScrollbar]="config">
                   <div class="dispFlx mobCol">
                     <div class="dispColIN mpb-10">
-                        <label for="cat">AssemblyID</label>
+                        <label for="cat">ASSEMBLY ID</label>
                         <select name="cat" id="cat" class="stCls">                            
                             <option value="op.head">{{AssemblyID}}</option>
                         </select>
                     </div>
                     <div class="dispColIN mpb-10">
-                        <label for="mod">Model NO</label>
+                        <label for="mod">MODEL</label>
                         <select name="mod" id="mod" class="stCls">                            
                             <option value="ModlID">{{ModlID}}</option>
                         </select>
                     </div>
                     <div class="dispColIN mpb-10">
-                      <label for="mod">AssembleyName</label>
+                      <label for="mod">ASSEMBL NAME</label>
                       <select name="mod" id="mod" class="stCls">                          
-                          <option value="AssemblyID">{{assName}}</option>
+                          <option value="AssemblyID">{{assName | uppercase}}</option>
                       </select>
                   </div>
                 </div >
@@ -92,14 +92,14 @@
 
                           <!-- xlSup Column -->
                           <ng-container matColumnDef="partNo">
-                            <th mat-header-cell *matHeaderCellDef > Part Id </th>
+                            <th mat-header-cell *matHeaderCellDef > PART NO</th>
                             <td mat-cell *matCellDef="let element"> {{element.PART_NO}} </td>
                           </ng-container>
 
 
                              <!-- xlSup Column -->
                              <ng-container matColumnDef="partName">
-                              <th mat-header-cell *matHeaderCellDef > Part Name</th>
+                              <th mat-header-cell *matHeaderCellDef > DESCRIPTION</th>
                               <td mat-cell *matCellDef="let element"> {{element.PART_DESC}} </td>
                             </ng-container>
 
@@ -120,12 +120,12 @@
                               <td class="w-50" mat-cell *matCellDef="let element"> {{element.MOQ}} </td>
                             </ng-container>
                             <ng-container matColumnDef="stock">
-                              <th class="w-50" mat-header-cell *matHeaderCellDef > Stock</th>
+                              <th class="w-50" mat-header-cell *matHeaderCellDef > STOCK</th>
                               <td class="w-50" mat-cell *matCellDef="let element"> {{element.ORD}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="status">
-                                <th style="text-align:center" mat-header-cell *matHeaderCellDef > Status</th>
+                                <th style="text-align:center" mat-header-cell *matHeaderCellDef > STATUS</th>
                                 <td class="w-50" mat-cell *matCellDef="let element">
                                     <select name="mod" id="mod" class="stCls" [disabled]="true" [(ngModel)]="element.ACTIVE" >
                                         <option value="true">Active</option>
@@ -135,7 +135,7 @@
                               </ng-container>
                                      <!-- xlSup Column -->
                                      <ng-container matColumnDef="edit">
-                                      <th class="w-50" mat-header-cell *matHeaderCellDef> Edit</th>
+                                      <th class="w-50" mat-header-cell *matHeaderCellDef> EDIT</th>
                                       <td class="w-50" mat-cell *matCellDef="let element">
 
                                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
