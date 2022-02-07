@@ -25,7 +25,7 @@ export class CatSubpartsComponent implements OnInit {
   
   directiveScroll?: PerfectScrollbarDirective;
   @Output() statusEvent = new EventEmitter<string>();
-  displayedColumns: string[]=["sNo","partNo","partName","QV","ndp","moq","stock","status","edit"];
+  displayedColumns: string[]=["sNo","partNo","partName","QV","ndp","moq","Remarks","status","edit"];
   dataSource:any[]=[];
   files: any = "";
   arrayBuffer:any;
@@ -185,8 +185,10 @@ export class CatSubpartsComponent implements OnInit {
   drawCoordinates(x, y) {
 
     const grd = this.ctx.createLinearGradient(0, 0, 170, 0);
-    grd.addColorStop(0, "black");
-    grd.addColorStop(1, "red");
+    // grd.addColorStop(0, "black");
+    // grd.addColorStop(1, "red");
+    var opacity = 0.5;
+    grd.addColorStop(1,'rgba(63, 191, 63,'+opacity+')');
     this.ctx.fillStyle = grd; // Red color
 
     this.ctx.beginPath();

@@ -12,6 +12,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { CommonService } from 'src/app/Services/common.service';
 import * as XLSX from 'xlsx';
 import { CataloguePopupComponent } from '../../Catalogue/catalogue-popup/catalogue-popup.component';
+import { SidenavService } from 'src/app/Services/sidenave.service';
 @Component({
   selector: 'app-painted-subparts',
   templateUrl: './painted-subparts.component.html',
@@ -23,7 +24,7 @@ export class PaintedSubpartsComponent implements OnInit {
   
   directiveScroll?: PerfectScrollbarDirective;
   @Output() statusEvent = new EventEmitter<string>();
-  displayedColumns: string[]=["sNo","partNo","partName","QV","ndp","moq","stock","Remarks","status","edit"];
+  displayedColumns: string[]=["sNo","partNo","partName","QV","ndp","moq","Remarks","status","edit"];
   dataSource:any[]=[];
   files: any = "";
   arrayBuffer:any;
@@ -72,7 +73,7 @@ export class PaintedSubpartsComponent implements OnInit {
   partPricelst: any;
   partStkLst: any;
   
-  constructor(public dialog: MatDialog,private router:Router,private route: ActivatedRoute,private masterdata: MasterdataService, private toaster: ToastrManager,private commonservice :CommonService) {
+  constructor(public dialog: MatDialog,private router:Router,public sidenaveService:SidenavService,private route: ActivatedRoute,private masterdata: MasterdataService, private toaster: ToastrManager,private commonservice :CommonService) {
     //this.params = JSON.parse(this.route.snapshot.paramMap.get('queryParams'));    
     this.sub =   this.route.params.subscribe(params => {
       console.log("VVVVVVVVVVVV",params);
@@ -82,6 +83,7 @@ export class PaintedSubpartsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.sidenaveService.togglingMenu({});
     this.imgUrl="/assets/Images/engine.png"
     this.getPartAssembDetail()
     this.getPartPriceDetail();
@@ -171,6 +173,7 @@ export class PaintedSubpartsComponent implements OnInit {
   }
 
   getPosition(event,i) {
+    console.log("eve",event)
     this.selected = false;
     this.found = false;
     this.currentInd=i;
@@ -183,6 +186,7 @@ export class PaintedSubpartsComponent implements OnInit {
     curleft += event.offsetX;
     curtop += event.offsetY;
     this.supPartsArray[0].listData.filter((key,index)=>{
+      if(key.cordinates){
       key.cordinates.filter(coo=>{
         if(curleft==coo.x&&curtop==coo.y){
           key.select=!key.select;
@@ -190,7 +194,7 @@ export class PaintedSubpartsComponent implements OnInit {
           return(this.selected = true);                                      
         }
        
-      })
+      })}
       if(this.selected == true)
       {
         this.found = true;
@@ -227,8 +231,9 @@ export class PaintedSubpartsComponent implements OnInit {
   return ((r << 16) | (g << 8) | b).toString(16);
 }
 openDialog(X,Y,isedit,editData) {
+  let curPlist = this.supPartsArray[0].listData;
   const dialogRef = this.dialog.open(CataloguePopupComponent,{
-    data:{x:X,y:Y,type:"sub",isEdt:isedit,editData:editData,PS:this.pointSize},
+    data:{x:X,y:Y,type:"sub",isEdt:isedit,editData:editData,PS:this.pointSize,curLst:curPlist},
     width:"900px"    
   });
 
@@ -243,7 +248,7 @@ openDialog(X,Y,isedit,editData) {
       },1000)
       
       //this.supPartsArray[this.currentInd].listData.push(result);
-      console.log("shoe cur data",this.supPartsArray[this.currentInd].listData);
+      console.log("shoe cur data",result);
       this.drawCoordinates(X, Y);
      // this.router.navigate(['/adminCat/sub']);
     }

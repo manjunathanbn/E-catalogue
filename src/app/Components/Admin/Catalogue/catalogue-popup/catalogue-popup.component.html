@@ -59,17 +59,17 @@
   <div>
     
     <mat-form-field class="example-full-width m-10">
-      <label>Ref No</label>
+      <label>REF NO</label>
       <input matInput  required="true"  [(ngModel)]="subPartData.REF_NO">
       
     </mat-form-field>
       <mat-form-field class="example-full-width m-10">
-          <label>Part No</label>
+          <label>PART NO</label>
           <input matInput  required="true"  [(ngModel)]="subPartData.PART_NO"> 
           <mat-error *ngIf="!subPartData.PART_NO">Enter Part NO</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width m-10">
-          <label>Part Name</label>
+          <label>PART NAME</label>
           <input matInput  required="true" [(ngModel)]="subPartData.PART_DESC">
           <mat-error *ngIf="!subPartData.PART_DESC">Enter Part Name</mat-error>
         </mat-form-field>
@@ -90,12 +90,16 @@
           <label>MOQ</label>
           <input matInput  [readonly]="isReadonly" [(ngModel)]="subPartData.MOQ">          
         </mat-form-field>
-        <mat-form-field class="example-full-width m-10">
+        <!-- <mat-form-field class="example-full-width m-10">
           <label>Stock</label>
           <input matInput   [readonly]="isReadonly" [(ngModel)]="subPartData.ORD">
-        </mat-form-field>        
+        </mat-form-field>     -->
+        <mat-form-field class="example-full-width m-10">
+          <label>REMARKS</label>
+          <input matInput   [readonly]="!isReadonly" [(ngModel)]="subPartData.REMARKS">
+        </mat-form-field>     
        <mat-form-field class="example-full-width m-10">
-        <label>Status</label>
+        <label>STATUS</label>
         <mat-select matInput name="Status" [(ngModel)]="subPartData.ACTIVE">
             <mat-option [value]="true">Active</mat-option>
             <mat-option [value]="false">Inactive</mat-option>
@@ -113,6 +117,7 @@
   <div class="cntr">
       <button mat-raised-button [mat-dialog-close]="false" class="m-10">Cancel</button>
       <button *ngIf="data.isEdt == 'Y'" mat-raised-button color="primary" [disabled]="(!subPartData.PART_NO || !subPartData.PART_DESC)" [mat-dialog-close]="subPartData">Update</button>
+      <!-- <button mat-raised-button color="primary" [disabled]="(!subPartData.PART_NO || !subPartData.PART_DESC)" (click)="checkCurrentParts()">Validate</button> -->
       <button *ngIf="data.isEdt == 'N'" mat-raised-button color="primary" [disabled]="(!subPartData.PART_NO || !subPartData.PART_DESC)" [mat-dialog-close]="subPartData">ADD</button>
   </div>
 </div>
@@ -120,11 +125,11 @@
   <!-- <h2>Quardinates X,Y({{data.x}},{{data.y}},{{data.PS}})</h2> -->
   <div>    
       <mat-form-field class="example-full-width m-10">
-        <mat-label>Model ID</mat-label>
+        <mat-label>MODEL ID</mat-label>
         <input matInput placeholder="Model ID" required="true" [(ngModel)]="ModelData.MODEL_ID">      
       </mat-form-field>
       <mat-form-field class="example-full-width m-10">
-          <mat-label>Model Name</mat-label>
+          <mat-label>DESCRIPTION</mat-label>
           <input matInput placeholder="Part NO" required="true" [(ngModel)]="ModelData.MODEL_NAME">          
       </mat-form-field>       
   </div>

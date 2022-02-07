@@ -1,8 +1,8 @@
 
 <div class="h-100">
-  <div class="flx sp">
+  <!-- <div class="flx sp">
     <h2>Add Parts</h2>
-  </div>
+  </div> -->
     <div class="srlDiv">
         <div class="flx col-12 rmpm dropzone mNone" *ngFor="let lis of supPartsArray;let i=index">
             <div class="col-md-4 col-sm-12">
@@ -43,7 +43,7 @@
             </div>
             <div class="col-md-9 col-sm-12">
                 <div class="disBtn">
-                  <h2>ASSEMBLY PARTS DETAILS</h2>
+                  <h3>ASSEMBLY PARTS DETAILS</h3>
                   <!-- <mat-icon *ngIf="i!=0" class="cur_point" (click)="remove(i)" >close</mat-icon> -->
                   <div>
                     <button mat-stroked-button color="primary" class="pr-10" [disabled]="disable" placeholder="Upload Image" (click)="uploadImage()"><mat-icon>upload</mat-icon>Image</button>
@@ -113,15 +113,19 @@
                             </ng-container> -->
                             <ng-container matColumnDef="ndp">
                               <th class="w-50" mat-header-cell *matHeaderCellDef > NDP</th>
-                              <td class="w-50" mat-cell *matCellDef="let element">{{element.NDP | number:'2.0'}}</td>
+                              <td class="w-50" mat-cell *matCellDef="let element">{{element.NDP | number:'1.2-2'}}</td>
                             </ng-container>
                             <ng-container matColumnDef="moq">
                               <th class="w-50" mat-header-cell *matHeaderCellDef > MOQ</th>
                               <td class="w-50" mat-cell *matCellDef="let element"> {{element.MOQ}} </td>
                             </ng-container>
-                            <ng-container matColumnDef="stock">
+                            <!-- <ng-container matColumnDef="stock">
                               <th class="w-50" mat-header-cell *matHeaderCellDef > STOCK</th>
                               <td class="w-50" mat-cell *matCellDef="let element"> {{element.ORD}} </td>
+                            </ng-container> -->
+                            <ng-container matColumnDef="Remarks">
+                              <th class="w-50" mat-header-cell *matHeaderCellDef > REMARKS</th>
+                              <td class="w-50" mat-cell *matCellDef="let element"> {{element.REMARKS}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="status">

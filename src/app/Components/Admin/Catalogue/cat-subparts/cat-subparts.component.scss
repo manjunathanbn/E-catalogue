@@ -50,7 +50,7 @@
     border: 1px solid rgb(97, 97, 157) !important;
 }
 .mNone{
-    margin: 18px 9px 7px 10px !important;
+    margin: 7px 9px 7px 10px !important;
 max-height: 620px;
 }
 .cntr{
@@ -158,13 +158,14 @@ tr.mat-header-row {
         height: 25px;
     }
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif,Arial, Helvetica, sans-serif;
-    font-weight: bold;   
+    font-size: smaller;
+    //font-weight: bold;   
 }
 table {
     width: 100%;
   }
   .example-container {
-    height: 477px;
+    height: 446px;
     max-width: 100%;
     overflow: auto;
   }

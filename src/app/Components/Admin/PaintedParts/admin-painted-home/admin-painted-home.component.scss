@@ -1,6 +1,6 @@
 .nu-table-body {
     overflow-y:auto;
-    max-height:530px;
+    max-height:535px;
 }
 .r-15{
     position: relative;
@@ -22,4 +22,12 @@ tr.mat-header-row {
     height: 25px;
     border-radius: 15px;
     border-color: rgb(49 106 211 / 87%);
+}
+::ng-deep .mat-cell, .mat-footer-cell{
+    font-size: 11px !important;
+  }
+  tr.mat-row {
+    border: 1px solid #e7e7e7;
+   // font-weight: bold;
+    height: 4px !important;
 }

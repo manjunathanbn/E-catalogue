@@ -10,7 +10,8 @@ export interface DialogData {
   isEdt:string;
   editData:string;
   PS:string;
-  modelId:string 
+  modelId:string;
+  curLst:any; 
 }
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { MasterdataService } from 'src/app/Services/masterdata.service';
@@ -34,6 +35,8 @@ export class CataloguePopupComponent implements OnInit {
   isReadonly: boolean;
   subAssemlyData: any;  
   SubAssemgrp: any;
+  curntdata: any;
+  Isexist: boolean;
   constructor(
     public dialogRef: MatDialogRef<CataloguePopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,private masterdata: MasterdataService, private toaster: ToastrManager) { }
@@ -54,7 +57,9 @@ export class CataloguePopupComponent implements OnInit {
     {
      this.subPartData = this.data.editData;
      this.isReadonly = true;
-    } 
+    }
+    this.curntdata = this.data.curLst;
+    console.log("currentdata",this.curntdata); 
   }  
   getMopedDetail() {
     // this.isShowPageLoader = true;GetVehCoordinatesbySeries
@@ -165,7 +170,6 @@ export class CataloguePopupComponent implements OnInit {
 //      );    
 //  }
  save(){ 
- 
   this.ModelData.SERIES = this.series;
   this.ModelData.ACTIVE = true;
   this.ModelData.IS_ACC = false;
@@ -203,5 +207,16 @@ onchange(data){
   this.partData.subassemblygrp = this.SubAssemgrp; 
 }
 
+checkCurrentParts(){  
+  let temlist = this.curntdata;
+   temlist.filter(e => e.REF_NO == this.subPartData.REF_NO && e.PART_NO == this.subPartData.PART_NO)
+   console.log("test",temlist)
+   console.log("test",this.subPartData.REF_NO,this.subPartData.PART_NO)
+   if(temlist.length > 0){
+     this.toaster.infoToastr("Part No Already Existing")
+     this.Isexist = true;     
+   }else(this.Isexist = false);   
+}
 
 }
+

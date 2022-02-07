@@ -21,6 +21,19 @@
     position: relative;
     right: 50px;
 }
+.flxb
+{
+    justify-content: flex-end;
+    align-self: center;
+    display: flex;
+}
+.fnt
+{
+    font-size: large;
+    font-family: sans-serif;
+    margin-block-start: auto;
+    padding-inline: 10px;
+}
 .srlDiv{
     position: relative;
    //height: calc(100% - 120px);
@@ -31,8 +44,7 @@
 }
 .disBtn{
     display: flex;
-    justify-content: space-between;
-    padding: 20px 20px 0px 20px;
+    justify-content: space-between;    
     mat-icon{
         position: relative;
         bottom: 15px;
@@ -40,14 +52,14 @@
     }
 }
 .sp{
-    justify-content: space-between;
-    padding: 20px 40px 0px 30px;
+    justify-content: space-between;    
+    //padding: 20px 40px 0px 30px;
 }
 .pr-10{
     margin-right: 20px;
 }
 .mNone{
-    margin: 15px 30px 5px 30px !important;
+    margin: 5px 0px 5px 5px !important;
 max-height: 620px;
 }
 .cntr{
@@ -108,7 +120,7 @@ max-height: 620px;
 .flStart{
     align-items: flex-start;
     display: flex;
-    flex-direction: column;
+    //flex-direction: column;
 }
 .mr-10{
     margin: 10px;

@@ -1,8 +1,8 @@
 
 <div class="h-100">
-    <div class="flx sp">
-      <h2>Add Parts</h2>
-      <div>
+    <div class="flx sp" >
+      <span class="fnt" >Parts Details</span>
+      <div style="margin-left: auto;">
         <div class="upload-btn-wrapper wrChange" >
           <!-- <input type="file" style="display: inline-block;" (change)="uploadedFile($event)" placeholder="Upload file" accept=".xlsx">
           <button type="button" class="btn btn-info" (click)="Upload()" >Upload</button> -->
@@ -38,12 +38,12 @@
                   <!--droped image preview-->
                   <div *ngIf="lis.img" class="cntr srlDiv" [perfectScrollbar]="config">
                     <div class="flStart">
-                      <h4>Set Cordinates Size</h4>
-                      <div class="flx">
+                      <span class="fnt">Set Coordinates Size</span>                      
+                      <div class="flxb">
                         <div class="smCls cur_point mr-10" (click)="changeSize('sm')" ></div>
                         <div class="mdCls cur_point mr-10 posb-2" (click)="changeSize('md')"></div>
                         <div class="lgCls cur_point mr-10 posb-6" (click)="changeSize('lg')"></div>
-                        <mat-form-field class="example-full-width m-10 wt-20 posb-10">
+                        <mat-form-field class="example-full-width m-10 wt-20">
                           <mat-label>Custome Value</mat-label>
                           <input matInput placeholder="Code"  [(ngModel)]="pointSize">
                         </mat-form-field>
@@ -57,27 +57,26 @@
                   </div>
               </div>
               <div class="col-md-9 col-sm-12">
-                  <div class="disBtn">
-                    <h2>Menu List</h2>
+                  <div class="disBtn">                    
                     <mat-icon *ngIf="i!=0" class="cur_point" (click)="remove(i)" >close</mat-icon>
                   </div>
                   <div class="tableOut mBlock srlDiv" [perfectScrollbar]="config">
                   <div class="pa-30  mat-elevation-z8"  [perfectScrollbar]="config">
                     <div class="dispFlx mobCol">
                       <div class="dispColIN mpb-10">
-                          <label for="cat">FigNo</label>
+                          <label for="cat">FIG NO</label>
                           <select name="cat" id="cat">                            
                               <option value="paramslst.FIG_NO">{{paramslst.FIG_NO}}</option>
                           </select>
                       </div>
                       <div class="dispColIN mpb-10">
-                          <label for="mod">Model NO</label>
+                          <label for="mod">MODEL NO</label>
                           <select name="mod" id="mod">                            
                               <option value="paramslst.MODEL_ID">{{paramslst.MODEL_ID}}</option>
                           </select>
                       </div>
                       <div class="dispColIN mpb-10">
-                        <label for="mod">Model Color </label>
+                        <label for="mod">COLOR</label>
                         <select name="mod" id="mod">                          
                             <option value="paramslst.COLOR_ID">{{paramslst.COLOR_DESC}}</option>
                         </select>
@@ -93,14 +92,14 @@
   
                             <!-- xlSup Column -->
                             <ng-container matColumnDef="partNo">
-                              <th mat-header-cell *matHeaderCellDef > Part Id </th>
+                              <th mat-header-cell *matHeaderCellDef > PART NO </th>
                               <td mat-cell *matCellDef="let element"> {{element.PART_NO}} </td>
                             </ng-container>
   
   
                                <!-- xlSup Column -->
                                <ng-container matColumnDef="partName">
-                                <th mat-header-cell *matHeaderCellDef > Part Name</th>
+                                <th mat-header-cell *matHeaderCellDef > DESCRIPTION</th>
                                 <td mat-cell *matCellDef="let element"> {{element.PART_DESC}} </td>
                               </ng-container>
   
@@ -120,19 +119,19 @@
                                 <th class="w-50" mat-header-cell *matHeaderCellDef > MOQ</th>
                                 <td class="w-50" mat-cell *matCellDef="let element"> {{element.MOQ}} </td>
                               </ng-container>
-                              <ng-container matColumnDef="stock">
+                              <!-- <ng-container matColumnDef="stock">
                                 <th class="w-50" mat-header-cell *matHeaderCellDef > Stock</th>
                                 <td class="w-50" mat-cell *matCellDef="let element"> {{element.ORD}} </td>
-                              </ng-container>
+                              </ng-container> -->
                               <ng-container matColumnDef="Remarks">
-                                <th class="w-50" mat-header-cell *matHeaderCellDef > Remarks</th>
+                                <th class="w-50" mat-header-cell *matHeaderCellDef > REMARKS</th>
                                 <td class="w-50" mat-cell *matCellDef="let element"> {{element.REMARKS}} </td>
                               </ng-container>
   
                               <ng-container matColumnDef="status">
-                                  <th style="text-align:center" mat-header-cell *matHeaderCellDef > Status</th>
+                                  <th style="text-align:center" mat-header-cell *matHeaderCellDef > STATUS</th>
                                   <td class="w-50" mat-cell *matCellDef="let element">
-                                      <select name="mod" id="mod" class="stCls" [(ngModel)]="element.ACTIVE" >
+                                      <select name="mod" id="mod" class="stCls" [disabled]="true" [(ngModel)]="element.ACTIVE" >
                                           <option value="true">Active</option>
                                           <option value="false">Inactive</option>
                                       </select>

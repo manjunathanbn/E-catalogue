@@ -1,9 +1,9 @@
 <div *ngIf="pageSta">
-    <h2 class="p-10">Select Painted Details</h2>
+    <h3 class="p-10">Select Painted Details</h3>
        <div class="flx pd">
            <div class="">
                <mat-form-field appearance="fill">
-                   <mat-label class="lblcolr">Header List</mat-label>
+                   <mat-label class="lblcolr">SEGMENT</mat-label>
                    <!-- (selectionChange)="onMenuChange(#event.target)" -->
                    <mat-select  [(ngModel)]="mainMenu" name="main" (selectionChange)="onMenuChange($event)">                    
                      <mat-option *ngFor="let lis of menuListArry" [value]="lis" >
@@ -14,7 +14,7 @@
            </div>
                <div class="pl-40" >
                    <mat-form-field appearance="fill">
-                       <mat-label class="lblcolr">Menu Type</mat-label>
+                       <mat-label class="lblcolr">MODEL</mat-label>
                        <mat-select  [(ngModel)]="subMenu1" name="sub" (selectionChange)="onSubChange($event)">
                         <!-- <mat-option value="-1">Add New</mat-option> -->
                          <mat-option *ngFor="let lis of subMenuList" [value]="lis">
@@ -25,7 +25,7 @@
                </div>
                <div class="pl-40" *ngIf="subMenu1.IS_SUB_SEGMENT">
                   <mat-form-field appearance="fill">
-                    <mat-label class="lblcolr"> Segment L1</mat-label>
+                    <mat-label class="lblcolr">LEVEL 1</mat-label>
                     <mat-select [(ngModel)]="menuType" name="sub" [ngClass]="selected" (selectionChange)="onSubTypeChange($event)"> 
                       <mat-option value="-1">Add New</mat-option>                       
                         <mat-option *ngFor="let lis of MenuTypelst" [value]="lis"> {{lis.S_LEVEL_NAME}}
@@ -36,7 +36,7 @@
              </div>
              <div class="pl-40" *ngIf="menuType.IS_SUB_SEGMENT" >              
                 <mat-form-field appearance="fill">
-                 <mat-label class="lblcolr">Segment L2</mat-label>
+                 <mat-label class="lblcolr">LEVEL 2</mat-label>
                  <mat-select [(ngModel)]="segType" name="sub" [ngClass]="selected" (selectionChange)="getLevel2ModelColor($event.value.S_LEVEL,$event.value.S_LEVEL_NAME_L2)"> 
                    <mat-option value="-1">Add New</mat-option>                       
                      <mat-option *ngFor="let lis of SegmentLst" [value]="lis"> {{lis.S_LEVEL_NAME_L2}}
@@ -47,7 +47,7 @@
           </div>
              <div class="pl-40" *ngIf="menuType != -1">
              <mat-form-field appearance="fill">
-                 <mat-label class="lblcolr">Color</mat-label>
+                 <mat-label class="lblcolr">COLOR</mat-label>
                  <mat-select [(ngModel)]="subMenu" name="col" [ngClass]="selected" (selectionChange)="onModelSelect($event)">                        
                   <mat-option value="-1">Add New</mat-option>
                      <mat-option *ngFor="let lis of ColorList" [value]="lis"> {{lis.COLOR_DESC}}
@@ -81,7 +81,7 @@
        </div>
      </div>
     </div> -->   
-   <div *ngIf="!addColor" class="col-md-6 col-sm-12 p-30">
+   <div *ngIf="!addColor" class="col-md-6 col-sm-12 p-10">
     <div><mat-label  class="lblcolr">New Model and Segment</mat-label></div> 
        <div  class="brdr">              
           <!-- <mat-form-field class="example-full-width m-10">
