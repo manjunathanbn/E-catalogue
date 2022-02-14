@@ -86,7 +86,7 @@ input.mat-input-element{
   color: rgba(0,0,0,0.87);
 }
 .mat-form-field-type-mat-select .mat-form-field-label,.mat-form-field-label-wrapper{
-  font-family: 'Montserrat-Light' !important;
+  font-family: 'Roboto-Regular' !important;
   font-size: 14px;
 }
 
@@ -813,6 +813,12 @@ mat-sidenav.sidebar-panel .mat-nav-list a{
 .col-md-10{
   width:83.33% !important;  
 }
+.col-md-11{
+  width: 30% !important;
+}
+.col-md-12{
+  width: 70% !important;
+}
 }
 @media (min-width:620px) {
   .col-md-12{
@@ -840,6 +846,12 @@ mat-sidenav.sidebar-panel .mat-nav-list a{
 }
 .col-md-10{
   width:83.33% !important;
+}
+.col-md-11{
+  width: 30% !important;
+}
+.col-md-12{
+  width: 70% !important;
 }
 }
 
@@ -1001,6 +1013,7 @@ mat-sidenav.sidebar-panel .mat-nav-list a{
   label{
     font-size: 14px;
     font-weight: 600;
+    font-family:Roboto-Regular;
   }
 }
 .padBorder{

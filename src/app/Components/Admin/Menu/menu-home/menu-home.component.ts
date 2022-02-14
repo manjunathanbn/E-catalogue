@@ -52,7 +52,7 @@ mainMenuList:any[]=[
 subMenuList:any[]=[
   {id:1,name:"TVS XL"},{id:2,name:"TVS XL-100"}
 ];
-displayedColumns: string[]=["sNo","head","series","name","model","edit"];
+displayedColumns: string[]=["sNo","head","series","name","modelId","model","edit"];
 dataSource:any[]=[{id:1,head:"Moped",name:"TVS XL"}];
 dataSourceTemp:any[];
   currentIndx: any;
@@ -210,6 +210,7 @@ this.masterdata.post(iList, 'api/CatalougeMaster/AddandUpdateSeries').subscribe(
      {
           if (resp && resp.statusCode == 200) {
             this.dataSource = resp.data;
+            console.log('data',this.dataSource)
             this.dataSourceTemp = this.dataSource;
             //let list = this.dataSource.filter(key => key.SEG == this.MenuID) 
             this.submenuList = [...new Map(this.dataSource.map(item =>
@@ -313,9 +314,11 @@ this.masterdata.post(iList, 'api/CatalougeMaster/AddandUpdateSeries').subscribe(
       );      
   }
   onChkChange(eve){    
-    if(eve.value == 1){     
+    if(eve.value == 1){
+      this.displayedColumns =  ["sNo","head","series","name","modelId","model","edit"];    
       this.getMenuList(eve.value);
     }else if(eve.value == 2){
+      this.displayedColumns =  ["sNo","head","series","name","edit"];   
       this.getpaintedMenuList(eve.value);
     }
     this.type = eve.value;

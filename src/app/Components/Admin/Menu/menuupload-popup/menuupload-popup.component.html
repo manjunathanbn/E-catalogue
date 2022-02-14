@@ -9,7 +9,15 @@
               </mat-option>
             </mat-select>
           </mat-form-field>    
-        <mat-form-field class="example-full-width m-10">
+        <mat-form-field *ngIf="upldType == 'file'" class="example-full-width m-10">
+          <mat-label>Table List</mat-label>
+          <mat-select  [(ngModel)]="oTable" name="table" id="tab">
+            <mat-option *ngFor="let tab of tableList" [value]="tab">
+              {{tab.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="upldType == 'image'" class="example-full-width m-10">
           <mat-label>Table List</mat-label>
           <mat-select  [(ngModel)]="oTable" name="table" id="tab">
             <mat-option *ngFor="let tab of tableIMGList" [value]="tab">

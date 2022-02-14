@@ -53,7 +53,7 @@ setTab:any=0;
       let data:any = []
       console.log("123",this.assemblePart);
       if(this.assemblePart.length > 0){
-      data = getmatchData(x1,y1,this.assemblePart)
+      data = this.getmatchDatafun(x1,y1,this.assemblePart)
       console.log("data",data);
     }    
     if(data.length){     
@@ -63,10 +63,6 @@ setTab:any=0;
   }
 
   ngOnInit(): void {
-    
-    
-  }
-  ngAfterViewInit():void{  
     this.setTab = this.commonservice.selectTab;
     this.bckdata = this.commonservice.paramgrp;
     this.commonservice.selectTab = 0;
@@ -85,7 +81,10 @@ setTab:any=0;
       }
     }    
     document.getElementById("myBtn").style.height = "50px";
-    this.imgresize();
+    this.imgresize();    
+  }
+  ngAfterViewInit():void{  
+    
   }
   imgresize(){
         var canvas = <HTMLCanvasElement>document.getElementById("canvas");
@@ -133,11 +132,12 @@ setTab:any=0;
     this.canvas = <HTMLCanvasElement>document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
     
+    var clientRect = this.ctx.canvas.getBoundingClientRect();
     let curleft = 0,
       curtop = 0;
 
-    curleft += event.offsetX;
-    curtop += event.offsetY;
+    curleft += Math.floor(event.clientX - clientRect.left)//(event.offsetX == 0) ? event.layerX : event.offsetX;  event.offsetX;
+    curtop += Math.floor(event.clientY - clientRect.top);  
     console.log("FFFFFFf",curleft, curtop)
     
     this.getmatchData(curleft,curtop)
@@ -146,6 +146,8 @@ setTab:any=0;
       //this.tabData.url!='scooter/scooterDetail'
       this.commonservice.selectTab = this.setTab;
       this.commonservice.paramgrp = this.coordMatch[0];
+      console.log('url',this.tabData.url)
+      console.log('asembly',this.coordMatch[0].ASSEMBLY_ID)
       if(!this.coordMatch[0].IS_SUBASSEMBLY_ID){      
       // this.commonservice.param1 = this.coordMatch[0].SERIES;
       // this.commonservice.param2 = this.coordMatch[0].ASSEMBLY_ID;
@@ -230,33 +232,61 @@ setTab:any=0;
       this.getMopedDetail(event,this.tabData.head[event.index].id)
     }
   }
-}
-function getmatchData(x: number, y1: number,test:any): any {
-  let cordinates=[];
-  let filterdata:any= [];
-            let xMax=x+5;
-            let xMin=x-5;
-            let yMax=y1+5;
-            let yMin=y1-5;
-            let arr=[];
-            
-            for(var i=xMin;i<xMax;i++){
-              for(var y=yMin;y<yMax;y++){
-                   
-                 filterdata =  test.filter(x2 => x2.COORDINATES == [i,y,x2.COORDINATES.split(",")[2]].join());
-                  
-                if(filterdata.length > 0)
-                {
-                  return filterdata;                
-                  break;
-                }        
-              }
-              if(filterdata.length > 0)
-                {
-                  return filterdata;
-                  break;
+  getmatchDatafun(x: number, y1: number,test:any): any {
+    let cordinates=[];
+    let filterdata:any= [];
+              let xMax=x+5;
+              let xMin=x-5;
+              let yMax=y1+5;
+              let yMin=y1-5;
+              let arr=[];
+              console.log('hi am in')
+              for(var i=xMin;i<xMax;i++){
+                for(var y=yMin;y<yMax;y++){
+                     
+                   filterdata =  test.filter(x2 => x2.COORDINATES == [i,y,x2.COORDINATES.split(",")[2]].join());
+                    
+                  if(filterdata.length > 0)
+                  {
+                    return filterdata;                
+                    break;
+                  }        
                 }
-            }
-
+                if(filterdata.length > 0)
+                  {
+                    return filterdata;
+                    break;
+                  }
+              }
+  
+  }
 }
+// function getmatchData(x: number, y1: number,test:any): any {
+//   let cordinates=[];
+//   let filterdata:any= [];
+//             let xMax=x+5;
+//             let xMin=x-5;
+//             let yMax=y1+5;
+//             let yMin=y1-5;
+//             let arr=[];
+//             console.log('hi am in')
+//             for(var i=xMin;i<xMax;i++){
+//               for(var y=yMin;y<yMax;y++){
+                   
+//                  filterdata =  test.filter(x2 => x2.COORDINATES == [i,y,x2.COORDINATES.split(",")[2]].join());
+                  
+//                 if(filterdata.length > 0)
+//                 {
+//                   return filterdata;                
+//                   break;
+//                 }        
+//               }
+//               if(filterdata.length > 0)
+//                 {
+//                   return filterdata;
+//                   break;
+//                 }
+//             }
+
+// }
 

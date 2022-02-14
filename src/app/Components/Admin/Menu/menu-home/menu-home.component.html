@@ -1,15 +1,15 @@
 <div class="flx">
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-11 col-sm-12">
       <div class="disBtn"> 
         <h2>MODULE</h2>
-        <mat-radio-group aria-label="Select an option" fxLayout="column" style="padding-top: 10px;" (change)="onChkChange($event)">
+        <mat-radio-group aria-label="Select an option" fxLayout="column" style="inline-size: min-content;" (change)="onChkChange($event)">
           <mat-radio-button value="1" [checked]="true">CATALOGUE</mat-radio-button>
           <mat-radio-button value="2">PAINTED</mat-radio-button>
         </mat-radio-group>
         <button class="pr-10" mat-stroked-button color="primary" [disabled]="hideAdd" (click)="addToList()" ><mat-icon>add</mat-icon> {{buttonName}}</button>
       </div>
         <div *ngFor="let head of newHeaderList;let i=index" class="flx addBdr boxRow fl-wrap">
-          <div class="col-md-4 col-sm-12">
+          <div class="col-md-4 col-sm-12 disbox">
             <mat-form-field appearance="outline">
                 <mat-label>SEGMENT</mat-label>
                 <mat-select  [(ngModel)]="head.CATEGORY_ID" name="head{{i}}"  (selectionChange)="chekValid(i)">
@@ -49,42 +49,42 @@
                 </mat-select>
               </mat-form-field> 
         </div> -->
-              <div class="col-md-4 col-sm-12" *ngIf="type == 2">
-                  <mat-form-field class="example-full-width">
+              <div class="col-md-4 col-sm-12 disbox" *ngIf="type == 2">
+                  <mat-form-field appearance="outline">
                     <mat-label>SEGMENT ID</mat-label>
                     <input matInput placeholder="Enter ID" name="id{{i}}" (change)="chekValid(i)" [(ngModel)]="head.SERIES">
                   </mat-form-field>
              </div>
-             <div class="col-md-4 col-sm-12" *ngIf="type == 2">
-              <mat-form-field class="example-full-width">
+             <div class="col-md-4 col-sm-12 disbox" *ngIf="type == 2">
+              <mat-form-field appearance="outline">
                 <mat-label>SEGMENT Name</mat-label>
                 <input matInput placeholder="Enter Name" name="name{{i}}" (change)="chekValid(i)" [(ngModel)]="head.DESCRIPTION">
               </mat-form-field>
             </div>
-            <div class="col-md-4 col-sm-12" *ngIf="type == 2">
-              <mat-checkbox [checked]="head.IS_VEHICLE" [(ngModel)]="head.IS_VEHICLE">Is SubAssembly</mat-checkbox>
+            <div class="col-md-4 col-sm-12 disbox" *ngIf="type == 2">
+              <mat-checkbox [checked]="head.IS_VEHICLE" [(ngModel)]="head.IS_VEHICLE">Is SubSegment</mat-checkbox>
             </div>
  
-            <div class="col-md-4 col-sm-12" *ngIf="type == 1">
-                <mat-form-field class="example-full-width">
+            <div class="col-md-4 col-sm-12 disbox" *ngIf="type == 1">
+                <mat-form-field appearance="outline">
                     <mat-label>SERIES ID</mat-label>
                     <input matInput placeholder="Enter ID" name="id{{i}}" (change)="chekValid(i)" [(ngModel)]="head.SERIES">
                   </mat-form-field>
             </div>
-            <div class="col-md-4 col-sm-12" *ngIf="type == 1">
-                <mat-form-field class="example-full-width">
+            <div class="col-md-4 col-sm-12 disbox" *ngIf="type == 1">
+                <mat-form-field appearance="outline">
                     <mat-label>SERIES NAME</mat-label>
                     <input matInput placeholder="Enter Name" name="name{{i}}" (keyup)="chekValid(i)" [(ngModel)]="head.DESCRIPTION">
                   </mat-form-field>
             </div>
-            <div class="col-md-4 col-sm-12" *ngIf="type == 1">
-              <mat-form-field class="example-full-width">
+            <div class="col-md-4 col-sm-12 disbox" *ngIf="type == 1">
+              <mat-form-field appearance="outline">
                   <mat-label>MODEL</mat-label>
                   <input matInput placeholder="Enter Name" name="name{{i}}" (keyup)="chekValid(i)" [(ngModel)]="head.MODEL_ID">
                 </mat-form-field>
           </div>
-          <div class="col-md-4 col-sm-12" *ngIf="type == 1">
-            <mat-form-field class="example-full-width">
+          <div class="col-md-4 col-sm-12 disbox" *ngIf="type == 1">
+            <mat-form-field appearance="outline">
                 <mat-label>MODEL NAME</mat-label>
                 <input matInput placeholder="Enter Name" name="name{{i}}" (keyup)="chekValid(i)" [(ngModel)]="head.MODEL_NAME">
               </mat-form-field>
@@ -109,7 +109,7 @@
           <img class="lisImg" [src]="imgvehicle" alt="">
         </div>
     </div>
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-12 col-sm-12">
       <div class="disBtn"> 
         <h2>MENU LIST</h2> 
         <div class="flx">
@@ -143,33 +143,45 @@
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="sNo">
-                  <th mat-header-cell *matHeaderCellDef > S.No </th>
+                  <th class="thbld" mat-header-cell *matHeaderCellDef > S.No </th>
                   <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
                 </ng-container>
              
                 <!-- xlSup Column -->
                 <ng-container matColumnDef="head">
-                  <th mat-header-cell *matHeaderCellDef > SEGMENT </th>
+                  <th class="thbld" mat-header-cell *matHeaderCellDef > SEGMENT </th>
                   <td mat-cell *matCellDef="let element"> {{element.CATEGORY_NAME | uppercase}} </td>
                 </ng-container>
+                <span *ngIf="type == 1">
                 <ng-container matColumnDef="series">
-                  <th mat-header-cell *matHeaderCellDef > SERIES </th>
+                  <th class="thbld" mat-header-cell *matHeaderCellDef > SERIES </th>
                   <td mat-cell *matCellDef="let element"> {{element.SERIES | uppercase}} </td>
                 </ng-container>
-              
+                </span>
+                <span *ngIf="type == 2">
+                <ng-container matColumnDef="series">
+                  <th class="thbld" mat-header-cell *matHeaderCellDef > SEGMENT ID </th>
+                  <td mat-cell *matCellDef="let element"> {{element.SERIES | uppercase}} </td>
+                </ng-container>
+                 </span>              
                    <!-- xlSup Column -->
                    <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef > DESCRIPTION </th>
+                    <th class="thbld" mat-header-cell *matHeaderCellDef > DESCRIPTION </th>
                     <td mat-cell *matCellDef="let element"> {{element.DESCRIPTION | uppercase}} </td>
+                  </ng-container>                   
+                  <ng-container matColumnDef="modelId" >
+                    <th class="thbld" mat-header-cell *matHeaderCellDef > MODEL ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.MODEL_ID}} </td>
                   </ng-container>
                   <ng-container matColumnDef="model">
-                    <th mat-header-cell *matHeaderCellDef > Model </th>
+                    <th class="thbld" mat-header-cell *matHeaderCellDef > VARIENT </th>
                     <td mat-cell *matCellDef="let element"> {{element.MODEL_NAME| uppercase}} </td>
                   </ng-container>
+                  
 
                            <!-- xlSup Column -->
                            <ng-container matColumnDef="edit">
-                            <th mat-header-cell *matHeaderCellDef>EDIT</th>
+                            <th class="thbld" mat-header-cell *matHeaderCellDef>EDIT</th>
                             <td mat-cell *matCellDef="let element"> 
                             
                               <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -190,7 +202,7 @@
                             </td>
                           </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"
                 >
             </tr>

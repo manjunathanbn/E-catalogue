@@ -18,7 +18,7 @@ export class AdminPaintedHomeComponent implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
   @ViewChild(PerfectScrollbarDirective)
   directiveScroll?: PerfectScrollbarDirective;
-  displayedColumns: string[]=["sNo","head","name","type","parts","edit"];
+  displayedColumns: string[]=["sNo","head","name","type","parts","model","edit"];
   dataSource:any[]=[{id:1,head:"Moped",name:"TVS XL",type:"XL 100",parts:20}];
   tempdata:any[];
   menuList: any;
@@ -53,7 +53,8 @@ export class AdminPaintedHomeComponent implements OnInit {
             this.MenuTypelst = resp.data.PTypeMenuLst;
             this.temptyplst = resp.data.PTypeMenuLst;
             this.dataSource = resp.data.paintedMenusdata;
-            this.tempdata = resp.data.paintedMenusdata;                      
+            this.tempdata = resp.data.paintedMenusdata;
+                                  
           }         
           }, error => {
           if (error.status == 401) {   }

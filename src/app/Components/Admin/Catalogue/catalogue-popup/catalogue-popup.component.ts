@@ -22,7 +22,7 @@ import { MasterdataService } from 'src/app/Services/masterdata.service';
 })
 export class CataloguePopupComponent implements OnInit {
   partData:any={
-    modelId:"",assemblyid:'',assemblyName:"",IsSubAssembly:false,series:"",subAssemblyId:null,subAssemDesc:null,subassemblygrp:null,figNo:null
+    modelId:"",assemblyid:'',assemblyName:"",IsSubAssembly:false,series:"",subAssemblyId:null,subAssemDesc:null,subassemblygrp:null,figNo:null,Active:true
   }
   subPartData:any={REF_NO:1,COORDINATES:"",PART_NO:"",PART_DESC:"",QV:0,NDP:0,MRP:0,MOQ:1,ORD:0,ACTIVE:"true",x:"",y:"",REMARKS:"",FIG_NO:""};
   ModelData:any={MODEL_ID:null,MODEL_NAME:null,SERIES:null,ACTIVE:false,IS_ACC:false}
@@ -36,12 +36,12 @@ export class CataloguePopupComponent implements OnInit {
   subAssemlyData: any;  
   SubAssemgrp: any;
   curntdata: any;
-  Isexist: boolean;
+  Isexist: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<CataloguePopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,private masterdata: MasterdataService, private toaster: ToastrManager) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     if(this.data.isEdt == 'N' ){
     this.subPartData.x=this.data.x;
     this.subPartData.y=this.data.y;
@@ -53,6 +53,14 @@ export class CataloguePopupComponent implements OnInit {
     this.subPartData.REMARKS = null;
     this.subPartData.FIG_NO = null; 
     this.getMopedDetail();   
+    }else if(this.data.isEdt == 'CatY')
+    { 
+          
+      this.partData = this.data.editData;
+      this.series = this.data.series;   
+      console.log('nn123',this.partData)
+      this.getMopedDetail();              
+      if(this.subPartData.IS_SUBASSEMBLY_ID == true){this.getSubassemDetail()}
     }else
     {
      this.subPartData = this.data.editData;
@@ -69,21 +77,13 @@ export class CataloguePopupComponent implements OnInit {
           if (resp && resp.statusCode == 200) {
             this.assemlyData = resp.data; 
             this.assemblePart = resp.data.coordinates;
-            if(this.assemlyData){
-              this.getmatchData(this.subPartData.x,this.subPartData.y)
-              this.partData.modelId = this.modelID;
-            }else {this.partData.modelId = this.modelID;return;}            
-              if(this.coordMatch.length > 0)
-              {     
-                this.partData.modelId = this.coordMatch[0].MODEL_ID;
-                this.partData.assemblyid = this.coordMatch[0].ASSEMBLY_ID;
-                this.partData.assemblyName = this.coordMatch[0].ASSEMBLY_NAME;
-                this.partData.IsSubAssembly = this.coordMatch[0].IS_SUBASSEMBLY_ID
-                this.partData.figNo = this.coordMatch[0].FIG_NO      
-                this.partData.series = this.series;
-                if(this.coordMatch[0].IS_SUBASSEMBLY_ID == true){this.getSubassemDetail()}
-              }else{this.partData.modelId = this.modelID} 
-              this.partData.modelId = this.modelID                              
+            
+            if(this.data.isEdt != 'CatY')
+            {
+              this.getassignedData();
+            }else{
+              this.geteditdata();
+            }                          
             // this.isShowPageLoader = false;
           }
           if (resp && resp.statusCode == 401) {
@@ -99,6 +99,37 @@ export class CataloguePopupComponent implements OnInit {
           // this.toastr.error(error.statusMessage);
         }
       );      
+  }
+  getassignedData(){
+    if(this.assemlyData){
+      this.getmatchData(this.subPartData.x,this.subPartData.y)
+      this.partData.modelId = this.modelID;
+    }else {this.partData.modelId = this.modelID;return;}            
+      if(this.coordMatch.length > 0)
+      {     
+        this.partData.modelId = this.coordMatch[0].MODEL_ID;
+        this.partData.assemblyid = this.coordMatch[0].ASSEMBLY_ID;
+        this.partData.assemblyName = this.coordMatch[0].ASSEMBLY_NAME;
+        this.partData.IsSubAssembly = this.coordMatch[0].IS_SUBASSEMBLY_ID
+        this.partData.figNo = this.coordMatch[0].FIG_NO      
+        this.partData.series = this.series;
+        if(this.coordMatch[0].IS_SUBASSEMBLY_ID == true){this.getSubassemDetail()}
+      }else{this.partData.modelId = this.modelID} 
+      this.partData.modelId = this.modelID    
+  }
+  geteditdata(){
+    let assemblydata = [];    
+    this.partData = this.assemblePart.filter(x => x.MODEL_ID == this.partData.MODEL_ID && x.ASSEMBLY_ID == this.partData.ASSEMBLY_ID)
+     console.log('asdasdad',this.partData);
+        this.partData.modelId = this.partData[0].MODEL_ID;
+        this.partData.assemblyid = this.partData[0].ASSEMBLY_ID;
+        this.partData.assemblyName = this.partData[0].ASSEMBLY_NAME;
+        this.partData.IsSubAssembly = this.partData[0].IS_SUBASSEMBLY_ID
+        this.partData.figNo = this.partData[0].FIG_NO      
+        this.partData.series = this.series;
+        this.partData.Active = this.partData[0].ACTIVE
+        this.subPartData.COORDINATES = this.partData[0].COORDINATES;        
+        if(this.partData[0].IS_SUBASSEMBLY_ID == true){this.getSubassemDetail()}
   }
   getmatchData(x,y1)
   {
@@ -209,9 +240,7 @@ onchange(data){
 
 checkCurrentParts(){  
   let temlist = this.curntdata;
-   temlist.filter(e => e.REF_NO == this.subPartData.REF_NO && e.PART_NO == this.subPartData.PART_NO)
-   console.log("test",temlist)
-   console.log("test",this.subPartData.REF_NO,this.subPartData.PART_NO)
+   temlist =  temlist.filter(e => e.PART_NO == this.subPartData.PART_NO && e.REF_NO == this.subPartData.REF_NO)  
    if(temlist.length > 0){
      this.toaster.infoToastr("Part No Already Existing")
      this.Isexist = true;     

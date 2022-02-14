@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
   isChecked:any=false;
   cartData:any=[];
   ordersList: any;
-  isAdmin: string;
+  isAdmin: string = 'n';
   constructor(
     private router: Router,
      private commonService: CommonService,
@@ -82,6 +82,8 @@ export class HeaderComponent implements OnInit {
         this.Name = localStorage.getItem('Name');
       }     
      console.log('isadmin',this.isAdmin)
+     console.log('ischecked',this.isChecked)
+     //this.roleChanged();
   //   this.route.queryParams.subscribe(params => {
   //     this.DealerCode = this.route.snapshot.queryParamMap.get('dealerId');  
   //     if(sessionStorage.getItem('dealercode') == '0' || sessionStorage.getItem('dealercode') == null) {
@@ -95,6 +97,13 @@ export class HeaderComponent implements OnInit {
     this.sidenaveService.listenMenu().subscribe(res => {
       this.toggleSidenav.emit();
     });
+    // this.sidenaveService.lisentingRole().subscribe(res => {
+    //  this.isChecked.emit();
+    // });
+    // this.sidenaveService.changingRole(this.isChecked); 
+    // if(this.isAdmin == 'n' || this.isAdmin == null){
+    //   this.
+    // }
     //this.getcartDetail();
     //this.cartCount = localStorage.getItem('badgeCount');
    
@@ -109,15 +118,13 @@ export class HeaderComponent implements OnInit {
   fullScreenToggle(): void {}
 
   setHeader() {
-    this.currentUrl = this.router.url;
-    
+    this.currentUrl = this.router.url;    
     this.currentUrl = this.currentUrl.split("/")[1];
     this.currentUrl = this.currentUrl.split("?")[0];
     if (this.currentTittle=='null') {
       this.currentTittle = this.currentUrl;
       this.currentTittle=this.currentTittle.replace(/_/g,' ');
-    }
-   
+    }   
   }
   signout() {
     localStorage.clear();
@@ -126,23 +133,17 @@ export class HeaderComponent implements OnInit {
 
   clickedFun(){
     this.menuToggle=!this.menuToggle;
-  }
-
-  
+  }  
   openCart(){
     this.sidenaveService.togglingSidenav({ type: 'Notification', mode: 'ADD' })
   }
   myOrders(){
     this.sidenaveService.togglingSidenav({});
     this.toggleviewCart.emit()
-    this.getOrderDetail()
-    
+    this.getOrderDetail()    
     this.toggleSidenav.emit();
-
   }
-  myFeedbck(){
-    // this.sidenaveService.togglingSidenav({});    
-    //this.router.navigate(['/feedbackEntry/']);
+  myFeedbck(){ 
     const dialogRef = this.dialog.open(FeedbackEntryHomeComponent, {
       data: {title:this.isChecked},
       width:"750px",
@@ -192,7 +193,7 @@ export class HeaderComponent implements OnInit {
   }
   roleChanged(){
     localStorage.setItem('role',this.isChecked)
-    this.sidenaveService.changingRole(this.isChecked);
+    this.sidenaveService.changingRole(this.isChecked);     
   }
   getcartDetail() {
     // this.isShowPageLoader = true;GetVehCoordinatesbySeries

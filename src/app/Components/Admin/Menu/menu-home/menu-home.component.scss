@@ -28,7 +28,8 @@
 }
 tr.mat-header-row{
     height: 35px;
-    background-color:adbecb ;
+    background-color:linen ;
+    font-weight: 400;
 }
 tr.mat-row{
     height: 39px;
@@ -44,7 +45,7 @@ td.mat-cell{
    border-bottom: 1px solid #e8e5e5a1;
 }
 .fl-wrap{
-    flex-flow: wrap;
+    flex-flow: column;
 }
   .nu-table-body {
     overflow-y:auto;
@@ -54,7 +55,7 @@ td.mat-cell{
  font-weight: bolder;
 }
 .mat-radio-button ~ .mat-radio-button {
-    margin-left: 16px;
+    margin-left: 0px;
   }
   .mat-radio-label{
       padding-top: 10px;
@@ -71,4 +72,13 @@ td.mat-cell{
     height: calc(100% - 72px);
     position: relative;
     background-repeat: no-repeat !important;
+}
+.disbox{
+    display: contents
+}
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0.1005em !important;
+}
+.thbld{
+    font-weight: bolder
 }

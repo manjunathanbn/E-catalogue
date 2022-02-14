@@ -69,12 +69,25 @@ export class MenuComponent implements OnInit {
             let filt = this.MenuCatIems.filter(res => res.CATEGORY_ID === 9 && res.type === 's2');
             let isad = localStorage.getItem('admin');
             console.log('isssssad',isad)
-            if(filt.length > 0){
-              if(isad.toUpperCase() == 'Y'){
-                this.isadminreq = true;        
-                }else{this.isadminreq = false;}
-                this.siService.changingRole(true)                        
+            if(isad == null){
+              this.siService.changingRole(false);
+              return;
+            }
+            if(filt.length > 0 && isad.toUpperCase() == 'Y'){
+              this.siService.changingRole(true);
+              this.isadminreq = true; 
+            }else if(isad.toLocaleUpperCase() == 'N')
+            {
+              this.siService.changingRole(false);
+              this.isadminreq = false;
             }else{this.siService.changingRole(false)}
+            
+            // if(filt.length > 0){
+            //   if(isad.toUpperCase() == 'Y'){
+            //     this.isadminreq = true;        
+            //     }else{this.isadminreq = false;this.siService.changingRole(false)}
+            //     this.siService.changingRole(true)                        
+            // }else{this.siService.changingRole(false)}
           }
           if (resp && resp.statusCode == 401) {                   
           }

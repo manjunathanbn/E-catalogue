@@ -45,7 +45,14 @@
         <mat-label>Sub AssembleyName</mat-label>
         <input matInput placeholder="SubDesc" required="true" [(ngModel)]="partData.subAssemDesc" >
         <mat-error *ngIf="!partData.subAssDesc">Enter SubAssembly Name</mat-error>            
-      </mat-form-field>   
+      </mat-form-field> 
+      <mat-form-field class="example-full-width m-10" *ngIf="partData.assemblyid">
+        <label>STATUS</label>
+        <mat-select matInput name="Status" [(ngModel)]="partData.Active">
+            <mat-option [value]="true">Active</mat-option>
+            <mat-option [value]="false">Inactive</mat-option>
+        </mat-select>
+      </mat-form-field>    
     </div>    
     <div class="cntr">
         <button mat-raised-button [mat-dialog-close]="false" class="m-10">Cancel</button>
@@ -96,7 +103,7 @@
         </mat-form-field>     -->
         <mat-form-field class="example-full-width m-10">
           <label>REMARKS</label>
-          <input matInput   [readonly]="!isReadonly" [(ngModel)]="subPartData.REMARKS">
+          <input matInput   [(ngModel)]="subPartData.REMARKS">
         </mat-form-field>     
        <mat-form-field class="example-full-width m-10">
         <label>STATUS</label>
@@ -117,8 +124,8 @@
   <div class="cntr">
       <button mat-raised-button [mat-dialog-close]="false" class="m-10">Cancel</button>
       <button *ngIf="data.isEdt == 'Y'" mat-raised-button color="primary" [disabled]="(!subPartData.PART_NO || !subPartData.PART_DESC)" [mat-dialog-close]="subPartData">Update</button>
-      <!-- <button mat-raised-button color="primary" [disabled]="(!subPartData.PART_NO || !subPartData.PART_DESC)" (click)="checkCurrentParts()">Validate</button> -->
-      <button *ngIf="data.isEdt == 'N'" mat-raised-button color="primary" [disabled]="(!subPartData.PART_NO || !subPartData.PART_DESC)" [mat-dialog-close]="subPartData">ADD</button>
+      <button mat-raised-button color="primary" [disabled]="(!subPartData.PART_NO || !subPartData.PART_DESC) && !Isexist" (click)="checkCurrentParts()">Validate</button>
+      <button *ngIf="data.isEdt == 'N' && !Isexist" mat-raised-button color="primary" [disabled]="(!subPartData.PART_NO || !subPartData.PART_DESC)" [mat-dialog-close]="subPartData">ADD</button>
   </div>
 </div>
 <div class="pd-20" *ngIf="data.type=='AddModel'">

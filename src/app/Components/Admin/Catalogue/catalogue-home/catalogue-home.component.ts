@@ -9,6 +9,7 @@ import { MasterdataService } from 'src/app/Services/masterdata.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { MenuuploadPopupComponent } from '../../Menu/menuupload-popup/menuupload-popup.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CataloguePopupComponent } from '../catalogue-popup/catalogue-popup.component';
 @Component({
   selector: 'app-catalogue-home',
   templateUrl: './catalogue-home.component.html',
@@ -18,11 +19,12 @@ export class CatalogueHomeComponent implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
   @ViewChild(PerfectScrollbarDirective)
   directiveScroll?: PerfectScrollbarDirective;
-  displayedColumns: string[]=["sNo","head","name","model","parts","edit"];
+  displayedColumns: string[]=["sNo","head","seriesid","name","modelid","model","assemlyID","assemlyName","edit"];
   dataSource:any[]=[{id:1,head:"Moped",name:"TVS XL",parts:20}];
   headerList: any;
   dataSourceTemp: any;
   mainMenu: any;
+  submenuList: any[];
   constructor(private router:Router,private masterdata: MasterdataService, public dialog: MatDialog,private toaster: ToastrManager) { }
 
   ngOnInit(): void {
@@ -66,7 +68,10 @@ export class CatalogueHomeComponent implements OnInit {
           if (resp && resp.statusCode == 200) {
             this.dataSource = resp.data;
             this.dataSourceTemp = this.dataSource;
+            this.submenuList = [...new Map(this.dataSource.map(item =>
+              [item["SERIES"], item])).values()]; 
           }
+            
           if (resp && resp.statusCode == 401) {
             // this.loginService.logout();            
           }
@@ -89,8 +94,17 @@ export class CatalogueHomeComponent implements OnInit {
   onseriesChange(series)
   {
     if(series){
-      this.dataSource = this.dataSourceTemp.filter(key => key.SERIES == series)
+      this.dataSource = this.dataSourceTemp.filter(key => key.MODEL_ID == series)
     }else{this.dataSource = this.dataSourceTemp.filter(key => key.CATEGORY_ID ==this.mainMenu )}
+  }
+  onAssblyChange(assembly)
+  {
+    if(assembly){
+      this.dataSource = this.dataSourceTemp.filter(key => key.ASSEMBLY_ID == assembly)
+    }else
+    {
+      this.dataSource = this.dataSourceTemp.filter(key => key.CATEGORY_ID ==this.mainMenu )
+    }
   }
   openbtnDialog(type){
     this.openDialog(type);
@@ -105,8 +119,17 @@ export class CatalogueHomeComponent implements OnInit {
       }
     });   
 }
+openEditDialog(ele){
+  const dialogRef = this.dialog.open(CataloguePopupComponent,{
+    data:{x:0,y:0,type:"main",series:ele.SERIES,isEdt:'CatY',editData:ele}
+  });
+}
 editData(ele,act){
-    if(ele){       
+    if(ele){ 
+      if(act == 1){
+        this.openEditDialog(ele)
+      } 
+      else{     
        this.masterdata.post(ele, 'api/CatalougeMaster/DeleteOrBlkCatalouge').subscribe(
       (resp: any) =>{
       {
@@ -135,6 +158,7 @@ editData(ele,act){
           }            
         }    
       );
+      }
     }
 }
 }

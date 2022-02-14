@@ -13,21 +13,21 @@
       <div class="pa-30 srlDiv mat-elevation-z8"  [perfectScrollbar]="config">
         <div class="dispFlx mobCol">
           <div class="dispCol mpb-10">
-              <label for="cat">SEGMENT</label>
+              <label for="cat">TYPE</label>
               <select name="cat" id="cat" class="stCls" [(ngModel)]="catid" (change)="onMenuChange($event.target)">
                   <option value="">SELECT</option>
                   <option *ngFor="let op of menuList" value="{{op.CATEGORY_ID}}">{{op.CATEGORY_NAME}}</option>
               </select>
           </div>
           <div class="dispCol mpb-10">  
-              <label for="mod">MODEL</label>
+              <label for="mod">SEGMENT</label>
               <select name="mod" id="submenu" class="stCls" [(ngModel)]="submenuId" (change)="onSubChange($event.target.value)">
                   <option value="">SELECT</option>
                   <option *ngFor="let op of submenuList" value="{{op.SEGMENT_ID}}">{{op.SEGMENT_DESC}}</option>
               </select>
           </div>
           <div class="dispCol mpb-10">
-            <label for="mod">TYPE</label>
+            <label for="mod">LEVEL 1</label>
             <select name="mod" id="typ" class="stCls" (change)="onTypChange($event.target.value)">
                 <option *ngFor="let op of MenuTypelst" value="{{op.S_LEVEL_NAME}}">{{op.S_LEVEL_NAME}}</option>
             </select>
@@ -43,19 +43,23 @@
              
                 <!-- xlSup Column -->
                 <ng-container matColumnDef="head">
-                  <th mat-header-cell *matHeaderCellDef > SEGMENT </th>
+                  <th mat-header-cell *matHeaderCellDef > TYPE </th>
                   <td mat-cell *matCellDef="let element"> {{element.CATEGORY_NAME}} </td>
                 </ng-container>
 
               
                    <!-- xlSup Column -->
                    <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef > MODEL</th>
+                    <th mat-header-cell *matHeaderCellDef > SEGEMENT</th>
                     <td mat-cell *matCellDef="let element"> {{element.SEGMENT_DESC}} </td>
                   </ng-container>
                   <ng-container matColumnDef="type">
-                    <th mat-header-cell *matHeaderCellDef > TYPE</th>
+                    <th mat-header-cell *matHeaderCellDef > LEVEL 1</th>
                     <td mat-cell *matCellDef="let element"> {{element.S_LEVEL_NAME}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="model">
+                    <th mat-header-cell *matHeaderCellDef > MODEL</th>
+                    <td mat-cell *matCellDef="let element"> {{element.MODEL_ID}} </td>
                   </ng-container>
                   <ng-container matColumnDef="parts">
                     <th mat-header-cell *matHeaderCellDef > NO. OF VARIENT</th>
