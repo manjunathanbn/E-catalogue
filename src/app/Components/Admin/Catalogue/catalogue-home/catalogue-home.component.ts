@@ -19,7 +19,7 @@ export class CatalogueHomeComponent implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
   @ViewChild(PerfectScrollbarDirective)
   directiveScroll?: PerfectScrollbarDirective;
-  displayedColumns: string[]=["sNo","head","seriesid","name","modelid","model","assemlyID","assemlyName","edit"];
+  displayedColumns: string[]=["sNo","head","seriesid","name","modelid","model","varient_qv","assemlyID","assemlyName","edit"];
   dataSource:any[]=[{id:1,head:"Moped",name:"TVS XL",parts:20}];
   headerList: any;
   dataSourceTemp: any;

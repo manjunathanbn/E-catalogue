@@ -2,6 +2,9 @@
     overflow-y:auto;
     max-height:535px;
 }
+.table{
+    width: 100%;
+   }
 .r-15{
     position: relative;
     right: 15px;
@@ -30,4 +33,19 @@ tr.mat-header-row {
     border: 1px solid #e7e7e7;
    // font-weight: bold;
     height: 4px !important;
+}
+.mat-column-segName{   
+    width: 85px !important;   
+}
+.mat-column-serId{   
+    width: 68px !important;   
+}
+.mat-column-serName{   
+    width: 85px !important;   
+}
+.mat-column-modId{   
+    width: 125px !important;   
+}
+.mat-column-segId{   
+    width: 75px !important;   
 }

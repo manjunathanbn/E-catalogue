@@ -1,4 +1,4 @@
-  <div class="pd-20">   
+  <div *ngIf="data.upldOpt!= 'edit'" class="pd-20">   
     <div>    
         <mat-form-field class="example-full-width m-10">
           <mat-label>Header List</mat-label>
@@ -37,8 +37,7 @@
     <button   mat-icon-button (click)="uploadImage()"  matTooltip="Select a Image" >
       <mat-icon>file_upload</mat-icon>Upload
     </button>    
-  </mat-form-field><br>
-  
+  </mat-form-field><br> 
 
     <div class="cntr">
         <button  mat-raised-button [mat-dialog-close]="false" class="m-10">Cancel</button>
@@ -47,9 +46,195 @@
         <!-- <button *ngIf="upldTyp == 'Image'" mat-raised-button color="primary" (click)="uploadImage()">Add Images</button>      -->
     </div>
   </div>
-  <div class="pd-20">
+
+  <div class="pd-20" *ngIf="data.upldOpt == 'edit'">
+    <!-- <span>Edit Painted Details</span>
+       <div class="flx pd">
+           <div class="">
+               <mat-form-field appearance="outline">
+                   <mat-label class="lblcolr">TYPE</mat-label>                  
+                   <mat-select  [(ngModel)]="mainMenu" name="main" (selectionChange)="onMenuChange($event)">                    
+                     <mat-option *ngFor="let lis of menuListArry" [value]="lis" >
+                       {{lis.CATEGORY_NAME}}
+                     </mat-option>
+                   </mat-select>
+                 </mat-form-field>
+           </div>
+           <div class="pl-40" >
+                   <mat-form-field appearance="outline">
+                       <mat-label class="lblcolr">SEGMENT</mat-label>
+                       <mat-select  [(ngModel)]="subMenu1" name="sub" >
+                       
+                         <mat-option *ngFor="let lis of subMenuList" [value]="lis">
+                           {{lis.SEGMENT_DESC}}
+                         </mat-option>
+                       </mat-select>
+                     </mat-form-field>
+           </div>
+           <div class="pl-40" >
+                  <mat-form-field appearance="outline">
+                    <mat-label class="lblcolr">LEVEL 1</mat-label>
+                    <mat-select  name="sub" [ngClass]="selected" > 
+                      <mat-option value="-1">Add New</mat-option>                       
+                        <mat-option *ngFor="let lis of MenuTypelst" [value]="lis"> {{lis.S_LEVEL_NAME}}                                           
+                        </mat-option>                       
+                    </mat-select>
+                </mat-form-field>
+          </div>
+             <div class="pl-40" >              
+                <mat-form-field appearance="outline">
+                 <mat-label class="lblcolr">LEVEL 2</mat-label>
+                 <mat-select  name="sub" [ngClass]="selected" > 
+                   <mat-option value="-1">Add New</mat-option>                       
+                     <mat-option *ngFor="let lis of SegmentLst" [value]="lis"> {{lis.S_LEVEL_NAME_L2}}                                  
+                     </mat-option>                       
+                 </mat-select>
+             </mat-form-field>
+          </div>
+             <div class="pl-40" *ngIf="">
+             <mat-form-field appearance="fill">
+                 <mat-label class="lblcolr">COLOR</mat-label>
+                 <mat-select [(ngModel)]="subMenu" name="col" [ngClass]="selected" (selectionChange)="onModelSelect($event)">                        
+                  <mat-option value="-1">Add New</mat-option>
+                     <mat-option *ngFor="let lis of ColorList" [value]="lis"> {{lis.COLOR_DESC}}
+                         <img with="30" height="25"  src="{{lis.IMAGE_LINK}}">                
+                     </mat-option>                       
+                 </mat-select>
+             </mat-form-field>
+          </div>            
+       </div>         -->
+
+   <div class="p-10">
+    <div><mat-label  class="lblcolr">Edit Model and Segment</mat-label></div> 
+       <div > 
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr" >SEGMENT ID</mat-label>
+            <input matInput placeholder="SEGMENT ID" [(ngModel)]="paintedEData.BSEGMENT_ID" required="true">
+          </mat-form-field> 
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr">DESCRIPTION</mat-label>
+            <input matInput placeholder="DESCRIPTION"  [(ngModel)]="paintedEData.BSEGMENT_DESC"  required="true" >
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">LEVEL</mat-label>
+            <input matInput placeholder="LEVEL"  [(ngModel)]="paintedEData.BS_LEVEL"  required="true" >
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">LEVEL NAME</mat-label>
+            <input matInput placeholder="LEVEL NAME"  [(ngModel)]="paintedEData.BS_LEVEL_NAME"  required="true" >
+          </mat-form-field>
+          <mat-checkbox [checked]="checked" [(ngModel)]="paintedEData.BIS_SUB_SEGMENT" class="lblcolr">Is Sub Segment</mat-checkbox> 
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">ORDER BY</mat-label>
+            <input matInput placeholder="ORDER BY" [(ngModel)]="paintedEData.BORDER_BY"   required="true" >
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr">STATUS</mat-label>
+            <mat-select  name="sub" [ngClass]="selected" [(ngModel)]="paintedEData.BACTIVE"> 
+              <mat-option [value]="true">Active</mat-option>
+              <mat-option [value]="false">Inactive</mat-option>
+                 </mat-select>
+          </mat-form-field>                 
+            <button mat-stroked-button color="primary" (click)="UpdateSegment(1)"> <mat-icon>update</mat-icon> UPDATE </button>     
+        </div>
+        <div > 
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr" >LEVEL 1</mat-label>
+            <input matInput placeholder="LEVEL 1"  required="true" [(ngModel)]="paintedEData.CS_LEVEL">
+          </mat-form-field> 
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr">LEVEL NAME 1</mat-label>
+            <input matInput placeholder="LEVEL NAME 1"    required="true" [(ngModel)]="paintedEData.CS_LEVEL_NAME">
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">MODEL ID</mat-label>
+            <input matInput placeholder="MODEL ID"   [readonly]="true"  required="true" [(ngModel)]="paintedEData.MODEL_ID">
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">ORDER BY</mat-label>
+            <input matInput placeholder="ORDER BY"    required="true" [(ngModel)]="paintedEData.CORDER_BY">
+          </mat-form-field>
+          <mat-checkbox [checked]="checked"  [(ngModel)]="paintedEData.CIS_SUB_SEGMENT" class="lblcolr">Is Sub Segment</mat-checkbox> 
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr">STATUS</mat-label>
+            <mat-select  name="sub" [ngClass]="selected" [(ngModel)]="paintedEData.CACTIVE"> 
+              <mat-option [value]="true">Active</mat-option>
+              <mat-option [value]="false">Inactive</mat-option>
+                 </mat-select>
+          </mat-form-field>                       
+            <button  mat-stroked-button color="primary" (click)="UpdateSegment(2)"> <mat-icon>update</mat-icon> UPDATE </button>
+        </div>
+        <div *ngIf="paintedEData.CIS_SUB_SEGMENT"> 
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr" >LEVEL 2</mat-label>
+            <input matInput placeholder="LEVEL 2"  required="true" [(ngModel)]="paintedEData.DS_LEVEL">
+          </mat-form-field> 
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr">LEVEL NAME 2</mat-label>
+            <input matInput placeholder="LEVEL NAME 2"    required="true" [(ngModel)]="paintedEData.DS_LEVEL_NAME_L2">
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">MODEL ID</mat-label>
+            <input matInput placeholder="MODEL ID"    required="true" [readonly]="true" [(ngModel)]="paintedEData.MODEL_ID">
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">ORDER BY</mat-label>
+            <input matInput placeholder="ORDER BY"    required="true" [(ngModel)]="paintedEData.DORDER_BY">
+          </mat-form-field>
+          <mat-checkbox [checked]="checked"  class="lblcolr"[(ngModel)]="paintedEData.DIS_SUB_SEGMENT">Is Sub Segment</mat-checkbox> 
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr">STATUS</mat-label>
+            <mat-select  name="sub" [ngClass]="selected" [(ngModel)]="paintedEData.DACTIVE"> 
+              <mat-option [value]="true">Active</mat-option>
+              <mat-option [value]="false">Inactive</mat-option>
+                 </mat-select>
+          </mat-form-field>                     
+            <button  mat-stroked-button color="primary" (click)="UpdateSegment(3)"> <mat-icon>update</mat-icon> UPDATE </button>
+        </div> 
+        <div >                    
+            <mat-form-field appearance="outline">
+             <mat-label class="lblcolr">Color</mat-label>
+             <mat-select  name="sub" [ngClass]="selected" (selectionChange)="onColorchange($event.value.COLOR_ID)"> 
+               <mat-option value="-1">Select</mat-option>                       
+                 <mat-option *ngFor="let lis of paintedECData" [value]="lis"> {{lis.COLOR_DESC}}                                  
+                 </mat-option>                       
+             </mat-select>
+         </mat-form-field> 
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr" >COLOR ID</mat-label>
+            <input matInput placeholder="COLOR ID"  required="true" [(ngModel)]="colorLstfilter.COLOR_ID">
+          </mat-form-field> 
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr">COLOR DESC</mat-label>
+            <input matInput placeholder="COLOR DESC"    required="true" [(ngModel)]="colorLstfilter.COLOR_DESC">
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">MODEL ID</mat-label>
+            <input matInput placeholder="MODEL ID"    required="true" [readonly]="true" [(ngModel)]="colorLstfilter.MODEL_ID">
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">FIG NO</mat-label>
+            <input matInput placeholder="FIG NO"    required="true" [(ngModel)]="colorLstfilter.FIG_NO">
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">ORDER BY</mat-label>
+            <input matInput placeholder="ORDER BY"    required="true" [(ngModel)]="colorLstfilter.ORDER_BY">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label class="lblcolr">STATUS</mat-label>
+            <mat-select  name="sub" [ngClass]="selected" [(ngModel)]="colorLstfilter.ACTIVE"> 
+              <mat-option [value]="true">Active</mat-option>
+              <mat-option [value]="false">Inactive</mat-option>
+                 </mat-select>
+          </mat-form-field>                      
+            <button  mat-stroked-button color="primary" (click)="UpdateSegment(4)"> <mat-icon>update</mat-icon> UPDATE </button>
+        </div>                     
+     </div>
+
+     
     
-  </div>
+ </div>    
+   
   
   
   

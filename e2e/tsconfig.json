@@ -4,11 +4,23 @@
   "compilerOptions": {
     "outDir": "../out-tsc/e2e",
     "module": "commonjs",
-    "target": "es2018",
+    "target": "6",
     "types": [
       "jasmine",
       "jasminewd2",
       "node"
-    ]
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "tslib" : ["path/to/node_modules/tslib/tslib.d.ts"]
+    },
+    //"lib" : ["es2015", "es2015.iterable", "dom"],
+  },
+  "exclude": [
+    "node_modules",
+  ],
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "skipMetadataEmit" : true,
   }
 }

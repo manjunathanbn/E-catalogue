@@ -1,6 +1,6 @@
 /*tslint:disable*/
 import { HttpClient } from '@angular/common/http';
-import { ReturnStatement } from '@angular/compiler';
+import { ReturnStatement, ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, VERSION, ViewChild, ElementRef, Inject, NgZone  } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -10,7 +10,9 @@ import { MasterdataService } from 'src/app/Services/masterdata.service';
 import * as XLSX from 'xlsx';
 import { ExcelserviceService } from 'src/app/Services/excelservice.service'
 export interface DialogData {
-  upldOpt:string
+  upldOpt:string,
+  data:any,
+  colData:any 
   }
 @Component({
   selector: 'app-painted-popup',
@@ -36,15 +38,28 @@ export class PaintedPopupComponent implements OnInit {
   model: boolean;
   upldType: string;
   modelEnbl: boolean;
-
+  editEleData: any;
+  paintedEData: any;
+  paintedECData:any;
+  colorLstfilter: any;
   constructor(private ngZone: NgZone,public dialogRef: MatDialogRef<PaintedPopupComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData,public router:Router,private masterdata: MasterdataService, private toaster: ToastrManager,private excelService:ExcelserviceService) { }
   typeList:any=[{id:1,name:"Painted Data"}];
   tableList:any=[{id:1,name:"ECAT_PAINTED_HOME_SGMT_MASTER"},{id:2,name:"ECAT_PAINTED_HOME_SGMT_LEVEL1"},{id:3,name:"ECAT_PAINTED_HOME_SGMT_LEVEL2"},{id:4,name:"ECAT_PAINTED_HOME_MODEL_MASTER"},{id:5,name:"ECAT_PAINTED_HOME_COLOR_MASTER"},{id:6,name:"ECAT_PAINTED_MASTER"},{id:7,name:"ECAT_PAINTED_NUMBER"},{id:8,name:"ECAT_PAINTED_VEH_IMAGES"}];
   ngOnInit(): void {
     if(this.data){
-      this.upldType = this.data.upldOpt;
+      if(this.data.upldOpt == 'file' || this.data.upldOpt == 'image'){
+        this.upldType = this.data.upldOpt;
+      }
+      if(this.data.upldOpt == 'edit'){
+        
+        this.editEleData = this.data.data[0]
+        this.paintedECData = this.data.colData
+        this.paintedEData = this.editEleData
+        this.colorLstfilter =  this.paintedECData[0]
+        //console.log("dada",this.editEleData)          
+      }    
     }
-    console.log("typ1",this.data.upldOpt)
+    console.log("typ1",this.editEleData,this.paintedEData)
   }
   fileChangeEvent(event) {
     if(!this.oType && this.oTable == undefined)
@@ -365,6 +380,113 @@ export class PaintedPopupComponent implements OnInit {
        this.modelEnbl = false;
      }
     }
+  }
+  onColorchange(eve){
+    console.log("no image selected !!!!!!!",eve);
+    let colorlst = [];
+    colorlst = this.paintedECData.filter((e: { COLOR_ID: any; }) => e.COLOR_ID == eve) 
+    this.colorLstfilter = colorlst[0];      
+  }
+  UpdateSegment(val){
+    if(val == 1)
+    {
+      var tab1lst:any={
+        SEGMENT_ID: this.paintedEData.BSEGMENT_ID,
+        SEGMENT_DESC: this.paintedEData.BSEGMENT_DESC,
+        ORDER_BY: this.paintedEData.BORDER_BY,
+        TYPE: this.paintedEData.ACATEGORY_NAME,
+        ACTIVE: this.paintedEData.BACTIVE,
+        IS_SUB_SEGMENT: this.paintedEData.BIS_SUB_SEGMENT,
+        S_LEVEL:this.paintedEData.BS_LEVEL,
+        S_LEVEL_NAME:this.paintedEData.BS_LEVEL_NAME
+      }  
+      var obj:any={
+        type:1,
+        mTable: this.tableList[0].name,
+        mlist1: tab1lst                         
+      }
+         this.Editdetails(obj);    
+    }if(val == 2)
+    {
+      var tab1lst:any={
+        SEGMENT_ID: this.paintedEData.BSEGMENT_ID,
+        S_LEVEL: this.paintedEData.CS_LEVEL,
+        S_LEVEL_NAME: this.paintedEData.CS_LEVEL_NAME,
+        IS_SUB_SEGMENT: this.paintedEData.CIS_SUB_SEGMENT,
+        MODEL_ID: this.paintedEData.MODEL_ID,
+        ORDER_BY: this.paintedEData.CORDER_BY,
+        ACTIVE:this.paintedEData.CACTIVE        
+      }  
+      var obj:any={
+        type:1,
+        mTable: this.tableList[1].name,
+        mlist1: tab1lst                         
+      }
+         this.Editdetails(obj);    
+    }
+    if(val == 3)
+    {
+      var tab1lst:any={
+        S_LEVEL_NAME: this.paintedEData.CS_LEVEL_NAME,
+        S_LEVEL: this.paintedEData.DS_LEVEL,
+        S_LEVEL_NAME_L2: this.paintedEData.DS_LEVEL_NAME_L2,
+        IS_SUB_SEGMENT: this.paintedEData.DIS_SUB_SEGMENT,
+        MODEL_ID: this.paintedEData.MODEL_ID,
+        ORDER_BY: this.paintedEData.DORDER_BY,
+        ACTIVE:this.paintedEData.DACTIVE,        
+      }  
+      var obj:any={
+        type:1,
+        mTable: this.tableList[2].name,
+        mlist1: tab1lst                         
+      }
+         this.Editdetails(obj);    
+    }
+    if(val == 4){
+      var tab1lst:any={
+        MODEL_ID: this.colorLstfilter.MODEL_ID,
+        COLOR_DESC: this.colorLstfilter.COLOR_DESC,
+        COLOR_ID: this.colorLstfilter.COLOR_ID,
+        FIG_NO: this.colorLstfilter.FIG_NO,
+        ORDER_BY: this.colorLstfilter.ORDER_BY       
+      }  
+      var obj:any={
+        type:1,
+        mTable: this.tableList[3].name,
+        mlist1: tab1lst                         
+      }
+         this.Editdetails(obj);    
+    }
+}
+  Editdetails(obj){
+    this.masterdata.post(obj, 'api/CatalougeMaster/SavePaintedModelColor').subscribe(
+      (resp: any) =>{
+      {
+        if(resp.statusCode == 200)
+        {
+          this.toaster.successToastr(resp.data);
+          this.myfilename = null; 
+          //this.toaster.infoToastr("Add to the Parts Table" )                 
+        }
+        else{
+          this.toaster.errorToastr("Duplicate Import");     
+          }         
+      }
+          if (resp && resp.statusCode == 401) {       
+            this.toaster.errorToastr("Error on Upload");
+          }
+          this.disabled = true; 
+          this.myfilename = null; 
+     }, error => {
+          if (error.status == 401) {
+            this.toaster.errorToastr(error.statusMessage);
+          }      
+          this.toaster.errorToastr(error.statusMessage);
+          this.disabled = true;
+          this.myfilename = null;  
+        }
+       
+      );      
   }
 
 }

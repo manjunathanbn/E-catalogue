@@ -67,6 +67,10 @@
                     <th mat-header-cell *matHeaderCellDef >MODEL NAME </th>
                     <td mat-cell *matCellDef="let element"> {{element.MODEL_NAME}} </td>
                   </ng-container>
+                  <ng-container matColumnDef="varient_qv">
+                    <th mat-header-cell *matHeaderCellDef >MODEL VARIENT </th>
+                    <td mat-cell *matCellDef="let element"> {{element.VARIENT_QV}} </td>
+                  </ng-container>
                   <!-- <ng-container matColumnDef="parts">
                     <th mat-header-cell *matHeaderCellDef > NO. OF ASSY </th>
                     <td mat-cell *matCellDef="let element"> {{element.TOT_PARTS}}</td>

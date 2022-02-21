@@ -41,6 +41,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+             
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -72,6 +73,9 @@
           "configurations": {
             "production": {
               "browserTarget": "eCatalogue:build:production"
+            },
+            "es5": {
+              "browserTarget": "eCatalogue:build:es5"
             }
           }
         },
