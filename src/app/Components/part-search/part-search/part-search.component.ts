@@ -57,7 +57,6 @@ export class PartSearchComponent implements OnInit {
   constructor(private masterServices: MasterdataService, public sidenaveService:SidenavService,public toaster: ToastrManager) { }
 
   ngOnInit(): void {
-    //this.adminrol = localStorage.getItem('role')
     this.sidenaveService.lisentingRole().subscribe(res => {
       this.adminrol=res;
       if(this.adminrol == false){
