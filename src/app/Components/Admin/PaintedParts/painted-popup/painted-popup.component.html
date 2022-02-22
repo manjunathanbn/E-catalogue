@@ -109,24 +109,24 @@
        <div > 
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr" >SEGMENT ID</mat-label>
-            <input matInput placeholder="SEGMENT ID" [(ngModel)]="paintedEData.BSEGMENT_ID" required="true">
+            <input matInput placeholder="SEGMENT ID" [readOnly]="tReadonly" [(ngModel)]="paintedEData.BSEGMENT_ID" required="true">
           </mat-form-field> 
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr">DESCRIPTION</mat-label>
-            <input matInput placeholder="DESCRIPTION"  [(ngModel)]="paintedEData.BSEGMENT_DESC"  required="true" >
+            <input matInput placeholder="DESCRIPTION" [readOnly]="tReadonly" [(ngModel)]="paintedEData.BSEGMENT_DESC"  required="true" >
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label class="lblcolr">LEVEL</mat-label>
-            <input matInput placeholder="LEVEL"  [(ngModel)]="paintedEData.BS_LEVEL"  required="true" >
+            <input matInput placeholder="LEVEL" [readOnly]="tReadonly" [(ngModel)]="paintedEData.BS_LEVEL"  required="true" >
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label class="lblcolr">LEVEL NAME</mat-label>
-            <input matInput placeholder="LEVEL NAME"  [(ngModel)]="paintedEData.BS_LEVEL_NAME"  required="true" >
+            <input matInput placeholder="LEVEL NAME" [readOnly]="tReadonly" [(ngModel)]="paintedEData.BS_LEVEL_NAME"  required="true" >
           </mat-form-field>
           <mat-checkbox [checked]="checked" [(ngModel)]="paintedEData.BIS_SUB_SEGMENT" class="lblcolr">Is Sub Segment</mat-checkbox> 
           <mat-form-field  appearance="outline">
             <mat-label class="lblcolr">ORDER BY</mat-label>
-            <input matInput placeholder="ORDER BY" [(ngModel)]="paintedEData.BORDER_BY"   required="true" >
+            <input matInput placeholder="ORDER BY" [readOnly]="tReadonly" [(ngModel)]="paintedEData.BORDER_BY"   required="true" >
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr">STATUS</mat-label>
@@ -140,46 +140,54 @@
         <div > 
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr" >LEVEL 1</mat-label>
-            <input matInput placeholder="LEVEL 1"  required="true" [(ngModel)]="paintedEData.CS_LEVEL">
+            <input matInput placeholder="LEVEL 1" [readOnly]="tReadonly" required="true" [(ngModel)]="paintedEData.CS_LEVEL">
           </mat-form-field> 
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr">LEVEL NAME 1</mat-label>
-            <input matInput placeholder="LEVEL NAME 1"    required="true" [(ngModel)]="paintedEData.CS_LEVEL_NAME">
+            <input matInput placeholder="LEVEL NAME 1" [readOnly]="tReadonly"   required="true" [(ngModel)]="paintedEData.CS_LEVEL_NAME">
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label class="lblcolr">MODEL ID</mat-label>
-            <input matInput placeholder="MODEL ID"   [readonly]="true"  required="true" [(ngModel)]="paintedEData.MODEL_ID">
+            <input matInput placeholder="MODEL ID"   [readOnly]="tReadonly"  required="true" [(ngModel)]="paintedEData.MODEL_ID">
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">MODEL NAME</mat-label>
+            <input matInput placeholder="MODEL NAME"  [readOnly]="tReadonly"  required="true" [(ngModel)]="paintedEData.MODEL_NAME">
+          </mat-form-field>
+          <mat-form-field  appearance="outline">
+            <mat-label class="lblcolr">VARIENT</mat-label>
+            <input matInput placeholder="VARIENT"  [readOnly]="tReadonly" required="true" [(ngModel)]="paintedEData.MODEL_VARIENT">
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label class="lblcolr">ORDER BY</mat-label>
-            <input matInput placeholder="ORDER BY"    required="true" [(ngModel)]="paintedEData.CORDER_BY">
-          </mat-form-field>
-          <mat-checkbox [checked]="checked"  [(ngModel)]="paintedEData.CIS_SUB_SEGMENT" class="lblcolr">Is Sub Segment</mat-checkbox> 
+            <input matInput placeholder="ORDER BY"  [readOnly]="tReadonly"  required="true" [(ngModel)]="paintedEData.CORDER_BY">
+          </mat-form-field>          
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr">STATUS</mat-label>
             <mat-select  name="sub" [ngClass]="selected" [(ngModel)]="paintedEData.CACTIVE"> 
               <mat-option [value]="true">Active</mat-option>
               <mat-option [value]="false">Inactive</mat-option>
                  </mat-select>
-          </mat-form-field>                       
+          </mat-form-field>
+          <mat-checkbox [checked]="checked"  [(ngModel)]="paintedEData.CIS_SUB_SEGMENT" class="lblcolr">Is Sub Segment</mat-checkbox>                        
             <button  mat-stroked-button color="primary" (click)="UpdateSegment(2)"> <mat-icon>update</mat-icon> UPDATE </button>
         </div>
         <div *ngIf="paintedEData.CIS_SUB_SEGMENT"> 
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr" >LEVEL 2</mat-label>
-            <input matInput placeholder="LEVEL 2"  required="true" [(ngModel)]="paintedEData.DS_LEVEL">
+            <input matInput placeholder="LEVEL 2" [readOnly]="tReadonly" required="true" [(ngModel)]="paintedEData.DS_LEVEL">
           </mat-form-field> 
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr">LEVEL NAME 2</mat-label>
-            <input matInput placeholder="LEVEL NAME 2"    required="true" [(ngModel)]="paintedEData.DS_LEVEL_NAME_L2">
+            <input matInput placeholder="LEVEL NAME 2"  [readOnly]="tReadonly"  required="true" [(ngModel)]="paintedEData.DS_LEVEL_NAME_L2">
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label class="lblcolr">MODEL ID</mat-label>
-            <input matInput placeholder="MODEL ID"    required="true" [readonly]="true" [(ngModel)]="paintedEData.MODEL_ID">
+            <input matInput placeholder="MODEL ID"  [readOnly]="tReadonly"  required="true" [readonly]="true" [(ngModel)]="paintedEData.MODEL_ID">
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label class="lblcolr">ORDER BY</mat-label>
-            <input matInput placeholder="ORDER BY"    required="true" [(ngModel)]="paintedEData.DORDER_BY">
+            <input matInput placeholder="ORDER BY"  [readOnly]="tReadonly"  required="true" [(ngModel)]="paintedEData.DORDER_BY">
           </mat-form-field>
           <mat-checkbox [checked]="checked"  class="lblcolr"[(ngModel)]="paintedEData.DIS_SUB_SEGMENT">Is Sub Segment</mat-checkbox> 
           <mat-form-field appearance="outline">
@@ -202,23 +210,23 @@
          </mat-form-field> 
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr" >COLOR ID</mat-label>
-            <input matInput placeholder="COLOR ID"  required="true" [(ngModel)]="colorLstfilter.COLOR_ID">
+            <input matInput placeholder="COLOR ID" [readOnly]="tReadonly" required="true" [(ngModel)]="colorLstfilter.COLOR_ID">
           </mat-form-field> 
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr">COLOR DESC</mat-label>
-            <input matInput placeholder="COLOR DESC"    required="true" [(ngModel)]="colorLstfilter.COLOR_DESC">
+            <input matInput placeholder="COLOR DESC" [readOnly]="tReadonly"   required="true" [(ngModel)]="colorLstfilter.COLOR_DESC">
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label class="lblcolr">MODEL ID</mat-label>
-            <input matInput placeholder="MODEL ID"    required="true" [readonly]="true" [(ngModel)]="colorLstfilter.MODEL_ID">
+            <input matInput placeholder="MODEL ID"  [readOnly]="tReadonly"  required="true" [readonly]="true" [(ngModel)]="colorLstfilter.MODEL_ID">
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label class="lblcolr">FIG NO</mat-label>
-            <input matInput placeholder="FIG NO"    required="true" [(ngModel)]="colorLstfilter.FIG_NO">
+            <input matInput placeholder="FIG NO"  [readOnly]="tReadonly"  required="true" [(ngModel)]="colorLstfilter.FIG_NO">
           </mat-form-field>
           <mat-form-field  appearance="outline">
             <mat-label class="lblcolr">ORDER BY</mat-label>
-            <input matInput placeholder="ORDER BY"    required="true" [(ngModel)]="colorLstfilter.ORDER_BY">
+            <input matInput placeholder="ORDER BY"  [readOnly]="tReadonly"  required="true" [(ngModel)]="colorLstfilter.ORDER_BY">
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label class="lblcolr">STATUS</mat-label>

@@ -103,11 +103,15 @@ dataSourceTemp:any[];
     if(this.newHeaderList[i].SERIES) ++count;
     if(this.newHeaderList[i].CATEGORY_ID) ++count;
     if(this.newHeaderList[i].DESCRIPTION) ++count;
+    // this.dataSource = [...new Map(this.newHeaderList.map(item =>
+    //   [item["MODEL_ID"], item])).values()]; 
     if(count==3){this.hideAdd=false;this.hideAddmore=false;} else {this.hideAdd=true;this.hideAddmore = true;}
   }
   onChange(cat){
     if(cat){
     this.dataSource = this.dataSourceTemp.filter(key => key.CATEGORY_ID == cat);
+    this.dataSource = [...new Map(this.dataSource.map(item =>
+     [item["MODEL_ID"], item])).values()]; 
     this.submenuList = [...new Map(this.dataSource.map(item =>
       [item["SERIES"], item])).values()]; 
     }else{this.dataSource = this.dataSourceTemp}
@@ -117,6 +121,8 @@ dataSourceTemp:any[];
     if(series){
       this.dataSource = this.dataSourceTemp.filter(key => key.SERIES == series)
     }
+    this.dataSource = [...new Map(this.dataSource.map(item =>
+      [item["MODEL_ID"], item])).values()];
   }
   addToList(){
     //this.buttonName="Add Menu"
@@ -215,6 +221,8 @@ this.masterdata.post(iList, 'api/CatalougeMaster/AddandUpdateSeries').subscribe(
             //let list = this.dataSource.filter(key => key.SEG == this.MenuID) 
             this.submenuList = [...new Map(this.dataSource.map(item =>
             [item["SERIES"], item])).values()]; 
+            this.dataSource = [...new Map(this.dataSourceTemp.map(item =>
+              [item["MODEL_ID"], item])).values()]; 
           }
           if (resp && resp.statusCode == 401) {                  
           }

@@ -12,7 +12,8 @@ import { ExcelserviceService } from 'src/app/Services/excelservice.service'
 export interface DialogData {
   upldOpt:string,
   data:any,
-  colData:any 
+  colData:any,
+  Type:any 
   }
 @Component({
   selector: 'app-painted-popup',
@@ -42,6 +43,7 @@ export class PaintedPopupComponent implements OnInit {
   paintedEData: any;
   paintedECData:any;
   colorLstfilter: any;
+  tReadonly: boolean = false;
   constructor(private ngZone: NgZone,public dialogRef: MatDialogRef<PaintedPopupComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData,public router:Router,private masterdata: MasterdataService, private toaster: ToastrManager,private excelService:ExcelserviceService) { }
   typeList:any=[{id:1,name:"Painted Data"}];
   tableList:any=[{id:1,name:"ECAT_PAINTED_HOME_SGMT_MASTER"},{id:2,name:"ECAT_PAINTED_HOME_SGMT_LEVEL1"},{id:3,name:"ECAT_PAINTED_HOME_SGMT_LEVEL2"},{id:4,name:"ECAT_PAINTED_HOME_MODEL_MASTER"},{id:5,name:"ECAT_PAINTED_HOME_COLOR_MASTER"},{id:6,name:"ECAT_PAINTED_MASTER"},{id:7,name:"ECAT_PAINTED_NUMBER"},{id:8,name:"ECAT_PAINTED_VEH_IMAGES"}];
@@ -49,13 +51,17 @@ export class PaintedPopupComponent implements OnInit {
     if(this.data){
       if(this.data.upldOpt == 'file' || this.data.upldOpt == 'image'){
         this.upldType = this.data.upldOpt;
-      }
+        }
       if(this.data.upldOpt == 'edit'){
         
         this.editEleData = this.data.data[0]
         this.paintedECData = this.data.colData
         this.paintedEData = this.editEleData
         this.colorLstfilter =  this.paintedECData[0]
+        if(this.data.Type == 2 || this.data.Type == 3){
+          this.tReadonly = true;
+        }else(this.tReadonly = false)
+        
         //console.log("dada",this.editEleData)          
       }    
     }
@@ -415,7 +421,9 @@ export class PaintedPopupComponent implements OnInit {
         IS_SUB_SEGMENT: this.paintedEData.CIS_SUB_SEGMENT,
         MODEL_ID: this.paintedEData.MODEL_ID,
         ORDER_BY: this.paintedEData.CORDER_BY,
-        ACTIVE:this.paintedEData.CACTIVE        
+        ACTIVE:this.paintedEData.CACTIVE,
+        MODEL_NAME:this.paintedECData.MODEL_NAME,
+        VARIENT:this.paintedECData.MODEL_VARIENT        
       }  
       var obj:any={
         type:1,

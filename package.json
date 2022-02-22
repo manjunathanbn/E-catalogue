@@ -39,7 +39,7 @@
     "ngx-ui-loader": "^11.0.0",
     "react-app-polyfill": "^3.0.0",
     "rxjs": "6.5.5",
-    "tslib": "^2.0.0",
+    "tslib": "^2.3.1",
     "xlsx": "^0.17.3",
     "zone.js": "0.10.3"
   },

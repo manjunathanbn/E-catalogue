@@ -19,7 +19,7 @@ export class AdminPaintedHomeComponent implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
   @ViewChild(PerfectScrollbarDirective)
   directiveScroll?: PerfectScrollbarDirective;
-  displayedColumns: string[]=["segId","segName","serId","serName","modId","modNam","mVarnt","figno","colId","colNam","parts"];
+  displayedColumns: string[]=["segId","segName","serId","serName","modId","modNam","mVarnt","figno","colId","colNam","parts","edit"];
   dataSource:any[]=[];
   tempdata:any[];
   menuList: any;
@@ -35,6 +35,8 @@ export class AdminPaintedHomeComponent implements OnInit {
   colordata: any;
   colorData: any;
   menuTYPE: any;
+  tempcolordata: any;
+  edtval: any;
   constructor(public dialog: MatDialog,private router:Router,private masterdata: MasterdataService, private toaster: ToastrManager) { }
   
   ngOnInit(): void {
@@ -44,9 +46,9 @@ export class AdminPaintedHomeComponent implements OnInit {
     this.router.navigate(["/adminPainted/detail"]);
   }
   editData(data,i){
-   if(i==1){this.openEditDiaLog(data)}
-   if(i==2){this.openbtnDialog(data)}
-   if(i==3){this.openEditDiaLog(data)}   
+   if(i==1){this.openEditDiaLog(data,i)}
+   if(i==2){this.openEditDiaLog(data,i)}
+   if(i==3){this.openEditDiaLog(data,i)}   
   }
   getMenuDetail() {
     // this.isShowPageLoader = true;
@@ -62,6 +64,8 @@ export class AdminPaintedHomeComponent implements OnInit {
             this.dataSource = resp.data.paintSegData;
             this.tempdata = resp.data.paintSegData;
             this.colordata = resp.data.colorList;
+            //console.log("dt",this.tempdata)
+            //this.tempcolordata = resp.data.colorList;
           }         
           }, error => {
           if (error.status == 401) {   }
@@ -78,8 +82,12 @@ export class AdminPaintedHomeComponent implements OnInit {
     this.MenuTypelst = this.temptyplst.filter(key => key.SEGMENT_ID == id)
     this.dataSource = this.tempdata.filter(key => key.ACATEGORY_ID == this.catid && key.BSEGMENT_ID == id)
   }
-  onTypChange(id){        
-    this.dataSource = this.tempdata.filter(key => key.ACATEGORY_ID == this.catid && key.BSEGMENT_ID == this.submenuId && key.CS_LEVEL_NAME == id)
+  onTypChange(id){            
+    this.dataSource = this.tempdata.filter(key =>  key.MODEL_ID == id)
+    this.tempcolordata = this.tempdata.filter(key =>  key.MODEL_ID == id)       
+  }
+  onColChange(id){
+    this.dataSource = this.tempdata.filter(key =>  key.COLOR_ID == id)   
   }
   openbtnDialog(type) {        
     const dialogRef = this.dialog.open(PaintedPopupComponent,{
@@ -108,10 +116,11 @@ getPaintedDetail(ModelID) {
       }
     );      
 }
-openEditDiaLog(ele){
+openEditDiaLog(ele,i){
   this.PaintedData = this.tempdata.filter(e => e.MODEL_ID == ele.MODEL_ID)
   //this.menuTYPE = this.menuList.filter(x => x.CATEGORY_ID == this.catid)
   this.colorData = this.colordata.filter(e => e.MODEL_ID == ele.MODEL_ID)
+  this.edtval = i; 
   if(this.PaintedData){
     this.openDialogue();
   }
@@ -119,7 +128,7 @@ openEditDiaLog(ele){
 }
 openDialogue(){
     const dialogRef = this.dialog.open(PaintedPopupComponent,{
-    data:{upldOpt:'edit',data:this.PaintedData,colData:this.colorData},
+    data:{upldOpt:'edit',data:this.PaintedData,colData:this.colorData,Type:this.edtval},
     width:'700',
     height:'500'
   });

@@ -5,33 +5,40 @@
           <button class="h-45 r-15 pr-10" mat-stroked-button color="primary" (click)="openbtnDialog('image')"> <mat-icon>download</mat-icon> ImgsUpload</button>
           <div class="upload-btn-wrapper wrChange" >
             <button class="h-45 r-15 pr-10" mat-stroked-button color="primary" (click)="openbtnDialog('file')"> <mat-icon>upload</mat-icon> Exp/Imp</button>
-            <!-- <input type="file" name="myfile"  /> -->
-          </div>
+            </div>
           <button class="h-45 r-15 pr-10" mat-stroked-button color="primary" (click)="createNew()" > <mat-icon>add</mat-icon>Create New</button>
         </div>        
       </div>
       <div class="pa-30 srlDiv mat-elevation-z8"  [perfectScrollbar]="config">
         <div class="dispFlx mobCol">
           <div class="dispCol mpb-10">
-              <label for="cat">TYPE</label>
+              <label for="cat">SEGMENT</label>
               <select name="cat" id="cat" class="stCls" [(ngModel)]="catid" (change)="onMenuChange($event.target)">
-                  <option value="">SELECT</option>
-                  <option *ngFor="let op of menuList" value="{{op.CATEGORY_ID}}">{{op.CATEGORY_NAME}}</option>
+                  <option value="-1">SELECT</option>
+                  <option *ngFor="let op of menuList" value="{{op.STATE}}">{{op.CATEGORY_NAME}}</option>
               </select>
           </div>
           <div class="dispCol mpb-10">  
-              <label for="mod">SEGMENT</label>
+              <label for="mod">SERIES</label>
               <select name="mod" id="submenu" class="stCls" [(ngModel)]="submenuId" (change)="onSubChange($event.target.value)">
-                  <option value="">SELECT</option>
+                  <option value="-1">SELECT</option>
                   <option *ngFor="let op of submenuList" value="{{op.SEGMENT_ID}}">{{op.SEGMENT_DESC}}</option>
               </select>
           </div>
           <div class="dispCol mpb-10">
-            <label for="mod">LEVEL 1</label>
+            <label for="mod">MODEL</label>
             <select name="mod" id="typ" class="stCls" (change)="onTypChange($event.target.value)">
-                <option *ngFor="let op of MenuTypelst" value="{{op.S_LEVEL_NAME}}">{{op.S_LEVEL_NAME}}</option>
+               <option value="-1">SELECT</option>
+                <option *ngFor="let op of tempdata" value="{{op.MODEL_ID}}">{{op.MODEL_VARIENT}}</option>
             </select>
         </div>
+        <div class="dispCol mpb-10">
+          <label for="mod">COLOR</label>
+          <select name="mod" id="typ" class="stCls" (change)="onColChange($event.target.value)">
+            <option value="-1">SELECT</option>
+              <option *ngFor="let op of tempcolordata" value="{{op.COLOR_ID}}">{{op.COLOR_DESC}}</option>
+          </select>
+      </div>
       </div>
       <div class="nu-table-body">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabWith">
@@ -84,7 +91,7 @@
                   </ng-container>
                   <ng-container matColumnDef="parts">
                     <th mat-header-cell *matHeaderCellDef > TOTAL PARTS</th>
-                    <td mat-cell *matCellDef="let element"> 0 </td>
+                    <td mat-cell *matCellDef="let element"> {{element.partsCount}} </td>
                   </ng-container>
                            <!-- xlSup Column -->
                            <ng-container matColumnDef="edit">
