@@ -52,7 +52,7 @@ mainMenuList:any[]=[
 subMenuList:any[]=[
   {id:1,name:"TVS XL"},{id:2,name:"TVS XL-100"}
 ];
-displayedColumns: string[]=["sNo","head","series","name","modelId","model","edit"];
+displayedColumns: string[]=["sNo","head","series","name","modelId","model","varientQv","edit"];
 dataSource:any[]=[{id:1,head:"Moped",name:"TVS XL"}];
 dataSourceTemp:any[];
   currentIndx: any;
@@ -103,15 +103,17 @@ dataSourceTemp:any[];
     if(this.newHeaderList[i].SERIES) ++count;
     if(this.newHeaderList[i].CATEGORY_ID) ++count;
     if(this.newHeaderList[i].DESCRIPTION) ++count;
-    // this.dataSource = [...new Map(this.newHeaderList.map(item =>
-    //   [item["MODEL_ID"], item])).values()]; 
+    this.dataSource = [...new Map(this.dataSourceTemp.map(item =>
+      [item["MODEL_ID"], item])).values()];
     if(count==3){this.hideAdd=false;this.hideAddmore=false;} else {this.hideAdd=true;this.hideAddmore = true;}
   }
   onChange(cat){
     if(cat){
-    this.dataSource = this.dataSourceTemp.filter(key => key.CATEGORY_ID == cat);
-    this.dataSource = [...new Map(this.dataSource.map(item =>
-     [item["MODEL_ID"], item])).values()]; 
+    this.dataSource = this.dataSourceTemp.filter(key => key.CATEGORY_ID == cat); 
+    if(this.type == 1){
+      this.dataSource = [...new Map(this.dataSource.map(item =>
+        [item["MODEL_ID"], item])).values()]; 
+    }       
     this.submenuList = [...new Map(this.dataSource.map(item =>
       [item["SERIES"], item])).values()]; 
     }else{this.dataSource = this.dataSourceTemp}
@@ -120,9 +122,9 @@ dataSourceTemp:any[];
   {
     if(series){
       this.dataSource = this.dataSourceTemp.filter(key => key.SERIES == series)
-    }
-    this.dataSource = [...new Map(this.dataSource.map(item =>
-      [item["MODEL_ID"], item])).values()];
+      this.dataSource = [...new Map(this.dataSource.map(item =>
+        [item["MODEL_ID"], item])).values()];
+    }    
   }
   addToList(){
     //this.buttonName="Add Menu"
@@ -157,7 +159,8 @@ dataSourceTemp:any[];
           "VEH_IMG":dataSource[i].VEHIMAG,
           "ISUPDATE":this.Isupdate,
           "TYPE":this.type,
-          "IS_SUBSEGMENT":dataSource[i].IS_IS_VEHICLE
+          "IS_SUBSEGMENT":dataSource[i].IS_IS_VEHICLE,
+          "VARIENT_QV":dataSource[i].VARIENT_QV
         }
         iList.push(obj);
     }    
@@ -209,8 +212,7 @@ this.masterdata.post(iList, 'api/CatalougeMaster/AddandUpdateSeries').subscribe(
         }
       );      
   }
-  getMenuList(val) {
-  
+  getMenuList(val) {  
     this.masterdata.getReq('', 'api/Catalouge/GetMenuList?dealerID='+localStorage.getItem('dealercode')+'&type='+ Number(val)).subscribe(
       (resp: any) => 
      {

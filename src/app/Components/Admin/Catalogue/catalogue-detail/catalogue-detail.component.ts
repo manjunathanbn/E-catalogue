@@ -115,7 +115,7 @@ console.log("show the qr",x,y)
 openDialog(X,Y,data) {
   if(data == "AddModel"){
     const dialogRef = this.dialog.open(CataloguePopupComponent,{
-      data:{x:X,y:Y,type:"AddModel",series:this.subMenu.SERIES,isEdt:'N',modelId:data.MODEL_ID}
+      data:{x:X,y:Y,type:"AddModel",series:this.subMenu.SERIES,isEdt:'N',modelId:data.MODEL_ID,varientQv:data.VARIENT_QV}
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
@@ -124,7 +124,7 @@ openDialog(X,Y,data) {
     });
   }else{
   const dialogRef = this.dialog.open(CataloguePopupComponent,{
-    data:{x:X,y:Y,type:"main",series:data.SERIES,isEdt:'N',modelId:data.MODEL_ID}
+    data:{x:X,y:Y,PS:8,type:"main",series:data.SERIES,isEdt:'N',modelId:data.MODEL_ID,varientQv:data.VARIENT_QV}
   });
   
   dialogRef.afterClosed().subscribe(result => {
@@ -201,6 +201,8 @@ onFileChange(event: any,i) {
           if (resp && resp.statusCode == 200) {
             this.menuListArry = resp.data;
             this.dataSourceTemp = this.menuListArry;
+            this.menuListArry = [...new Map(this.menuListArry.map(item =>
+              [item["MODEL_ID"], item])).values()];
           }
           if (resp && resp.statusCode == 401) {
               
@@ -217,7 +219,11 @@ onFileChange(event: any,i) {
   onChange(cat){
     if(cat.CATEGORY_ID > 0){
     this.menuListArry = this.dataSourceTemp.filter(key => key.CATEGORY_ID == cat.CATEGORY_ID);
-    }else{this.menuListArry = this.dataSourceTemp} //(selectionChange)="onChange($event)
+    this.menuListArry = [...new Map(this.menuListArry.map(item =>
+      [item["MODEL_ID"], item])).values()];
+    }else{this.menuListArry = this.dataSourceTemp
+      this.menuListArry = [...new Map(this.dataSourceTemp.map(item =>
+        [item["MODEL_ID"], item])).values()]; } //(selectionChange)="onChange($event) //(selectionChange)="onChange($event)
   }
   getPartAssembDetail(resultSet:any) {
    

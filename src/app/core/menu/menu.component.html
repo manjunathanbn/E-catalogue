@@ -2,7 +2,7 @@
     <mat-list-item appAccordionLink  *ngFor="let menuitem of MenuCatIems;let i = index" group="{{menuitem.state}}">
       <a appAccordionToggle 
       (click)="currIndex = i;currentUrl=menuitem.state;masterstatus=false;"   class="relative" routerLinkActive="active-links"
-        [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'" [ngClass]="i>8">
+        [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type == 'link'" [ngClass]="i>8">
         <mat-icon>
              <img  class="menuIcon pl-5" width="40px" *ngIf="menuitem.state!='ad'"
              src="{{menuitem.img}}" alt="">

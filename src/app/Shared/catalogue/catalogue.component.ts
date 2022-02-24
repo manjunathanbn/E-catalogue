@@ -52,11 +52,13 @@ setTab:any=0;
       let  y1: number = event.offsetY //- rect.top;
       let data:any = []
       console.log("123",this.assemblePart);
-      if(this.assemblePart.length > 0){
-      data = this.getmatchDatafun(x1,y1,this.assemblePart)
-      console.log("data",data);
-    }    
-    if(data.length){     
+      if(this.assemblePart){
+        if(this.assemblePart.length > 0){
+          data = this.getmatchDatafun(x1,y1,this.assemblePart)
+          console.log("data",data);
+        }    
+      }      
+    if(data &&  data.length){     
       this.imgTool = data[0].ASSEMBLY_NAME
     }
       console.log(curleft,curtop);    
@@ -69,10 +71,10 @@ setTab:any=0;
     this.commonservice.paramgrp = null;   
     console.log("tabdata",this.tabData) 
     if(this.setTab > 0){
-      this.getMopedDetail(0,this.tabData.head[this.setTab].id)
+      if(this.tabData){this.getMopedDetail(0,this.tabData.head[this.setTab].id)}      
     }
-    else if(this.tabData.head.length > 0){
-      this.getMopedDetail(0,this.tabData.head[0].id)
+    else if(this.tabData){
+      if(this.tabData.head.length > 0){ this.getMopedDetail(0,this.tabData.head[0].id)}     
     }  
     if(this.bckdata){
       if(this.bckdata.IS_SUBASSEMBLY_ID == true){
@@ -80,22 +82,20 @@ setTab:any=0;
         this.bckdata=null;
       }
     }    
-    document.getElementById("myBtn").style.height = "50px";
+    //document.getElementById("myBtn").style.height = "50px";
     this.imgresize();    
   }
   ngAfterViewInit():void{  
     
   }
   imgresize(){
-        var canvas = <HTMLCanvasElement>document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
-    var img = new Image();
-
-    img.onload = function () {
-
+         var canvas = <HTMLCanvasElement>document.getElementById("canvas");
+         if(!canvas){return}
+         var ctx = canvas.getContext("2d");
+         var img = new Image();
+         img.onload = function () {
         // set size proportional to image
         canvas.height = canvas.width * (img.height / img.width);
-
         // step 1 - resize to 50%
         var oc = document.createElement('canvas'),
             octx = oc.getContext('2d');
@@ -111,8 +111,8 @@ setTab:any=0;
         ctx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5,
         0, 0, canvas.width, canvas.height);
     }
-    console.log("imgpath",this.tabData[0].image)
-    img.src = this.tabData[0].image;
+    //console.log("imgpath",this.tabData[0].image)
+    if(this.tabData){ img.src = this.tabData[0].image;}   
 
   }
   openPopup(data){

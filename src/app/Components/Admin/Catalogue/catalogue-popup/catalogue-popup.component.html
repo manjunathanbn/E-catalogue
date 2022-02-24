@@ -1,5 +1,13 @@
 <div class="pd-20" *ngIf="data.type=='main'">
-    <h2>Quardinates X,Y({{data.x}},{{data.y}},9)</h2>
+  <span *ngIf="this.data.isEdt == 'CatY'">
+        <div >
+    <h2>Quardinates X,Y <input class="c"  placeholder="Coordinators" [(ngModel)]="subPartData.COORDINATES"> </h2>  
+  </div>
+  </span>
+  <span *ngIf="this.data.isEdt != 'CatY'">
+    <div>
+    <h2>Quardinates X,Y  <input class="c" placeholder="Coordinators"  [(ngModel)]="subPartData.COORDINATES"> </h2>  
+  </div>  </span>     
     <div>
         <mat-form-field class="example-full-width m-10">
             <mat-label>Model Id</mat-label>
@@ -20,12 +28,16 @@
             <input matInput placeholder="figno" required="true" [(ngModel)]="partData.figNo">
             <mat-error *ngIf="!partData.assemblyName">Enter Fig No</mat-error>            
           </mat-form-field>          
-          <mat-checkbox [checked]="partData.IsSubAssembly" [(ngModel)]="partData.IsSubAssembly">Is SubAssembly</mat-checkbox>
+          <mat-form-field class="example-full-width m-10">
+            <mat-label>Model Varient</mat-label>
+            <input matInput placeholder="Model Varient" readonly="true" required="true" [(ngModel)]="partData.varientQv">         
+          </mat-form-field> 
     </div>
     <div>
+      <mat-checkbox [checked]="partData.IsSubAssembly" [disabled]="btnsubasschk"  [(ngModel)]="partData.IsSubAssembly">Is SubAssembly</mat-checkbox>
       <mat-form-field class="example-full-width m-10" *ngIf="partData.IsSubAssembly=='true' || subAssemlyData">
         <mat-select  name="SubAssembly" formControlName="SubAss" [(ngModel)]="SubAssem" placeholder="Select SubAssembly" required (selectionChange)="onchange($event)">             
-          <mat-option [value]="0">AddNew</mat-option>
+          <mat-option [value]="0" *ngIf="this.data.isEdt != 'CatY'" >AddNew</mat-option>
           <mat-option *ngFor="let sb of subAssemlyData" [value]="sb">
             {{ sb.ASSEMBLY_NAME }}
           </mat-option>
@@ -55,9 +67,9 @@
       </mat-form-field>    
     </div>    
     <div class="cntr">
-        <button mat-raised-button [mat-dialog-close]="false" class="m-10">Cancel</button>
-        <button mat-raised-button [mat-dialog-close]="false" class="m-10">Save</button>
-        <button mat-raised-button color="primary" [disabled]="(partData.assemblyid || partData.assemblyName) && partData.IsSubAssembly && (!partData.subAssemblyId || !partData.subAssemDesc || !partData.subassemblygrp)" [mat-dialog-close]="partData">Add Parts</button>
+      <button mat-raised-button [mat-dialog-close]="btndisable" class="m-10">Cancel</button>
+      <button mat-raised-button  [disabled]="btndisable" (click)="Catsave()"  class="m-10">Save</button>
+      <button mat-raised-button color="primary" [disabled]="(partData.assemblyid || partData.assemblyName) && partData.IsSubAssembly && (!partData.subAssemblyId || !partData.subAssemDesc || !partData.subassemblygrp)" [mat-dialog-close]="partData">Add Parts</button>
     </div>
 </div>
 

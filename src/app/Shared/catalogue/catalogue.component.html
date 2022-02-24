@@ -1,7 +1,7 @@
 <div #tooltip class="tooltip"></div>
 <div  class="homeMain">
     <mat-tab-group mat-align-tabs="start" [(selectedIndex)]="setTab" (Change)="tabChanges($event)">
-
+        <span *ngIf="tabData">
         <mat-tab *ngFor="let tab of tabData.head;let i=index" label="{{tab.name}}">
             <div [perfectScrollbar]="config" fullpage >
                 <canvas  id="canvas"  [style.background]="'url(' + tab.image + ')'" style="width: auto; height: 100%; margin-top: 5px;
@@ -9,8 +9,8 @@
                  (click)="getMopedDetail($event,tab.id)"></canvas> 
                   <!-- <div style="align-items: center;"><img src="assets/Images/moped_logo.png"></div> -->
                  <!-- <img src="{{tab.image}}"  id="canvas" (click)="getMopedDetail($event,tab.id)"> -->
-            </div>
-            
+            </div>            
         </mat-tab>
+    </span>
       </mat-tab-group> 
 </div>

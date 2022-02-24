@@ -34,9 +34,9 @@
           <div class="addBtn" *ngIf="nullimg == true">
             <button mat-stroked-button color="primary" class="pr-10" [disabled]="disabled" (click)="uploadImage()" > <mat-icon>upload</mat-icon> Upload </button>            
           </div>
-          <div class="addBtn" >            
+          <!-- <div class="addBtn" >            
             <button mat-stroked-button color="primary" class="pr-10"  (click)="AddModels()" > <mat-icon>ad</mat-icon> Add Models </button>
-          </div>
+          </div> -->
     </div>
     <div *ngIf="nullimg==true">   
       <canvas [style.background-image]="'url(' + subMenu.IMAGE_LINK + ')'" id="canvas" width="850" height="650"  (click)="getPosition($event,subMenu)"></canvas>     

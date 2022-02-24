@@ -34,9 +34,10 @@ export class MenuuploadPopupComponent implements OnInit {
   ImgData1: File;
   imagename: string;
   imgpath: string;
+  templist: any;
  
   constructor(public router:Router,private masterdata: MasterdataService, @Inject(MAT_DIALOG_DATA) public data: DialogData, private toaster: ToastrManager,private excelService:ExcelserviceService) { }
-  tableList:any=[{id:1,name:"ECAT_VEHCLE_SERIES"},{id:2,name:"ECAT_MODEL_MASTER"},{id:3,name:"ECAT_VEHICLE_IMAGES"},{id:4,name:"ECAT_ASSEMBLY_MASTER"},{id:5,name:"ECAT_ASSEMBLY_GROUP"},{id:6,name:"ECAT_ASSEMBLY_IMAGES"},{id:7,name:"ECAT_CATALOGUE"},{id:8,name:"ECAT_CATALOGUE_QV"}];
+  tableList:any=[{id:1,name:"ECAT_VEHCLE_SERIES"},{id:2,name:"ECAT_MODEL_MASTER"},{id:3,name:"ECAT_ASSEMBLY_MASTER"},{id:4,name:"ECAT_ASSEMBLY_GROUP"},{id:5,name:"ECAT_CATALOGUE"},{id:6,name:"ECAT_CATALOGUE_QV"}];
   tableIMGList:any=[{id:1,name:"ECAT_VEHCLE_SERIES"},{id:3,name:"ECAT_VEHICLE_IMAGES"},{id:6,name:"ECAT_ASSEMBLY_IMAGES"}];
 
   ngOnInit(): void {
@@ -96,9 +97,11 @@ export class MenuuploadPopupComponent implements OnInit {
     this.masterdata.getReq('', 'api/Catalouge/GetMenuList?dealerID='+localStorage.getItem('dealercode')+'&type=1').subscribe(
       (resp: any) => 
      {
-          if (resp && resp.statusCode == 200) {     
-             console.log("daata",resp.data)      
-             this.Series = resp.data;                                    
+          if (resp && resp.statusCode == 200) {    
+             this.Series = resp.data;
+             this.templist = resp.data;
+             this.Series = [...new Map(this.templist.map(item =>
+              [item["SERIES"], item])).values()];                                     
           }         
           }, error => {
           if (error.status == 401) { this.toaster.errorToastr(error.statusMessage); }

@@ -290,7 +290,8 @@ save(){
              "Stock":saveParts[i].ORD,
              "QV":saveParts[i].QV,
              "REMARKS":saveParts[i].REMARKS,
-             "IDPartFigSlNo":this.filelist[i].IDPartFigSlNo
+             "IDPartFigSlNo":null,
+             "IKEY":saveParts[i].IKEY
            }
            ipart.push(obj);   
      } 
@@ -298,8 +299,8 @@ save(){
 this.saveData.parts = ipart;
 
 let req = {"Parts":this.saveData}
-
-this.masterdata.post(req, 'api/CatalougeMaster/AddandUpdatePaintPart').subscribe(
+console.log('tetst',req);
+this.masterdata.post(this.saveData, 'api/CatalougeMaster/AddandUpdatePaintPart').subscribe(
   (resp: any) =>{
   {
     if(resp.statusCode == 200)

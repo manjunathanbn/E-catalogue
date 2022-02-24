@@ -41,7 +41,7 @@
               <td mat-cell style="width: 30px;text-align: center;padding-left: 0px" *matCellDef="let row">
                 <span *ngIf="!row.NDP"><img  src="assets/Images/cross.jpg" alt="Not Serviceable" title="Not Serviceable"></span>
                 <span *ngIf="row.NDP"><mat-checkbox (click)="checked(row)"
-                  [(ngModel)]="row.select" ></mat-checkbox></span>     
+                  [(ngModel)]="row.select" ngDefaultControl ></mat-checkbox></span>     
               </td>              
           </ng-container>
          
@@ -90,13 +90,13 @@
 
           <ng-container matColumnDef="Qty">
             <th mat-header-cell style="text-align: justify;" *matHeaderCellDef>QTY</th>
-            <td mat-cell style="text-align: justify;width: 60px;" *matCellDef="let element"><input class="qtyInbx" [(ngModel)]="element.ord" (change)="Validate(element)" type="text" name="inpId" [disabled]="!element.select"> </td>
+            <td mat-cell style="text-align: justify;width: 60px;" *matCellDef="let element"><input class="qtyInbx" [(ngModel)]="element.ord" (change)="Validate(element)" type="text" name="inpId" [disabled]="!element.select" ngDefaultControl > </td>
           </ng-container>
 
          
           <ng-container matColumnDef="NDP">
             <th mat-header-cell style="text-align: right;" *matHeaderCellDef> NDP </th>
-            <td mat-cell style="text-align: right;width: 34px;" *matCellDef="let element" [(ngModel)]="ChkNDP"> {{element.NDP | number:'1.2-2'}} </td>
+            <td mat-cell style="text-align: right;width: 34px;" *matCellDef="let element" [(ngModel)]="ChkNDP" ngDefaultControl > {{element.NDP | number:'1.2-2'}} </td>
           </ng-container>
       
        

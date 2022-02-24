@@ -158,10 +158,10 @@ export class PartSearchComponent implements OnInit {
     }
   }
   getOptionText(option) {
-    return option.PartDescription;
+    if(option){return option.PartDescription;}    
   }
   getOptionPart(option) {
-    return option.PartNo;
+    if(option){return option.PartNo}    
   }
 //   onChange(e): void {
 //     console.log(`Value Changed: ${e}`);

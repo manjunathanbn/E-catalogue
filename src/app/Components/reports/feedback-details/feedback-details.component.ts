@@ -41,7 +41,7 @@ export class FeedbackDetailsComponent implements OnInit {
   refnoFilter = new FormControl('');
   partnoFilter = new FormControl('');
   constructor(public dialog: MatDialog,public datepipe: DatePipe,private excelService:ExcelserviceService,private masterServices: MasterdataService, public sidenaveService:SidenavService,public toaster: ToastrManager) { }
-  displayedColumns: string[] = ['DealerId','Date','ID','Subject','Description','Remarks','edit']  
+  displayedColumns: string[] = ['DealerId','Date','ID','Subject','Description','Remarks']  
   dataSource = new MatTableDataSource<any[]>();
   filterValues = {
     DEALER_ID: '',

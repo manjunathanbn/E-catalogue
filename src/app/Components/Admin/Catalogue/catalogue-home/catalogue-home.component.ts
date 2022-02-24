@@ -10,6 +10,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { MenuuploadPopupComponent } from '../../Menu/menuupload-popup/menuupload-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CataloguePopupComponent } from '../catalogue-popup/catalogue-popup.component';
+import { CommonService } from 'src/app/Services/common.service';
 @Component({
   selector: 'app-catalogue-home',
   templateUrl: './catalogue-home.component.html',
@@ -19,13 +20,15 @@ export class CatalogueHomeComponent implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
   @ViewChild(PerfectScrollbarDirective)
   directiveScroll?: PerfectScrollbarDirective;
-  displayedColumns: string[]=["sNo","head","seriesid","name","modelid","model","varient_qv","assemlyID","assemlyName","edit"];
+  displayedColumns: string[]=["head","seriesid","name","modelid","model","varient_qv","assemlyID","assemlyName","parts","edit"];
   dataSource:any[]=[{id:1,head:"Moped",name:"TVS XL",parts:20}];
   headerList: any;
   dataSourceTemp: any;
   mainMenu: any;
   submenuList: any[];
-  constructor(private router:Router,private masterdata: MasterdataService, public dialog: MatDialog,private toaster: ToastrManager) { }
+  curQur: { x: number; y: number; };
+  pageSta: boolean;
+  constructor(private router:Router,private masterdata: MasterdataService, public dialog: MatDialog,private toaster: ToastrManager,private commonservice: CommonService) { }
 
   ngOnInit(): void {
     this.getMenuDetail();
@@ -120,10 +123,36 @@ export class CatalogueHomeComponent implements OnInit {
     });   
 }
 openEditDialog(ele){
+  console.log("ele",ele)
   const dialogRef = this.dialog.open(CataloguePopupComponent,{
-    data:{x:0,y:0,type:"main",series:ele.SERIES,isEdt:'CatY',editData:ele}
-  });
-}
+  data:{x:0,y:0,type:"main",series:ele.SERIES,isEdt:'CatY',editData:ele}
+  });  
+  dialogRef.afterClosed().subscribe(result => {
+  console.log("after close",result);
+  if(result == true){
+  window.location.reload();
+  return;
+  }
+  else if(result ==false){
+  return;
+  }else if(result){
+  //this.drawCoordinates(X, Y);
+  if(!result.series){result.series = ele.SERIES;}
+  // if(!result.modelId){}
+  this.commonservice.param3 = result.assemblyName;
+  this.commonservice.param4 = result.IsSubAssembly;
+  this.commonservice.param5 = result.assemblyid;
+  this.commonservice.param6 = result.modelId;
+  this.commonservice.param7 = result.subAssemblyId;
+  this.commonservice.param8 = result.subAssemDesc;
+  this.commonservice.param9 = result.subassemblygrp;
+  this.commonservice.param10 = result.figNo;
+  this.router.navigate(['/adminCat/sub',{x:0,y:0,sId:result.series}]);
+  this.curQur={x:0,y:0};
+  this.pageSta=false;
+  }  // window.location.reload();
+  });    
+  }
 editData(ele,act){
     if(ele){ 
       if(act == 1){
